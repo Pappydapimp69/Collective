@@ -146,6 +146,24 @@ class TestRedaction(unittest.TestCase):
         text = "Resolve overlap participants by type, not argument order."
         self.assertEqual(redact(text), text)
 
+    def test_does_not_eat_cross_link_field(self):
+        # Regression: a dry run against real tension-ledger.md content found
+        # the original "Link:" regex matching as a bare substring, so
+        # "Cross-link:" (tension/creativity's wanted cross-reference field)
+        # was being silently redacted along with memory's actual internal
+        # "Link:" field — two different fields that happen to share three
+        # letters, not the same thing.
+        text = "Source: ADR-0005. Cross-link: `ideas` -> [NPC-SIM / emergent-traits]."
+        self.assertEqual(redact(text), text)
+
+    def test_still_strips_a_real_link_field_next_to_other_text(self):
+        text = "Notes here.\nLink: https://claude.ai/code/session_ABC123\nMore notes."
+        out = redact(text)
+        self.assertNotIn("ABC123", out)
+        self.assertIn("[redacted]", out)
+        self.assertIn("Notes here.", out)
+        self.assertIn("More notes.", out)
+
 
 class TestExtractMemoryEntry(unittest.TestCase):
     def test_extracts_correct_block_only(self):

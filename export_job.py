@@ -60,7 +60,12 @@ def allowlist_key(repo: str, file: str, entry_id: str) -> str:
 # Allow-listing controls WHICH entries export; redaction controls WHAT INSIDE
 # them exports — applied even to entries that were explicitly opted in.
 
-_SESSION_LINK_RE = re.compile(r"(Link:\s*).*", re.I)
+# Negative lookbehind for [\w-] so "Cross-link:" (a tension/creativity field
+# holding WANTED cross-reference content, e.g. "Cross-link: `ideas` -> [...]")
+# is never matched as if it were memory's own "Link:" field (an internal
+# claude.ai session URL that must be redacted) — caught by a dry run against
+# real tension-ledger.md content, where it was silently eating T4's Cross-link.
+_SESSION_LINK_RE = re.compile(r"(?<![\w-])(Link:\s*).*", re.I)
 # Consume the WHOLE rest of the line after the verified/assumed token, not
 # just the token itself — otherwise trailing detail ("...from prior lesson.")
 # survives redaction untouched (caught by test_coarsens_provenance).

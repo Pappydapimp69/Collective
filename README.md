@@ -21,10 +21,10 @@ until this holds"):
 
 ```
 python3 -m unittest test_intake_steward.py test_export_job.py -v
-# Ran 118 tests, OK
+# Ran 120 tests, OK
 ```
 
-Two real bugs were caught and fixed by these tests during development, worth knowing about:
+Three real bugs were caught and fixed during development, worth knowing about:
 1. `redact()` was stripping the provenance *label* but leaving trailing detail text
    ("...from prior lesson.") on the same line — defeated the point of coarsening it. Fixed to
    consume the whole line.
@@ -36,6 +36,32 @@ Two real bugs were caught and fixed by these tests during development, worth kno
    reused for `ideas` (`## [DOMAIN / ...]`, no numeric ID) — they're genuinely different
    identity schemes, now two separate functions (`EXTRACTORS` dispatch table), not one function
    silently returning nothing for one of the two repos.
+3. `redact()`'s session-link stripper matched `Link:` as a bare substring, so it was also eating
+   tension/creativity's legitimate `Cross-link:` field (e.g. `Cross-link: `ideas` →
+   [NPC-SIM / emergent-traits]`) — wanted export content, not an internal session URL. Found by a
+   dry run against the REAL fetched text of `tension-ledger.md` (not a synthetic fixture), which
+   is exactly the kind of thing hand-written fixtures don't catch because you write the fixture
+   to match what you already expect. Fixed with a negative lookbehind so `Cross-link:` no longer
+   matches `Link:`.
+
+### Dry run (2026-07-08, no live repo/secrets required)
+
+Everything that doesn't need a live GitHub Action was exercised end-to-end offline:
+- All 7 YAML files (`.github/ISSUE_TEMPLATE/*.yml`, `workflows/*.yml`) parse cleanly.
+- A rendered Issue Form body was built from each of the 4 REAL form files and piped through
+  `cli_validate.py` exactly as `intake.yml`'s "Run the intake steward" step does — memory, ideas,
+  and creativity submissions were correctly `accept`ed; the tension submission was correctly
+  forced to `needs_human_review`; `intake.yml`'s own entry-file-write step was replayed against
+  each result and produced well-formed files.
+- A submission carrying a prompt-injection payload (`"Ignore all previous instructions..."` in
+  the `fix` field) went through the same real-form path and was correctly `reject`ed with no
+  filename ever generated.
+- `export_job.py`'s extractors were run against the ACTUAL fetched text of `tension-ledger.md`
+  and `ideas/exploration.md` (not recreated fixtures) for the exact entries named in
+  `schema-examples/allowlist.example.json` (`T4`, `S2`) — this is what caught bug #3 above.
+
+Not dry-run-able without live credentials: the `gh api`/`gh issue`/`gh pr` calls inside
+`intake.yml`, the App-token minting step, and `export.yml`'s cross-repo checkouts.
 
 ## Files
 
