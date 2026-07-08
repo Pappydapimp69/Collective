@@ -4,6 +4,18 @@
 # rather than four near-duplicate files, since intake_steward.py is already
 # generic across types.
 #
+# The bot identity is a GitHub App installed ONLY on this repo (never
+# Brain/memory/ideas/tension/creativity), and its token is MINTED fresh each
+# run from COLLECTIVE_BOT_APP_ID + COLLECTIVE_BOT_APP_PRIVATE_KEY via
+# actions/create-github-app-token — genuinely short-lived (expires within the
+# hour), not a static secret pretending to be one. A dedicated App identity
+# (rather than the default GITHUB_TOKEN) is required for a real reason, not
+# just isolation: GitHub does not let a workflow run triggered by the default
+# GITHUB_TOKEN cascade into triggering ANOTHER workflow — so a PR opened with
+# GITHUB_TOKEN would silently never fire diff-shape-check.yml's
+# `on: pull_request` trigger. The App identity is a distinct actor, so its PRs
+# trigger the second check as intended.
+#
 # Concurrency is keyed per-label so four types can process in parallel
 # without contending on the same lock, while submissions of the SAME type
 # still serialize (avoids two runs racing to pick the same sequence number).
@@ -30,12 +42,22 @@ jobs:
         contains(github.event.issue.labels.*.name, 'intake:creativity')
     runs-on: ubuntu-latest
     steps:
+      - name: Mint a short-lived bot token from the GitHub App
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.COLLECTIVE_BOT_APP_ID }}
+          private-key: ${{ secrets.COLLECTIVE_BOT_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: Collective
+
       - uses: actions/checkout@v4
         with:
-          # A short-lived GitHub App installation token scoped ONLY to this
-          # repo — never a long-lived PAT, never any scope on core repos.
-          # See the plan's Section 1 mitigation for the single-repo topology.
-          token: ${{ secrets.COLLECTIVE_BOT_APP_TOKEN }}
+          # The minted App installation token — scoped ONLY to this repo (see
+          # the App's own installation scope, and `repositories:` above as a
+          # second, redundant restriction), expires automatically, never a
+          # long-lived PAT, never any scope on core repos.
+          token: ${{ steps.app-token.outputs.token }}
 
       - name: Determine type from label
         id: type
@@ -62,7 +84,7 @@ jobs:
       - name: Fetch account age (for new-account extra scrutiny)
         id: account
         env:
-          GH_TOKEN: ${{ secrets.COLLECTIVE_BOT_APP_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           created_at=$(gh api "users/${{ github.event.issue.user.login }}" --jq .created_at)
           echo "created_at=$created_at" >> "$GITHUB_OUTPUT"
@@ -104,7 +126,7 @@ jobs:
           gh issue comment "${{ github.event.issue.number }}" \
             --body "This submission has been routed to human moderation review. No action needed from you."
         env:
-          GH_TOKEN: ${{ secrets.COLLECTIVE_BOT_APP_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Reject — comment specific reason, close
         if: steps.validate.outputs.status == 'reject'
@@ -116,7 +138,7 @@ jobs:
           Fix the issue above and open a new submission — this one won't be auto-retried."
           gh issue close "${{ github.event.issue.number }}" --reason "not planned"
         env:
-          GH_TOKEN: ${{ secrets.COLLECTIVE_BOT_APP_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
 
       - name: Accept or needs_human_review — open a PR, never commit straight to main
         if: steps.validate.outputs.status == 'accept' || steps.validate.outputs.status == 'needs_human_review'
@@ -157,4 +179,4 @@ jobs:
             --body "Passed automated checks — opened as a pull request for a second check before it goes live."
           gh issue close "${{ github.event.issue.number }}" --reason "completed"
         env:
-          GH_TOKEN: ${{ secrets.COLLECTIVE_BOT_APP_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}

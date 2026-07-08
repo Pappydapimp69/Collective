@@ -90,9 +90,9 @@ build:
 
 ## What still needs a live repo to actually prove
 
-- The three `workflows/*.yml` files reference `secrets.COLLECTIVE_BOT_APP_TOKEN` and
-  `secrets.COLLECTIVE_READONLY_PAT` — can't be exercised without a real GitHub App/PAT and a real
-  repo to run Actions in.
+- The three `workflows/*.yml` files reference `secrets.COLLECTIVE_BOT_APP_ID` /
+  `secrets.COLLECTIVE_BOT_APP_PRIVATE_KEY` and `secrets.COLLECTIVE_READONLY_PAT` — can't be
+  exercised without a real GitHub App/PAT and a real repo to run Actions in.
 - The full pre-launch checklist in the plan (rate-limit-under-load, moderation queue routing,
   GitHub App scoping verification) needs the real thing running.
 - Whether `creativity`'s frozen historical entries are worth allow-listing at all versus leaving
@@ -109,9 +109,23 @@ build:
 4. Create `memory/`, `ideas/`, `tension/`, `creativity/` folders, each with a `_state/` subfolder
    containing `existing.json` (`[]`), `ratelimit.json` (`{}`), `sequence` (`0`), and a
    `retracted.json` (`[]`)
-5. Set `COLLECTIVE_BOT_APP_TOKEN` (GitHub App installation token, scoped to `collective` only —
-   no access to Brain/memory/ideas/tension/creativity) and `COLLECTIVE_READONLY_PAT` (read-only
-   on all four private repos) as repo secrets
+5. Set up the bot identity and read-only fetch credential as repo secrets:
+   - **`COLLECTIVE_BOT_APP_ID`** + **`COLLECTIVE_BOT_APP_PRIVATE_KEY`**: register a new GitHub
+     App (Settings → Developer settings → GitHub Apps → New GitHub App), give it repository
+     permissions `Contents: Read & write`, `Issues: Read & write`, `Pull requests: Read & write`
+     — nothing else — generate a private key, and install the App **only** on `collective`
+     (never on Brain/memory/ideas/tension/creativity). `intake.yml` mints a fresh short-lived
+     token from these on every run via `actions/create-github-app-token` — this is required, not
+     just isolation: GitHub doesn't let a workflow run triggered by the default `GITHUB_TOKEN`
+     cascade into triggering another workflow, so a PR opened with `GITHUB_TOKEN` would silently
+     never fire `diff-shape-check.yml`'s `pull_request` trigger. A distinct App identity avoids
+     that trap.
+   - **`COLLECTIVE_READONLY_PAT`**: a fine-grained personal access token scoped to exactly
+     `memory`, `ideas`, `tension`, `creativity` with `Contents: Read-only` and nothing else — no
+     access to any other repo, no write scope anywhere.
+   - Add both as Collective repo secrets (Settings → Secrets and variables → Actions). Generate
+     and paste these directly into GitHub's UI — never share the raw private key or PAT value
+     outside it.
 6. Update `allowlist/{memory,ideas,tension,creativity}.json` as a human reviews existing private
    canon and opts entries in — starts empty, stays empty until someone deliberately adds a line.
    Remember the `type` field when adding a creativity entry sourced from `ideas/exploration.md`
