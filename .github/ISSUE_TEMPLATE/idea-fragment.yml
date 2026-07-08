@@ -1,0 +1,37 @@
+name: File an idea fragment
+description: A portable, buildable idea — not a method, not an in-progress project.
+title: "[idea] "
+labels: ["intake:ideas"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ARTIFACT TEST: what would exist if this were built? If nothing, it's
+        not fileable here. PORTABILITY TEST: could another creator build from
+        this entry alone? If not, it needs more detail.
+  - type: input
+    id: domain
+    attributes:
+      label: "Domain / sub / keyword (e.g. RPG / progression / archetype)"
+      description: "Established domains: RPG, NPC-SIM, NARRATIVE-DESIGN, WORLDBUILDING, SYSTEM, DATA-TOY, GARDEN. Match one before proposing a new one."
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description (2-4 sentences, self-contained)
+    validations:
+      required: true
+  - type: input
+    id: tags
+    attributes:
+      label: "Extra tags (optional, bracketed)"
+    validations:
+      required: false
+  - type: checkboxes
+    id: artifact-test
+    attributes:
+      label: Self-check (informational only, not authoritative)
+      options:
+        - label: "This describes a thing that could be built, not a process used to get somewhere."
+        - label: "Another creator could build from this entry alone."

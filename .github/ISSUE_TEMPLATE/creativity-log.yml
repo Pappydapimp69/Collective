@@ -1,0 +1,62 @@
+name: Log an experiment, synthesis, or speculation
+description: >-
+  Residue that fails ideas' artifact test but shouldn't be lost — something
+  tried, a combination of existing ideas, or a direction with no commitment
+  yet.
+title: "[creativity] "
+labels: ["intake:creativity"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The private `creativity` repo is FROZEN — its own README says not to
+        route new entries there. Live creativity-shaped content now lives in
+        `ideas/exploration.md`, and this form matches THAT schema (confirmed
+        2026-07-08), not the old frozen repo's format.
+
+        A parked road-not-taken ("I considered X, chose Y, here's why and
+        when to revisit") is NOT what this form is for anymore — that moved
+        to the tension ledger as type `alternative`. Use the tension-fork
+        form for those.
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      description: >-
+        experiment (a thing tried or worth trying) · synthesis (two existing
+        ideas combined) · speculation (a direction with no commitment yet).
+      options:
+        - experiment
+        - synthesis
+        - speculation
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: Short title
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Description (2-4 sentences, self-contained)
+    validations:
+      required: true
+  - type: dropdown
+    id: state
+    attributes:
+      label: "State (optional — defaults to \"live\")"
+      description: A brand-new public submission should almost always be "live".
+      options:
+        - live
+        - promoted
+        - spent
+    validations:
+      required: false
+  - type: input
+    id: cross-link
+    attributes:
+      label: "Cross-link to a related public idea/lesson/tension entry (optional)"
+    validations:
+      required: false
