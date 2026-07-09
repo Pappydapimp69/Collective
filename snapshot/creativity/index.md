@@ -1,2 +1,21 @@
-# collective index — generated 2026-07-09T01:19:55.852358+00:00
+# collective index — generated 2026-07-09T01:59:27.336010+00:00
 
+- `ideas:exploration.md#E1` — ### E1 · experiment · sim-before-render (proved the loop in a terminal first) · **live**
+- `ideas:exploration.md#E2` — ### E2 · experiment · replay-as-regression-test (deterministic golden runs) · **promoted → build (see E4)**
+- `ideas:exploration.md#S1` — ### S1 · synthesis · pull the dormant RPG kernels into this world · **promoted → build**
+- `ideas:exploration.md#S2` — ### S2 · synthesis · the Hollow King's lore from "legendary = survivorship bias" · **live**
+- `ideas:exploration.md#Sp1` — ### Sp1 · speculation · two co-op paths, kept open · **live** *(fork-shaped — candidate for `tension` promotion when co-op is scheduled)*
+- `ideas:exploration.md#Sp2` — ### Sp2 · speculation · day/night as a stealth/AI dimension, not just combat · **live**
+- `ideas:exploration.md#E3` — ### E3 · experiment · graceful-degradation made the 3D app CI-verifiable · **live**
+- `ideas:exploration.md#E4` — ### E4 · experiment · realized E2 — replay-fingerprint as the M1 deploy gate · **promoted → build (`src/sim/replay.mjs` + Pages deploy gate)**
+- `ideas:exploration.md#S3` — ### S3 · synthesis · the retrieval loop actually closed this milestone · **promoted → record (brain/cognitive-updates/milestone-1.md)**
+- `ideas:exploration.md#Sp3` — ### Sp3 · speculation · data-drive the camera/combat *feel* in M2 · **promoted → build (see Sp5)**
+- `ideas:exploration.md#E5` — ### E5 · experiment · headless WebGL + touch emulation as the "is it playable" gate · **live**
+- `ideas:exploration.md#S4` — ### S4 · synthesis · the architecture *suggested* the dodge implementation · **promoted → `idea-repository.md` [SYSTEM / gamedesign / iframes-as-command-withholding]**
+- `ideas:exploration.md#S5` — ### S5 · synthesis · one command vocabulary made the 4th input device trivial · **promoted → `idea-repository.md` [SYSTEM / input / unified-command-vocabulary]**
+- `ideas:exploration.md#Sp4` — ### Sp4 · speculation · perceptual-diff screenshots to attack T11 · **live**
+- `ideas:exploration.md#Sp5` — ### Sp5 · speculation · realized Sp3 — feel.json is live · **promoted → build**
+- `ideas:exploration.md#S6` — ### S6 · synthesis · the full external→mine→file→apply→build loop closed · **promoted → record**
+- `ideas:exploration.md#Sp6` — ### Sp6 · speculation · sandbox self-play for breadth, external repos for novelty · **live**
+- `ideas:exploration.md#E6` — ### E6 · experiment · one explainer film mutated three times chasing an audience · **live**
+- `ideas:exploration.md#S7` — ### S7 · synthesis · graft an emotional arc onto the explainer without losing clarity · **live**

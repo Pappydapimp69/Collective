@@ -1,3 +1,80 @@
-# collective index — generated 2026-07-09T01:19:55.851400+00:00
+# collective index — generated 2026-07-09T01:59:27.304134+00:00
 
+- `memory:projects/pappydapimp69__pocketzane.md#E1` — ## E1 — Synthetic events crash under a Tampermonkey @grant sandbox
+- `memory:projects/pappydapimp69__pocketzane.md#E2` — ## E2 — Picker detected by existence, not visibility
+- `memory:projects/pappydapimp69__pocketzane.md#E3` — ## E3 — Editor "clear" left stale nodes → plan/node misalignment
+- `memory:projects/pappydapimp69__pocketzane.md#E4` — ## E4 — Silent failure hid the root cause
+- `memory:projects/pappydapimp__lockstep.md#E10` — ## E10 — Harness blocks pushing to external remotes regardless of auth
+- `memory:projects/pappydapimp69__pocketzane.md#E6` — ## E6 — Accent styling silently stopped applying after the first paragraph
+- `memory:projects/pappydapimp69__pocketzane.md#E5` — ## E5 — TTS engine accepts-but-ignores certain bracket tags (silent no-op)
+- `memory:projects/local__warden-fables.md#E1` — ## E1 — `<br/>` is a silent no-op in SSML
+- `memory:projects/pappydapimp__lockstep.md#E1` — ## E1 — Shared midpoint camera framed nothing when players spawned apart
+- `memory:projects/pappydapimp__lockstep.md#E2` — ## E2 — Tether cleanup was asymmetric when a partner went down
+- `memory:projects/pappydapimp__lockstep.md#E3` — ## E3 — A tracked stat had a reader but no writer
+- `memory:projects/pappydapimp__lockstep.md#E4` — ## E4 — One input edge consumed by two systems
+- `memory:projects/pappydapimp__lockstep.md#E5` — ## E5 — One-shot pickup re-fired during its despawn fade
+- `memory:projects/pappydapimp__lockstep.md#E6` — ## E6 — Backgrounded tab froze the loop; huge deltas caused tunneling
+- `memory:projects/pappydapimp__lockstep.md#E7` — ## E7 — Vite HMR stacked Phaser.Game instances without a dispose hook
+- `memory:projects/pappydapimp__lockstep.md#E8` — ## E8 — Phaser overlap callback args aren't positionally ordered
+- `memory:projects/pappydapimp__lockstep.md#E9` — ## E9 — A help-multiplier became a penalty at the hard end
+- `memory:projects/pappydapimp69__test.md#E1` — ## E1 — data driven content needs a validation ladder
+- `memory:projects/pappydapimp69__test.md#E2` — ## E2 — deterministic rng as save and coop seam
+- `memory:projects/pappydapimp69__test.md#E3` — ## E3 — gamepad active polling and input parity
+- `memory:projects/pappydapimp69__test.md#E4` — ## E4 — realtime combat over turnbased reducer
+- `memory:projects/pappydapimp69__test.md#E5` — ## E5 — renderer mutated sim state one char slip
+- `memory:projects/pappydapimp69__test.md#E6` — ## E6 — reused modal overlay stale state
+- `memory:projects/pappydapimp69__test.md#E7` — ## E7 — vendoring split esm lib and headless webgl
+- `memory:projects/pappydapimp69__shadow.md#E1` — ## E1 — audio clock scheduler not settimeout
+- `memory:projects/pappydapimp69__dog.md#E1` — ## E1 — audiocontext resume can hang never block start
+- `memory:projects/local__sandbox-myers-diff.md#E1` — ## E1 — benchmark data must exercise cost driver
+- `memory:projects/local__sandbox-expr.md#E1` — ## E1 — carry source position for parser errors
+- `memory:projects/local__sandbox-toposort.md#E1` — ## E1 — comparative test needs adversarial baseline input
+- `memory:projects/local__sandbox-myers-diff.md#E2` — ## E2 — esm module main guard
+- `memory:projects/pappydapimp69__dog.md#E2` — ## E2 — headless raf runs slower than wallclock
+- `memory:projects/pappydapimp69__dog.md#E3` — ## E3 — nan propagation through shared state
+- `memory:projects/pappydapimp69__shadow.md#E2` — ## E2 — no reliable output detection api
+- `memory:projects/local__sandbox-expr.md#E2` — ## E2 — parsefloat silently truncates malformed numbers
+- `memory:projects/local__sandbox-myers-diff.md#E3` — ## E3 — property test diff by reconstruction
+- `memory:projects/local__sandbox-toposort.md#E2` — ## E2 — report the actual cycle not the leftover
+- `memory:projects/pappydapimp69__dog.md#E4` — ## E4 — safe guard subsystems so one fault doesnt blank frame
+- `memory:projects/pappydapimp69__dog.md#E5` — ## E5 — stale module cache looks like logic bug
+- `memory:projects/pappydapimp69__shadow.md#E3` — ## E3 — touch action pan y tiles
+- `memory:projects/pappydapimp69__dog.md#E6` — ## E6 — webaudio voice budget and teardown
+- `memory:projects/pappydapimp69__test.md#E8` — ## E8 — world rebuild through one clear respawn path
+- `memory:projects/pappydapimp69__shadow.md#E4` — ## E4 — zero loop tail when repeat off
+- `memory:projects/pappydapimp69__memory.md#E1` — ## E1 — branch protection app bypass
+- `memory:projects/pappydapimp69__test.md#E9` — ## E9 — playwright port race and gesture audio
+- `memory:projects/pappydapimp69__test.md#E10` — ## E10 — a chronicle is not a story polish cannot fix structure
+- `memory:projects/pappydapimp69__test.md#E11` — ## E11 — caption pinned timewarp keeps text and motion synced
+- `memory:projects/pappydapimp69__test.md#E12` — ## E12 — narration timeline pace to speech not estimate
+- `memory:projects/pappydapimp69__test.md#E13` — ## E13 — reused draw helpers diverge full sweep catches it
 - `memory:projects/pappydapimp69__brain.md#E1` — ## E1 — cross platform cli windows papercuts
+- `memory:projects/pappydapimp69__chronicles.md#E1` — ## E1 — chronicles state atomicity
+- `memory:projects/local__dbh.md#E1` — ## E1 — large iteration loops data guard
+- `memory:projects/local__dbh.md#E2` — ## E2 — modal minigame loop
+- `memory:projects/local__dbh.md#E3` — ## E3 — internal blueprints not gameplay
+- `memory:projects/local__dbh.md#E4` — ## E4 — new game must reset state
+- `memory:projects/local__dbh.md#E5` — ## E5 — opening_arc_overlay
+- `memory:projects/local__dbh.md#E6` — ## E6 — pages dynamic build stuck
+- `memory:projects/pappydapimp69__the-game-prologue.md#E1` — ## E1 — canonical hash prng state no transcendentals
+- `memory:projects/pappydapimp69__the-game-prologue.md#E2` — ## E2 — capture input edges at event time
+- `memory:projects/pappydapimp69__the-game-prologue.md#E3` — ## E3 — device hint computed at render time
+- `memory:projects/pappydapimp69__the-game-prologue.md#E4` — ## E4 — duplicated text logic drifts fix on first sight
+- `memory:projects/pappydapimp69__the-game-prologue.md#E5` — ## E5 — husk quest tutorial text vs mechanic confusion
+- `memory:projects/pappydapimp69__the-game-prologue.md#E6` — ## E6 — input press vocabulary not fixed list
+- `memory:projects/pappydapimp69__the-game-prologue.md#E7` — ## E7 — press and hold charge percent shaped rate
+- `memory:projects/pappydapimp69__the-game-prologue.md#E8` — ## E8 — prologue entry only cache bust tradeoff
+- `memory:projects/pappydapimp69__the-game-prologue.md#E9` — ## E9 — quest gated entities agnostic of history
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E1` — ## E1 — wrongsky restore canvas transform in blit
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E2` — ## E2 — wrongsky snapshot run start for respawn
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E1` — ## E1 — waitingcity full session respawn rules out attempt based design
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E2` — ## E2 — waitingcity live ai breaks fixed coordinate e2e scripts
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E3` — ## E3 — waitingcity shop npc must not also be a quest giver
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E4` — ## E4 — waitingcity spawn telegraph must be sim side not cosmetic
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E5` — ## E5 — waitingcity verify mechanic extension rewards real variance
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E3` — ## E3 — wrongsky batch canvas filter not per drawcall
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E4` — ## E4 — wrongsky exclusive multi offer must revoke siblings
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E5` — ## E5 — wrongsky existence check not truthy for magnitude maps
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E6` — ## E6 — wrongsky ui hint must share source with input check
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E6` — ## E6 — waitingcity ontouchstart false negatives on real touch hardware
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E7` — ## E7 — waitingcity world scale must fit shorter screen axis

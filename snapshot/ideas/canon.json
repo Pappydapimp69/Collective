@@ -1,7 +1,498 @@
 {
-  "generated": "2026-07-09T01:19:55.852103+00:00",
+  "generated": "2026-07-09T01:59:27.316195+00:00",
   "source_commits": {
     "ideas": "0559f598a0cd86a1904742bd05604add50367298"
   },
-  "entries": []
+  "entries": [
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / narrative-design / legendary-transformation / survivorship-bias",
+      "type": "ideas",
+      "text": "## [RPG / narrative-design / legendary-transformation / survivorship-bias]\n\nStory: player unlocks a \"legendary\" transformation; other players of the same class unlock it too, seemingly contradicting its legendary status. Reveal: it was legendary only because every prior achiever died in battle before explaining it. Now that survivors exist, it's demystified \u2014 which is why multiple people can hold it at once. Tonal reference: Super Saiyan in DBZ."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / NPC-SIM / emergent-traits",
+      "type": "ideas",
+      "text": "## [RPG / NPC-SIM / emergent-traits]\n\nRPG game with a world that feels more alive. NPCs have personalities and traits. Relationships, emotions, needs, and desires all affect their actions in the world. These trait values are governed by a system that doesn't exist yet. Net effect: NPCs evolve over time based on (1) how the player interacts with them individually, and (2) how their interactions with each other change as a result."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / companion-tool / matchup-advisor / counters",
+      "type": "ideas",
+      "text": "## [RPG / companion-tool / matchup-advisor / counters]\n\nPick the enemy character you're about to face and the tool tells you which of your own characters counters them best, plus the specific skill to use in that matchup (e.g. facing SS Kale \u2192 Android 17 Skill 1 to interrupt her Berserk transform). Floated for the Squadra guide, then dropped because that game isn't 1v1 \u2014 portable to any game with direct counters."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / companion-tool / team-comp / draft-advisor",
+      "type": "ideas",
+      "text": "## [RPG / companion-tool / team-comp / draft-advisor]\n\nPick your character and the tool recommends three teammates that round out the squad, each with a one-line reason, and flags comps to avoid (four damage dealers, no tank). Includes weakness-covering logic \u2014 if your pick doesn't chase, pair it with someone who does. Abandoned for Squadra because you can't choose teammates in matchmaking; lives on for any draft- or party-based game."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / combat / courtroom-boss / evidence-as-moveset",
+      "type": "ideas",
+      "text": "## [RPG / combat / courtroom-boss / evidence-as-moveset]\n\nSome bosses aren't HP fights \u2014 they're courtroom debates. Evidence collected during JRPG overworld exploration is your moveset: press a witness, present the contradicting item, break their testimony like a boss health bar. JRPG dungeon crawl and Ace Attorney trial alternate as one \"case = dungeon + trial\" cycle. Core concept of the active Phaser game."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / progression / quests / offered-not-assigned",
+      "type": "ideas",
+      "text": "## [RPG / progression / quests / offered-not-assigned]\n\nA quest system built on one rule: quests are offered, never pushed. The user declines any quest with no penalty, and a declined quest rotates out or resurfaces later \u2014 the system never feels demanding. Quests reward photographing under-documented zones/species, doubling as the data-collection engine. Designed for Garden Journal, never built."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / progression / archetype-plus-use-skills / hybrid-identity",
+      "type": "ideas",
+      "text": "## [RPG / progression / archetype-plus-use-skills / hybrid-identity]\n\nResolve the class-vs-skill progression dilemma by doing both at different time scales. Character creation picks a data-driven *archetype* (a JSON template of starting stats, skills, and kit) so identity is instant and legible; thereafter growth is *use-based* \u2014 the skill you exercise is the skill that levels (swing a blade, the blade skill rises) plus per-level perk points. New archetypes are pure content, never code. The kernel: front-load identity with a template, back-load expression with usage, so neither rigidity nor blank-slate slowness wins."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / day-night / clock-as-pressure / night-as-mechanic",
+      "type": "ideas",
+      "text": "## [RPG / day-night / clock-as-pressure / night-as-mechanic]\n\nMake the day/night cycle a *decision*, not a lighting effect. Enemies carry a night-aggression bonus that raises their power after dusk, so the world clock converts \"one more fight\" into a real risk/reward gamble: push deeper before night falls, or bank your loot and rest. The cycle now drives pacing and resource tension instead of just tinting the sky. Portable to any game with a time system and combat \u2014 the cheapest way to make a clock matter."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / progression / world-facets-as-reward / diegetic-restore",
+      "type": "ideas",
+      "text": "## [RPG / progression / world-facets-as-reward / diegetic-restore]\n\nMake the game's own *presentation* the progression reward: start the world drained of discrete facets \u2014 colour, light, depth, sound \u2014 and let the player restore them one at a time as authoritative gameplay flags, not a settings menu. Each facet is an integer flag in sim state (saved, fingerprinted) that the renderer reads to decide how much to draw (grayscale\u2192palette; flat\u2192lit-with-shadows; painter-order\u2192Y-sorted-with-depth); the restore ACTION is diegetic and in-fiction (here: \"attune a well,\" a normal interactable with its own quest objective type). Because the flags are independent, order can't soft-lock the look, and the sim/renderer seam stays clean: the flag is progression, the pixels are presentation. The kernel (adapted from GRIS's colour-as-narrative): tie the qualities of *how the game looks/sounds* to real advancement so the medium itself becomes the loot \u2014 and keep each quality an authoritative flag the renderer merely consumes. Portable to any game that can start visually/aurally minimal and earn its own richness. Built in Wrong Sky (saga game 2)."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / interactable / effect-gated-not-existence-gated / always-present-discovery",
+      "type": "ideas",
+      "text": "## [RPG / interactable / effect-gated-not-existence-gated / always-present-discovery]\n\nFor a set of interactables that unlock progression one at a time (wells, shrines, terminals), make ALL of them exist and be touchable from the very start \u2014 never spawn them on demand as each becomes \"the current one.\" Gate the EFFECT instead: interacting with an object does something only if it matches whatever's currently active (the live quest's target facet, an equipped key, a solved clue); any other object gives an always-present, in-fiction non-effect hint (\"the water is flat as glass \u2014 a perfect reflection\") rather than an error or a wall. This inverts the usual \"gate by existence\" pattern (don't spawn the target until it's relevant, so pre-emptive actions can't matter \u2014 see the quest-object-existence-gating kernel) for objects where EARLY, WRONG interaction is a feature: it turns the world into a puzzle of vague clues instead of a checklist that only reveals itself piece by piece, and it means nothing ever visibly pops into existence out of nowhere. The tradeoff to hold onto deliberately: if two different active states could ever legitimately want the SAME object's effect at different times, a naive \"already used\" flag on the object itself becomes a permanent lock \u2014 the gating condition must check the CURRENT active state, not \"has this object ever fired.\" Built in Wrong Sky (saga game 2) for wells; mirrors and inverts `the-game-prologue`'s quest-gated-enemy pattern (existence-gated, for entities where early access WOULD be a bug, not a feature)."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / ai / pursuit-ring-territory / defend-and-reset",
+      "type": "ideas",
+      "text": "## [RPG / ai / pursuit-ring-territory / defend-and-reset]\n\nGive a guardian enemy a *territory ring* instead of infinite aggro: it attacks only within a radius of the thing it defends, and if you flee past the ring's edge it holds the boundary for a few seconds, then disengages and settles back \u2014 as long as you stay out. Adds an escapable, readable threat with an offensive counter (in Dog Park, barking fills a scare meter that eventually routs the whole flock for ~60s, opening the crossing). Portable to any \"defended zone\" AI \u2014 the ring makes engagement legible and gives the player agency to avoid or break it. From Dog Park 3D (pond ducks)."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / stealth / disguise-and-suspicion / fake-belonging",
+      "type": "ideas",
+      "text": "## [RPG / stealth / disguise-and-suspicion / fake-belonging]\n\nA stealth loop built on *fitting in* rather than hiding: a hunter (dog catcher) targets whoever looks out of place, so you lower a visible **Suspicion** meter by faking belonging \u2014 find a collar, wash off the stray look \u2014 while risky actions (barking) raise it and draw the hunter. Get caught and he strips the disguise, resetting your progress. The kernel is \"blend, don't vanish\": suspicion as the currency, disguise items as the tools, and the player's own noisy actions as the risk. From Dog Park 3D."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / mechanic / thought-bubble-reclaim / anti-softlock-timeout",
+      "type": "ideas",
+      "text": "## [RPG / mechanic / thought-bubble-reclaim / anti-softlock-timeout]\n\nWhen an NPC takes something you need, don't gate progress on a fixed action \u2014 surface *what that NPC craves* via a thought bubble and let the player satisfy it (a bone-lover trades; a ball-lover gets lured off with a thrown ball). Crucially, pair it with a hold-timeout so the NPC can never permanently keep the item and soft-lock the level. Kernel: readable, per-NPC reclaim conditions + a guaranteed release valve. From Dog Park 3D's fetch loop."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "NPC-SIM / profiling / adaptive-quiz / contradiction-testing",
+      "type": "ideas",
+      "text": "## [NPC-SIM / profiling / adaptive-quiz / contradiction-testing]\n\nA personality quiz that re-evaluates profile confidence every two questions, then injects scenario questions designed to test the stated profile against actual behavior, digging in when the two contradict, continuing until ~90% confidence. Two players (you + partner) each get profiled, then play collaborative scenarios off the resulting sheets. Active in Chronicles; the contradiction-testing loop is the reusable kernel."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "NPC-SIM / journaling / longitudinal-insight / weirdly-specific",
+      "type": "ideas",
+      "text": "## [NPC-SIM / journaling / longitudinal-insight / weirdly-specific]\n\nA reflection app (Signal) whose entire retention thesis is that users only keep logging fragments if the system occasionally returns a \"weirdly specific\" longitudinal insight \u2014 so it returns null on most entries to stay honest. Insights must cite specific entities/themes/times, clear a confidence threshold, draw on \u22653 entries, and differ from any prior insight. Five generators: recurrence, temporal_pattern, emotional_shift, resurfaced_theme, contradiction."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "NPC-SIM / interaction-engine / zanegpt / controlled-blade",
+      "type": "ideas",
+      "text": "## [NPC-SIM / interaction-engine / zanegpt / controlled-blade]\n\nZaneGPT \u2014 a regulated-interaction system, \"a thoughtful witness with a controlled blade,\" where the LLM only does signal extraction and output generation and everything else is deterministic JS. A pattern ledger scores confidence/attribution/induction-risk/independence; a four-state pressure engine (LOW/MEDIUM/HIGH/RECOVERY) routes response mode by weighted probability; a STRIKE only lands when composition rules pass, otherwise it routes to a deflationary or provenance-disclosing reply. Anti-therapy cadence, declarative, no platitudes \u2014 portable as a behavioral architecture, not just a journaling app."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "NPC-SIM / gamification / trust-as-character / inverted-scoring",
+      "type": "ideas",
+      "text": "## [NPC-SIM / gamification / trust-as-character / inverted-scoring]\n\nTurn an AI vision system's reliability into a visible RPG character that levels up \u2014 photos are XP. The structural inversion is the idea: bad data slows the AI's leveling instead of penalizing the user, so the user is the trainer, not the subject. Every correction is a learning event for the AI, not a black mark on the person. The XP shell was built."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "NPC-SIM / progression / skill-unlocks-capability / lifecycle-gating",
+      "type": "ideas",
+      "text": "## [NPC-SIM / progression / skill-unlocks-capability / lifecycle-gating]\n\nThe deeper cut of the vision-as-character idea: a skill's level gates real capability, not just display. Leveling \"Tomato Identification\" lets the system identify tomatoes earlier in their lifecycle; environment skills (\"Bed Vision,\" \"Patio Vision\") level independently, so a raised-bed gardener literally has weaker container recognition. The capability-coupling was never built."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "NPC-SIM / social / traits-rapport-memory / double-edged-signals",
+      "type": "ideas",
+      "text": "## [NPC-SIM / social / traits-rapport-memory / double-edged-signals]\n\nMake a crowd feel alive with two layers: fixed *traits* (friendliness, dog-love, suspicion, patience) that set baseline reactions, plus an evolving *rapport* that remembers each past interaction with the player \u2014 and let NPCs react to each other, not just you (friendly folk greet in passing and warm up). The sharpener is *double-edged signals*: one action reads differently by trait \u2014 barking delights dog-lovers but unsettles timid people and raises Suspicion. No global \"good/bad\"; the same act helps and hurts depending on who's watching. From Dog Park 3D."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / state / phase-offset-signal-fsm / never-conflict",
+      "type": "ideas",
+      "text": "## [SYSTEM / state / phase-offset-signal-fsm / never-conflict]\n\nCoordinate many small state machines so they never conflict and never sync into lockstep: model each intersection's lights as a fixed repeating cycle, but *phase-offset* the intersections so they never all change at once, and enforce the invariant that an intersection's two directions are never both green. Agents (cars) read the signal and queue behind each other. The kernel \u2014 offset identical cycles + a hard mutual-exclusion invariant \u2014 gives lifelike, non-degenerate coordination from dead-simple parts, no central scheduler. From Dog Park 3D's traffic."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / crowdsource / plant-network / anonymized-aggregation",
+      "type": "ideas",
+      "text": "## [SYSTEM / crowdsource / plant-network / anonymized-aggregation]\n\nA crowdsourced plant-observation layer: every user's journal entries feed a write-only-by-system, read-by-anyone table keyed by canonical species + zip code only \u2014 never GPS, no foreign keys back to the user, no reverse-lookup. Users see patterns framed honestly by sample size (\"based on 47 reports in your area\" vs \"based on 3 reports, take with caution\"). Opt-out allowed, but the app gently explains why leaving data in helps everyone. Fully designed (schema + RLS), never built."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / data-integrity / resilient-aggregation / trust-weighting",
+      "type": "ideas",
+      "text": "## [SYSTEM / data-integrity / resilient-aggregation / trust-weighting]\n\nA defense layer for dirty crowdsourced data whose philosophy is \"don't achieve perfect data, achieve resilient aggregation.\" Bad entries get down-weighted, never rejected: statistical outliers per zip, users who frequently self-correct weighted lower, photo-vs-vision disagreement flagging likely mistags, and geographic/seasonal sanity checks (watermelon in zip 90210 in January). Publishing a global insight requires a minimum sample size per zip+species first. Designed, never built."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / barter-economy / earned-currency / negotiation",
+      "type": "ideas",
+      "text": "## [SYSTEM / barter-economy / earned-currency / negotiation]\n\nA points currency the user mints and awards to a collaborator for good contributions (\"Good Boy Points\"), treated as a store of value that gets bartered over features, information, or topic changes as situations arise. Usage rules are discovered through play rather than predefined. Establishes wagers as a recurring mechanic that makes a working session feel more consequential."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / wager / settlement-rules / precedent",
+      "type": "ideas",
+      "text": "## [SYSTEM / wager / settlement-rules / precedent]\n\nA betting framework for collaborative wagers with explicit fairness structure: a blind pre-generation ante that unlocks a doubled payout, post-reveal check/raise/fold action, and adjudication where the judging party must name and explain a failure (not just assert it) before collecting. Core settled precedents: a bet voids unless both sides fulfill their condition, and contested calls resolve in favor of whoever owns the currency."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / coaching-loop / non-blame / confidence-gated",
+      "type": "ideas",
+      "text": "## [SYSTEM / coaching-loop / non-blame / confidence-gated]\n\nA coaching loop for training any live subject you can't interview (a dog, a toddler, a habit): log each response at the *moment of action* (one-tap \ud83d\udc4d/\ud83d\udc4e while the cue is still playing), then surface a single specific insight only once confidence clears a bar (\u2265N logged responses for that cue), and stay silent otherwise. The structural move is inverted, non-blame framing \u2014 a low response rate reads as \"the signal may not be reaching them (try a different pitch/channel),\" never \"they failed.\" Pairs a reward-marker/clicker (mint-and-award \"Good Boy Points\") with a Signal-style honest-null insight engine and trust-as-character scoring. Surfaced building Shadow's response-log + insight; complements the separately-filed GoodBoyPoints, trust-as-character, and longitudinal-insight kernels by binding them into one training-coach primitive."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / architecture / authoritative-reducer / command-event-seam",
+      "type": "ideas",
+      "text": "## [SYSTEM / architecture / authoritative-reducer / command-event-seam]\n\nStructure any stateful interactive app as a single seam: input produces *commands*, one authoritative `reduce(state, command)` function is the only thing that mutates state, and it emits *events* that the view consumes \u2014 the view reads state but never writes it. Save/load becomes `stringify(state)`, debugging has one chokepoint, and the client/server boundary already exists in shape so multiplayer/co-op later is \"add a transport,\" not \"rewrite state ownership.\" The renderer-never-mutates rule is the load-bearing constraint. Portable far beyond games \u2014 any app where many systems fight over shared state."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / determinism / seeded-rng / save-replay-coop-from-one-stream",
+      "type": "ideas",
+      "text": "## [SYSTEM / determinism / seeded-rng / save-replay-coop-from-one-stream]\n\nNever call the ambient random source inside your simulation; route every roll through one seeded RNG whose entire state lives *inside* the saved state \u2014 save the generator's full state words directly (e.g. sfc32's four ints) rather than a `{seed, count}` pair, so a load restores in O(1) instead of replaying `count` rolls. That one discipline pays off three ways from a single source: saves round-trip exactly (the next roll after load is identical), any session replays from its seed for reproducible bug reports, and lockstep multiplayer becomes viable because all clients share one deterministic stream. The constraint it imposes is the tell: float-nondeterministic physics must stay out of the authoritative layer."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / content / objective-types / content-meets-code-seam",
+      "type": "ideas",
+      "text": "## [SYSTEM / content / objective-types / content-meets-code-seam]\n\nMake content fully data-driven but put the code/content boundary at *types*, not instances. A quest is JSON (objectives, rewards, prereqs); an objective references a *type* (`kill`, `collect`, `talk`, `reach`). Adding the thousandth quest is a data edit any author can do; adding a new *kind* of objective is one new case in the reducer. This keeps authoring cheap and unbounded while keeping the small, dangerous surface (new mechanics) in reviewed code \u2014 and it tells you exactly where validation must live, because a typo'd id moves failure from the compiler to the player."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / determinism / split-state-by-determinism-need / discrete-vs-continuous",
+      "type": "ideas",
+      "text": "## [SYSTEM / determinism / split-state-by-determinism-need / discrete-vs-continuous]\n\nWhen a deterministic authoritative core must coexist with a smooth continuous renderer, split state by what determinism actually requires: the sim owns the *discrete authoritative facts* (which zone you're in, HP, quest flags) and the presentation owns the *continuous cosmetic detail* (your exact x/z, camera). The rule that makes it safe: no authoritative outcome may depend on a continuous/float value. Movement can be buttery and frame-rate-dependent while combat rolls, saves, and lockstep stay bit-exact, because the float position never feeds a roll. Resolves the classic \"deterministic sim vs physics-driven renderer\" contradiction without choosing a side."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / testing / replay-fingerprint / determinism-regression-guard",
+      "type": "ideas",
+      "text": "## [SYSTEM / testing / replay-fingerprint / determinism-regression-guard]\n\nOne cheap test guards an entire deterministic system against the whole class of nondeterminism bugs: run a fixed scripted playthrough twice from the same seed, hash a compact fingerprint of the end state, and assert the two match \u2014 any leaked `Math.random()`/`Date.now()`/unordered-iteration makes them diverge. Bake the fingerprint as a golden value too, and the same test doubles as a regression guard: an unintended change to logic or content fails loudly, while an intended change is a one-line update. Total coverage from a single assertion, because determinism makes the whole run reproducible. One requirement makes the hash trustworthy: serialize the state *canonically* (sorted keys, loud failure on NaN/Infinity) \u2014 `JSON.stringify` key order is insertion-dependent, so identical logical states can otherwise hash differently. (Sharpened by The-game-prologue Stage 0, verified via Node/Chromium parity.)"
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / architecture / reaction-as-optional-flag / extend-without-forking",
+      "type": "ideas",
+      "text": "## [SYSTEM / architecture / reaction-as-optional-flag / extend-without-forking]\n\nTo run a new timing model over an existing authoritative reducer, don't fork the command \u2014 make the old behavior an opt-out flag that defaults on. A combat ATTACK that resolved a full turn-based exchange (hit + retaliation) becomes real-time by adding `retaliate` (default true): old callers and the golden regression test are byte-identical, while the new client passes `retaliate:false` and drives the other actor via a separate command. One code path, old tests preserved, new behavior additive. Generalizes to any reducer evolving to serve a second caller with different semantics."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / gamedesign / iframes-as-command-withholding / authority-as-design",
+      "type": "ideas",
+      "text": "## [SYSTEM / gamedesign / iframes-as-command-withholding / authority-as-design]\n\nIn a command-sourced architecture where the only way to change state is to issue a command, an invulnerability window is just *not issuing the damage command* for its duration \u2014 no \"invincible\" flag in the model at all. A dodge's i-frames live entirely in the renderer's decision to withhold the enemy-strike command; the saved state stays clean of transient combat flags, and the mechanic is automatically authoritative and deterministic. The deeper kernel: a strict authority boundary doesn't just constrain you, it *suggests* the cleanest implementation of mechanics defined by absence (invuln, stealth, pause)."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / input / unified-command-vocabulary / device-agnostic",
+      "type": "ideas",
+      "text": "## [SYSTEM / input / unified-command-vocabulary / device-agnostic]\n\nRoute every input device \u2014 keyboard, touch joystick, mouse-drag, and gamepad (Xbox over USB or Bluetooth, both via the standard Gamepad API) \u2014 into one small shared command vocabulary (move-vector, look-delta, attack, interact, dodge\u2026) rather than per-device code paths. Each device only translates its raw signal into that vocabulary; everything downstream is identical, so adding a device is a thin adapter and all devices stay interchangeable mid-session. The test harness becomes a \"device\" too, driving the same vocabulary through exposed hooks."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / input / device-adaptive-ui / show-the-active-scheme",
+      "type": "ideas",
+      "text": "## [SYSTEM / input / device-adaptive-ui / show-the-active-scheme]\n\nDetect the *active* input device (touch / mouse+keyboard / gamepad) and reshape the on-screen UI to match, live, as devices change: hide the touch buttons when a controller connects, and always show a control legend rendered in that device's own language \u2014 colored A/B/X/Y face-button badges for a gamepad, key caps for keyboard, self-labeling buttons for touch. The failure it prevents is real: unlabeled glyph buttons make players \"press random buttons,\" and a control scheme for the wrong device is worse than none. The kernel: never make the player translate \u2014 display the controls of the device actually in their hands."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / audio / beacon-vs-directional / physical-separation-required",
+      "type": "ideas",
+      "text": "## [SYSTEM / audio / beacon-vs-directional / physical-separation-required]\n\nGuiding a listener by sound has two distinct modes that depend on speaker geometry, not software. With ONE speaker you can only make a *beacon* \u2014 a sound the listener walks toward \u2014 because software L/R panning does nothing from a single point in space. Only two *physically separated* speakers reproduce true left/right directionality. Design the app around which is physically present, and never let a pan slider imply directionality that the hardware can't deliver. Sourced from Shadow, a blind-dog soundboard."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / audio / localizability-over-directionality / broadband-sharp-onset",
+      "type": "ideas",
+      "text": "## [SYSTEM / audio / localizability-over-directionality / broadband-sharp-onset]\n\nWhen a listener must locate a sound by ear, *localizability* matters more than volume or purity: pure sine tones are among the hardest sounds to pin down, while broadband chirps and clicks with sharp attacks are far easier to walk toward. Counterintuitive kernel \u2014 the \"nicer\" clean tone is the worse guide. Applies to any audio wayfinding, alarm placement, or attention cue. From Shadow (aging-dog hearing)."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / detection / functional-test-not-api / observe-the-effect",
+      "type": "ideas",
+      "text": "## [SYSTEM / detection / functional-test-not-api / observe-the-effect]\n\nWhen the platform won't reliably tell you the truth about the environment (is output Bluetooth? mono or stereo?), stop trusting the API and have the user *observe an effect* instead. Shadow can't detect mono-vs-stereo (the APIs lie), so it plays a hard-left then hard-right cue and asks \"did the sound move from one side to the other?\" \u2014 an empirical check that works on every platform where introspection fails. Generalizes: replace an unreliable capability query with a one-time functional test the user confirms."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / interaction / attention-then-guide / one-button-composition",
+      "type": "ideas",
+      "text": "## [SYSTEM / interaction / attention-then-guide / one-button-composition]\n\nA \"come here\" cue is really two phases fused into one button: an *attention burst* (a distinct chirp/whistle-replacement to make the listener orient) that auto-transitions into a *guide loop* (the steady beacon to home in on). Modeling it as attention\u2192guide, with status shown as \"Attention\u2026\" then \"Guiding\u2026\", matches how the real-world handler actually works. Portable to any notify-then-direct interaction (navigation, alerts, accessibility prompts)."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / explainer / show-dont-tell-picture-book / mechanism-as-plot",
+      "type": "ideas",
+      "text": "## [SYSTEM / explainer / show-dont-tell-picture-book / mechanism-as-plot]\n\nTo explain a system to someone who doesn't already understand it, let the *pictures* carry the explanation and keep the words to a few per screen; structure the piece so the mechanism IS the plot, shown not told (e.g. an AI's memory loop as: wake having forgotten everything -> keep two jars, mistakes and ideas -> read them before working -> build, break, write a note -> reuse a note from another project -> an idea waits then fits -> the loop repeats). Decouple the on-screen caption (tiny, a few words) from the spoken narration (full, warm) so the visible text stays minimal without starving the voice-over. The layperson-explainer form, portable to any system currently explained in jargon."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / verification / audience-vote-as-feel-metric / contest-as-instrument",
+      "type": "ideas",
+      "text": "## [SYSTEM / verification / audience-vote-as-feel-metric / contest-as-instrument]\n\nT9/T11 hold that automated tests verify logic but never *feel* \u2014 a human eye is the missing instrument. Turn that gap into a pipeline: ship two competing renderings of the same underlying data/experience to a public page with a one-tap ballot (keyless counter API + mailto fallback, watch-both gate so votes are informed), and the vote tally becomes the feel-metric \u2014 cheap, quantified human judgment on the exact dimension the test suite can't reach. Generalizes: A/B any subjective quality (game juice, UI variant, narrative tone) by staging it as a contest with stakes. Born from the Picture House vote build (film vs data-viz, staked on Good Boy Points)."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / accessibility / sensory-calibration-profile / range-aware-signals",
+      "type": "ideas",
+      "text": "## [SYSTEM / accessibility / sensory-calibration-profile / range-aware-signals]\n\nRun a one-time calibration that maps the individual listener's usable sensory range, then flag any signal that falls outside it. Shadow offers a hearing check that finds which pitches the (old, part-deaf) dog actually responds to and warns, in the editor, when a command's frequency is out of that range. Kernel: personalize to the user's measured perceptual envelope instead of assuming a standard one \u2014 applies to color, pitch, contrast, or timing for any accessibility tool."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / sync / share-codes-not-accounts / backendless-portability",
+      "type": "ideas",
+      "text": "## [SYSTEM / sync / share-codes-not-accounts / backendless-portability]\n\nGet cross-device consistency with zero backend by serializing state to JSON and exposing it two ways: a downloadable file and a base64 \"share code\" you copy/paste (optionally a `#code=\u2026` URL hash). Two people \u2014 or any shared user \u2014 end up with byte-identical config, no accounts, no server, works offline. From Shadow (both dog-owners need identical sounds); portable to any settings/preset sharing."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / data-model / overrides-not-mutation / resettable-defaults",
+      "type": "ideas",
+      "text": "## [SYSTEM / data-model / overrides-not-mutation / resettable-defaults]\n\nMake built-in defaults editable without ever mutating the originals: store user edits as a layer of overrides applied on top of the default library. Edits stay resettable, the originals remain pristine, and the overrides travel cleanly in an export/share code. Shadow edits its default tones this way. Portable to any app with editable presets, themes, or config baselines."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / scheduling / critical-path-priority / bounded-workers",
+      "type": "ideas",
+      "text": "## [SYSTEM / scheduling / critical-path-priority / bounded-workers]\n\nWhen you have fewer workers than ready tasks, *which* ready task you start changes the finish time. Start the ready task with the longest remaining downstream chain first (list scheduling by critical-path depth) \u2014 starting a short independent task instead can idle-block the critical path and inflate the makespan (measured: naive order 4 steps vs critical-path priority 3, optimal 3, on the same graph). Portable to CI runners, thread pools, job queues, any fan-out with a worker cap. Mined from a sandbox bounded-scheduler build."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / algorithm / topological-waves / max-parallelism-schedule",
+      "type": "ideas",
+      "text": "## [SYSTEM / algorithm / topological-waves / max-parallelism-schedule]\n\nTo schedule dependent tasks for maximum concurrency, peel the dependency graph in layers: each \"wave\" is every task whose prerequisites are already done, so an entire wave runs in parallel. The number of waves equals the critical-path length \u2014 the minimum makespan you could achieve with unlimited workers \u2014 and it tells you immediately whether a job is parallel-friendly (few wide waves) or serial-bound (many thin ones). Portable to CI/build parallelization, data-pipeline stages, migration batching, and any fan-out task runner. (With limited workers, waves also give the natural batching unit.) Mined from a sandbox scheduler build."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / algorithm / cycle-detection-free-from-toposort / unschedulable-leftover",
+      "type": "ideas",
+      "text": "## [SYSTEM / algorithm / cycle-detection-free-from-toposort / unschedulable-leftover]\n\n\"Can these dependencies be ordered?\" and \"is there a cycle?\" are the *same* computation. Run Kahn's topological sort (repeatedly remove a node with in-degree 0); if you can't place every node, the leftover set is exactly the nodes stuck in \u2014 or downstream of \u2014 a cycle. So dependency resolution and deadlock/cycle detection come from one pass, no separate check. Portable to build systems, task schedulers, package managers, spreadsheet recalc, migration ordering. (Caveat worth remembering: the leftover *over-reports* \u2014 it includes nodes that merely depend on a cycle, not only the cycle itself.) Mined from a sandbox topo-sort build."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / parsing / pratt-binding-power / associativity-as-plus-one",
+      "type": "ideas",
+      "text": "## [SYSTEM / parsing / pratt-binding-power / associativity-as-plus-one]\n\nParse any operator-precedence grammar with one small loop instead of a rule per precedence level: give each operator a \"binding power\" (a number), and the parser keeps consuming operators while the next one binds tighter than the caller's minimum. The elegant kernel: a single binding-power number encodes *both* precedence and associativity \u2014 recurse with `bp` for right-associative operators and `bp+1` for left-associative ones. That one \u00b11 is the whole associativity mechanism. Prefix/unary ops are just a \"null-denotation\" case. Portable to expression languages, query filters, formula engines, calculators. Mined from a sandbox Pratt-parser build."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / algorithm / diff-as-edit-graph-shortest-path / free-diagonals",
+      "type": "ideas",
+      "text": "## [SYSTEM / algorithm / diff-as-edit-graph-shortest-path / free-diagonals]\n\nModel \"difference between two sequences\" as a shortest path on a grid: position (x,y) means \"consumed x of A, y of B\", a horizontal step deletes from A, a vertical step inserts from B (each costs 1), and a *diagonal step is free* wherever A[x]==B[y]. The minimal edit script is then just the shortest path to the far corner \u2014 Myers finds it greedily by tracking the furthest-reaching path per diagonal for each edit-distance d. The portable kernel: turn \"how different are these?\" into \"cheapest path where agreement is free,\" which reframes fuzzy comparison as clean pathfinding. Mined from a sandbox Myers-diff build."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / robustness / address-by-context-not-index / drift-resilient",
+      "type": "ideas",
+      "text": "## [SYSTEM / robustness / address-by-context-not-index / drift-resilient]\n\nOperations against a mutable target survive change when they locate their spot by *content* (matching surrounding context) instead of by *absolute position*. A diff hunk carries its context lines and applies by finding that run in the target \u2014 so it still lands when unrelated lines shift above it, and safely *refuses* (rather than corrupting) when the context itself has changed. The portable kernel: index-based addressing is brittle to drift; content/context-based addressing is self-locating and fail-safe. Applies to patches, codemod anchors, scroll/selection restore, text annotations, and schema migrations. Mined from a sandbox patch-apply build."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / algorithm / windowed-grouping-with-overlap-merge / gap-threshold",
+      "type": "ideas",
+      "text": "## [SYSTEM / algorithm / windowed-grouping-with-overlap-merge / gap-threshold]\n\nTo present sparse events with surrounding context (a diff's hunks, log clusters, a timeline), wrap each event in a \u00b1C context window \u2014 but merge two events into one group whenever they're within 2\u00b7C of each other, otherwise their windows overlap and you emit duplicate/overlapping context. The rule is: sort events, start a group, and only break to a new group when the gap to the next exceeds 2\u00b7C. Portable kernel: \"cluster by gap-threshold, then expand by context\" \u2014 the same shape solves diff hunks, grouping nearby log lines, and collapsing bursty timeline markers. Mined from a sandbox diff-hunk build."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / gamedesign / resolve-tension-by-offering-both / player-picks-tone",
+      "type": "ideas",
+      "text": "## [SYSTEM / gamedesign / resolve-tension-by-offering-both / player-picks-tone]\n\nSome design forks shouldn't be *decided* \u2014 expose them as a setting and let the player choose the tone. \"Soft death (friendly) vs harsh death (stakes)\" was collapsing into one answer; instead a Gentle/Harsh toggle ships both, so the tension is honored rather than lost. Works when both sides are cheap to implement and the choice is about *taste*, not correctness (difficulty, permadeath, motion/audio intensity, spoiler-level hints). Kernel: a genuine either/or where neither is wrong is a *setting*, not a decision. (Mirrors the `tension` node's own principle \u2014 don't collapse a live fork.) From the RPG's stakes toggle."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / gamedesign / skill-gated-information / archetype-perception",
+      "type": "ideas",
+      "text": "## [SYSTEM / gamedesign / skill-gated-information / archetype-perception]\n\nDifferentiate character builds by what they can *perceive*, not just what they can do. A high-Lore character reads an enemy's exact HP; a low-Lore one sees only a bar and \"???\". The same world renders differently per build, which makes an investment in a \"soft\" stat (lore/perception/insight) tangible without new mechanics \u2014 just gate a readout. Portable to any RPG/sim with knowledge stats: reveal weaknesses, true prices, hidden exits, NPC intent by skill level. Kernel: information as a progression reward. From the RPG's lore-gated target readout."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / audio / procedural-spatial-stage / hear-what-you-see",
+      "type": "ideas",
+      "text": "## [SYSTEM / audio / procedural-spatial-stage / hear-what-you-see]\n\nTreat game audio as a *spatial stage*, not a flat mix: sync an audio listener to the camera every frame and play every world sound through a panner (HRTF + distance falloff) at the object's real position, all sharing one procedurally-generated convolution reverb so they feel in one space, summed through a shared limiter so it never clips. The design rule that makes it cohere: *what you hear comes from what you see* \u2014 every source is a visible thing. Fully synthesized, no sample files. From Dog Park 3D. Portable to any 3D scene wanting diegetic sound."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / audio / event-driven-wind / objects-sound-where-they-are",
+      "type": "ideas",
+      "text": "## [SYSTEM / audio / event-driven-wind / objects-sound-where-they-are]\n\nAmbience without an ambient bed: instead of a looping wind track, run an invisible \"wind bar\" that sweeps across the map and, as it crosses each object, makes *that object* sound off at its own position \u2014 trees rustle where the trees are, and the gust rushes past the player as it reaches them. Each sweep has its own intensity so no two gusts match. The kernel: environmental ambience as *events emitted by the things in the world*, spatialized, rather than a flat 2D loop \u2014 richer and self-varying. From Dog Park 3D."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "SYSTEM / audio / generated-diegetic-radio / moving-panner-source",
+      "type": "ideas",
+      "text": "## [SYSTEM / audio / generated-diegetic-radio / moving-panner-source]\n\nA passing car's radio plays music *generated on the fly* \u2014 an endless, never-repeating lo-fi loop with its own key/tempo/pattern per car \u2014 lowpassed so it sounds like it's thumping from inside the car, and emitted from the car's own panner so both engine and music track it as it drives (engine drops to an idle note at a red light). Kernel: diegetic generative audio bound to a moving spatial source, so \"you hear it approach and recede\" for free, and it never loops audibly. From Dog Park 3D."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "DATA-TOY / utility / house-biography / first-person-diary",
+      "type": "ideas",
+      "text": "## [DATA-TOY / utility / house-biography / first-person-diary]\n\nFeed utility data to an LLM and have the house narrate its own diary in first person, one entry per billing period \u2014 petty, dramatic, seasonal (\"July 2024 nearly killed me, 1,755 kWh, I never stopped sweating\"). Pitched as a natural ElevenLabs audio piece. Only the deadpan-roommate voice was built; this first-person-house version wasn't."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "DATA-TOY / utility / kwh-roguelike / survival-resource",
+      "type": "ideas",
+      "text": "## [DATA-TOY / utility / kwh-roguelike / survival-resource]\n\nReal electric bills become a survival roguelike where each billing period is a \"season\" you must survive on a budget \u2014 overspend and the house takes damage. You're beating your own historical self. Explicitly Stardew-brained: resource-optimization applied to electricity. Never built."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "DATA-TOY / utility / oracle / deadpan-divination",
+      "type": "ideas",
+      "text": "## [DATA-TOY / utility / oracle / deadpan-divination]\n\nA deadpan fortune-teller artifact you consult about energy decisions \u2014 \"should I run the AC this weekend?\" \u2014 answering in cryptic prophecy backed by real rate data and seasonal math. ZaneGPT energy aimed at electricity divination. Floated, not built."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "DATA-TOY / generative / bill-as-album / procedural-art",
+      "type": "ideas",
+      "text": "## [DATA-TOY / generative / bill-as-album / procedural-art]\n\nEach billing period gets procedurally generated cover art plus a one-line \"track title\" matched to its vibe (high summer = a noise track, mild April = ambient). Twenty-four bills become a 24-track concept album of your year in power. Floated, not built."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "DATA-TOY / personal-finance / commodity-terminal / utility-bill",
+      "type": "ideas",
+      "text": "## [DATA-TOY / personal-finance / commodity-terminal / utility-bill]\n\nA personal utility bill rendered as a commodity trading terminal: delivered gas cost plotted as candlesticks against the Henry Hub market benchmark, with a shaded markup band showing how far above wholesale you pay, usage as volume bars, and a crosshair ticker readout. Turns a mundane bill into a tradeable instrument inspectable month by month."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "DATA-TOY / personal-finance / lag-slider / market-alignment",
+      "type": "ideas",
+      "text": "## [DATA-TOY / personal-finance / lag-slider / market-alignment]\n\nAn interactive lag slider that re-indexes a personal cost series against a public market index, recomputing correlation live and snapping to the best-fit offset to reveal whether and how delayed a regulated pass-through tracks the wholesale market. Honesty mechanics: align to the actual consumption window (day-weighted), fit only on verified data, and gate the readout so it reports \"no lag\" rather than overfitting noise."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "DATA-TOY / personal-finance / debt-ekg / payment-cycle",
+      "type": "ideas",
+      "text": "## [DATA-TOY / personal-finance / debt-ekg / payment-cycle]\n\nA running-balance \"debt EKG\" that visualizes an irregular pay-when-it-crosses-a-threshold habit as a sawtooth climbing for months then flatlining to zero at each payoff, paired with a counter for how much interest-free float was ridden by not paying monthly. Sits alongside a bill-history dataset where totals carry past-due rollover."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "DATA-TOY / personal-finance / balance-point / temp-vs-usage",
+      "type": "ideas",
+      "text": "## [DATA-TOY / personal-finance / balance-point / temp-vs-usage]\n\nA balance-point scatter of outdoor temperature versus gas usage that fits a personal heating-response curve, exposing the exact temperature where someone starts burning gas \u2014 their \"I caved and turned the heat on\" threshold. Personal and specific rather than a generic month-to-month chart."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "narrative-design / comedy / negotiation-arc / escalation",
+      "type": "ideas",
+      "text": "## [narrative-design / comedy / negotiation-arc / escalation]\n\nPersuade your partner to agree to a bat house by feeding them progressively more absurd AI-generated image renders, staging the whole thing as an escalating negotiation arc \u2014 humor from the gap between the mundane goal and increasingly unhinged visuals. The underlying real pitch: outsource mosquito control to a freeloading mammal who works the night shift for free, making you a landlord whose tenant eats hundreds of bugs an hour (the comedic catch: bats arrive on their own schedule, possibly never)."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "narrative-design / AI-fiction / fresh-instance / inherited-files",
+      "type": "ideas",
+      "text": "## [narrative-design / AI-fiction / fresh-instance / inherited-files]\n\nA story told from the POV of a freshly-spun AI instance that wakes with no memory into an inherited set of files and instructions, having to act on rules it never authored. Drafted as a fable variant, then deliberately stripped out when you asked for a plain retelling. The existential version is the abandoned fragment."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "WORLDBUILDING / surveillance / panopticon / observation-as-architecture",
+      "type": "ideas",
+      "text": "## [WORLDBUILDING / surveillance / panopticon / observation-as-architecture]\n\n\"Opticon\" \u2014 a project built on a Benthamite framing where observation itself is the architecture: the structure exists to make watching possible. Three code iterations and a Panopticon.md design doc exist, but the actual purpose was never articulated and the concept stalled. Dormant kernel: surveillance-as-structure, sightlines as design primitive."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "GARDEN / pest-control / dragonfly-airforce / predator-recruitment",
+      "type": "ideas",
+      "text": "## [GARDEN / pest-control / dragonfly-airforce / predator-recruitment]\n\nBuild a pond feature specifically to recruit dragonflies as a self-charging aerial predator fleet \u2014 ~95% successful hunters that eat mosquitoes and flies. Framed as standing up a living \"fighter wing\" patrolling the yard for free. The perimeter-fan dream done right, except the fans are alive."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "GARDEN / pest-control / co2-decoy / body-double",
+      "type": "ideas",
+      "text": "## [GARDEN / pest-control / co2-decoy / body-double]\n\nMosquitoes track exhaled CO2, so place a CO2 lure trap at the far corner of the yard and you become less interesting than the decoy \u2014 effectively hiring a body double to take the bites. A misdirection tactic rather than a kill-everything one. Floated, not pursued."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "GARDEN / whimsy / water-curtain / gutter-reclaim",
+      "type": "ideas",
+      "text": "## [GARDEN / whimsy / water-curtain / gutter-reclaim]\n\nA doorway curtain of falling water \u2014 plastic gutters along the bottom edge catch the runoff and pump it back up through tubing to recirculate it, walling out insects. Acknowledged as impractical and an evaporative-loss disaster in Texas heat. Kept purely as committed-to-the-bit thinking."
+    },
+    {
+      "repo": "ideas",
+      "file": "idea-repository.md",
+      "id": "RPG / saga / versioned-carryover-code / episodic-continuity",
+      "type": "ideas",
+      "text": "## [RPG / saga / versioned-carryover-code / episodic-continuity]\n\nFor a story split across separate games, define the carryover contract IN GAME ONE and version it: a short signed code (`SAGA1.<base64 canonical JSON>.<checksum>`) minted at each game's finale, carrying identity (archetype), growth (skill levels), and named CHOICE FLAGS (what the sequel must remember). Rules that make it work: every sequel accepts a code OR a fresh-start default (the code is a courtesy, never a wall); import never throws on user input (mistyped = polite refusal via checksum); the schema only grows, never mutates (versioned). Modern Golden Sun password + Mass Effect choice import, backendless and offline. Built in The-game-prologue Stage 4."
+    }
+  ]
 }

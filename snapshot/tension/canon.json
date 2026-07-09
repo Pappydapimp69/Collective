@@ -1,7 +1,134 @@
 {
-  "generated": "2026-07-09T01:19:55.852240+00:00",
+  "generated": "2026-07-09T01:59:27.334055+00:00",
   "source_commits": {
     "tension": "13639e86dedc2ec0f2fb61e531dddad3d0801c2c"
   },
-  "entries": []
+  "entries": [
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T1",
+      "type": "tension",
+      "text": "### T1 \u00b7 contradiction \u00b7 \"systems-over-data\" vs a real ECS\nPoles: a flat world + functions-in-the-reducer is right for one player and ~3\nenemy kinds \u2014 minimum ceremony; **vs** a full Entity-Component-System scales to\nmany entity types but is overkill now.\nLean: \ud83d\udfe1 systems-over-data for the slice. Records are already a flat serializable\nbag, so promotion to components is incremental.\nOpen sub-question: *what concrete signal* (entity count? system count? a specific\npainful refactor?) means we've crossed the threshold? Undecided.\nSource: ADR-0001/TDD; docs/07 open-question #6."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T2",
+      "type": "tension",
+      "text": "### T2 \u00b7 contradiction \u00b7 determinism vs a physics-driven renderer\nPoles: lockstep co-op and exact save/load demand a deterministic sim (no float\nnondeterminism); **vs** a 3D renderer naturally wants physics, which is\nfloat-nondeterministic across machines.\nLean: \ud83d\udfe1 leaning (M1 evidence). M1 movement is kinematic & cosmetic \u2014 the sim\nstores an *advisory* position via the MOVE command, but no authoritative outcome\nreads it and the replay fingerprint stays bit-exact. The contradiction is *held\nat bay*, not dissolved: it resurfaces the moment M2 adds real collision/physics\nthat wants to feed combat. Resolution so far: physics stays cosmetic; sim\npositions are advisory.\nSource: ADR-0007; docs/07 open-question #7. M1: web/game3d.mjs MOVE, src/sim/replay.mjs."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T3",
+      "type": "tension",
+      "text": "### T3 \u00b7 contradiction \u00b7 the \"co-op without a rewrite\" promise vs save schema\nPoles: a single serialized `world` is perfect for single-player; **vs** co-op\nneeds per-client identity *inside* the world, which is a schema change.\nLean: \ud83d\udd34 open. The \"no rewrite\" promise covers the **sim spine** (the\ncommand/event seam), NOT the netcode or the schema migration it implies. Honest\nscope of the promise is itself the tension.\nSource: ADR-0007; docs/07 open-question #4."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T4",
+      "type": "tension",
+      "text": "### T4 \u00b7 tradeoff \u00b7 scripted quests vs emergent systems\nPoles: scripted data-graph quests are authorable, testable, and shippable in a\nslice; **vs** emergent systems create surprise but are unbounded in cost.\nLean: \ud83d\udfe1 scripted now, with objective *types* as the seam that leaves emergent on\nthe table. Preserved because \"fallen civilization that feels alive\" pulls toward\nemergent.\nSource: ADR-0005. Cross-link: `ideas` \u2192 [NPC-SIM / emergent-traits]."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T5",
+      "type": "tension",
+      "text": "### T5 \u00b7 open-question \u00b7 soft death vs \"fallen civilization\" stakes\nPoles: soft respawn keeps the slice friendly to demo/test; **vs** the tone wants\nreal stakes (souls-like recovery? permadeath toggle?).\nLean: \ud83d\udfe1 partly resolved by OFFERING BOTH (Cycle 4). A menu toggle now switches\nGentle (soft respawn) vs Harsh (lose half current-level XP on death), so the\nfork isn't collapsed to one answer \u2014 the player picks the tone. Still open: no\nsoul-recovery/permadeath tier, and Harsh is shallow (XP only).\nSource: docs/03 gameplay-loop; docs/07 open-question #2."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T6",
+      "type": "tension",
+      "text": "### T6 \u00b7 tradeoff \u00b7 data-driven flexibility vs lost compile-time safety\nPoles: all content as JSON = cheap, unbounded authoring; **vs** a typo'd id ships\nan uncompletable quest with no error \u2014 failure moves from compiler to player.\nLean: \ud83d\udfe1 stay data-driven, pay it back with a validation ladder (schema \u2192\nreferential integrity \u2192 headless smoke test). Only the smoke-test rung exists today.\nSource: docs/04; filed to `memory` (data-driven-needs-a-validation-ladder)."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T7",
+      "type": "tension",
+      "text": "### T7 \u00b7 open-question \u00b7 how much progression depth does a *slice* need?\nPoles: use-based skills add build divergence; **vs** in a 25-minute slice, extra\nbuild axes may be noise. Currently blade trains on use; guard/lore are seeded but\ninert \u2014 a deliberate placeholder.\nLean: \ud83d\udfe1 depth added (Cycle 4). Guard now use-trains on hits taken (feeds defense);\nlore now gates the enemy-HP readout (Seeker sees numbers, Warden sees ???), giving\narchetypes a real perceptual difference. Blade already use-trains. Still open: how\nmuch is *noise* vs meaningful in a 25-min slice \u2014 unmeasured.\nSource: ADR-0004; docs/07 open-question #1."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T8",
+      "type": "tension",
+      "text": "### T8 \u00b7 assumption \u00b7 hand-edited JSON scales to the slice\nBet: humans editing JSON by hand won't ship broken content faster than review\ncatches it \u2014 *for slice-sized content*. At higher volume this likely breaks and a\nvalidating editor becomes necessary.\nLean: \ud83d\udfe1 holds for now; watch for the volume where it stops holding.\nSource: docs/04; docs/07 open-question #5."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T9",
+      "type": "tension",
+      "text": "### T9 \u00b7 contradiction \u00b7 headless sim proves systems but cannot prove *feel*\nPoles: the demo proves the loop is mechanically complete with zero graphics; **vs**\ncombat identity (timing, hit reactions, camera, lock-on) only exists once\nrendered \u2014 the most important quality dimension is the one we can't yet test.\nLean: \ud83d\udfe1 mostly addressed, quality unverified. M2 built real-time combat with\nlock-on, dodge i-frames, hit-stop/vignette/shake juice, audio, and controller\nsupport \u2014 feel now *exists* and the full slice completes headless. But whether it\nfeels *good* is still a human judgement no automated test makes (ties to T11). So:\nmechanically resolved, subjectively open.\nSource: docs/05 risk R5; ADR-0006. M2: web/game3d.mjs."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T10",
+      "type": "tension",
+      "text": "### T10 \u00b7 assumption \u00b7 greybox-first keeps a \"3D RPG\" on schedule\nBet: boxy geometry + capsule characters is an acceptable interim for a deliverable\nliterally named \"3D RPG,\" and art is a polish pass, not a foundation.\nLean: \ud83d\udfe1 holds; if \"3D RPG\" implies art-quality expectations to the audience, this\nbet is exposed.\nSource: docs/05 risk R3; docs/06 roadmap."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T11",
+      "type": "tension",
+      "text": "### T11 \u00b7 open-question \u00b7 automated 3D verification has a ceiling (logic, not looks)\nSurfaced in M1. Headless Chromium + SwiftShader can verify the render spine's\n*wiring* (it boots, the clock advances, input issues commands, traversal changes\nzones \u2014 all asserted with no console errors) but NOT its *visual correctness*: a\nwrong material, z-fighting, an inverted normal, or a broken shader all pass a\n\"no errors\" test. Screenshots need a human eye.\nLean: \ud83d\udd34 open. Partial mitigation: capture screenshots in CI for human review;\nperceptual-diff against a golden image is possible but brittle for 3D. How to\nguard visual regressions cheaply is unresolved.\nSource: M1 headless verification (Playwright + SwiftShader)."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T12",
+      "type": "tension",
+      "text": "### T12 \u00b7 tradeoff \u00b7 vendoring Three.js (repo bloat) vs a build step / CDN\nSurfaced in M1. We committed ~2 MB of generated Three.js into `web/vendor/` so the\nPages site is self-contained and the headless test is hermetic \u2014 at the cost of a\nlarge generated artifact living in git (against normal hygiene) and manual version\nbumps.\nLean: \ud83d\udfe1 vendoring for now \u2014 self-containment and offline-verifiability beat repo\ncleanliness for a slice. Revisit if the vendored surface grows (addons, multiple\nlibs) \u2014 then a real build step (Vite) earns its keep.\nSource: M1 (web/vendor/, .github/workflows/pages.yml)."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T13",
+      "type": "tension",
+      "text": "### T13 \u00b7 tradeoff \u00b7 input breadth vs combinatorial complexity\nSurfaced in M2. Supporting keyboard + touch joystick + mouse-look + Xbox gamepad\n(USB/BT) multiplies the input edge cases: pause-while-paused via gamepad Start,\njoystick vs gamepad both writing the move vector, focus/blur with a pad held,\nedge-detection per device. The unified-command-vocabulary kernel tames most of it,\nbut each device still has bespoke quirks (deadzones, autoplay-on-tap, pointer\ncapture).\nLean: \ud83d\udfe1 worth it \u2014 reach (phone + desktop + console-style) justifies the cost, and\nthe shared vocabulary contains it. Watch for the next device adding more than a\nthin adapter; that's the signal the abstraction is leaking.\nSource: M2 (web/game3d.mjs input + gamepad)."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T14",
+      "type": "tension",
+      "text": "### T14 \u00b7 tradeoff \u00b7 synthesized SFX (zero assets) vs authored audio\nSurfaced in M2. All sound is generated at runtime from oscillators + filtered\nnoise \u2014 zero audio files, tiny footprint, no loading, trivially tweakable. The\nceiling is real: it can't match recorded foley/music for richness or mood.\nLean: \ud83d\udfe1 synth for the slice (footprint + iteration speed win). If the project\nwants a soundtrack or signature impacts, swap in authored assets behind the same\n`sfx(kind)` seam \u2014 the call sites won't change.\nSource: M2 (web/game3d.mjs audio)."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T15",
+      "type": "tension",
+      "text": "### T15 \u00b7 process \u00b7 shipping cadence vs cognitive-logging cadence\nSurfaced by direct observation this session. The standing rule fires the cognitive\nloop at *milestone* boundaries. But a run of fast, user-driven bug-fixes (control\ninversions, gamepad, menu bugs, UI overhaul) has no \"milestone\" \u2014 so the loop\nsilently lapsed: several real lessons (reused-modal stale state; gamepad\nactive-polling) were shipped to the build before being filed, and only got logged\nwhen the user asked \"are you communicating with brain?\".\nContradiction: \"keep replies short / ship fast\" pulls against \"route every lesson\nthrough the nodes.\" The milestone trigger is too coarse for reactive patch work.\nLean: \ud83d\udfe1 add a second trigger \u2014 a lightweight per-fix filing bar (\"did this fix\nteach a non-obvious lesson? \u2192 drop it in incoming/ now\"), not just per-milestone.\nDon't let velocity silently switch the architecture off; that defeats the\nexperiment. Unresolved: the right cadence that keeps logging honest without taxing\nevery one-line fix.\nSource: this session's control/UI patch series (PRs #6\u2013#10)."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T16",
+      "type": "tension",
+      "text": "### T16 \u00b7 alternative \u00b7 engine paths not taken (migrated from creativity A1)\nPoles: Three.js + Vite + TS (chosen: verifiability + iteration speed in an\nagentic/CI loop) **vs** parked roads, each kept with its reason:\n- **Godot (GDScript/C#)** \u2014 best out-of-the-box for a 3D RPG (animation, physics,\n  scene editor). Parked: editor-centric, binary scenes diff poorly, weaker to\n  drive/verify headlessly. *Revisit if* art & animation volume becomes the\n  bottleneck \u2014 the sim core is engine-agnostic, so a port is a renderer swap.\n- **Unity** \u2014 powerful, but heavyweight and license/closed-tooling friction for a\n  tiny slice.\n- **Bevy (Rust ECS)** \u2014 beautiful determinism story (great for lockstep co-op),\n  but a second language and slower iteration than the slice budget allows.\nLean: \ud83d\udfe1 Three.js holds. The choice was made on *verifiability and iteration\nspeed*, not raw 3D power \u2014 worth re-litigating per milestone, not silently\ninheriting.\nUpdates:\n- 2026-07-02 migrated from `creativity-log.md` A1 (Phase 1: creativity frozen;\n  parked alternatives live here now). Lean carried over unchanged.\nSource: creativity A1 (Milestone 0); ADR-0001/TDD.\n\n---\n\n## Project: cognitive-system (the architecture itself)"
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T17",
+      "type": "tension",
+      "text": "### T17 \u00b7 assumption \u00b7 Phase 1 convention survives reactive work without the Phase 2 gate\nBet: the rewritten specs (capture stubs, curate-at-milestone, evidence-bearing\ntransitions, \"push what you write\") are low-friction enough that a session under\nreactive bug-fix velocity will actually follow them \u2014 *without* an involuntary\ncommit/CI gate refusing the wrong action.\nPoles: convention-is-enough (the v2 specs fixed the friction that caused the\nT15 lapse) **vs** the practitioner's law (\"a discipline problem is never fixed\nby a better convention \u2014 only by making the right action involuntary\").\nLean: \ud83d\udd34 open \u2014 deliberately. The practitioner's evidence says convention fails\nunder velocity; the specs changed since. Neither side has post-Phase-1 data.\nResolution path: the reactive-flurry verification \u2014 run a burst of small\nuser-driven fixes in a real build session on the v2 specs, then audit the gap\nbetween lessons-that-should-have-filed and lessons-filed (survivorship diff:\n`incoming/` timestamps vs build commits). If the gap is ~zero, close\nresolved (evidence) and Phase 2's gate becomes optional hardening; if not,\nPhase 2 is mandatory and this closes resolved (evidence) the other way.\nUpdates:\n- 2026-07-02 opened during Phase 3 verification (cold-clone write-back test).\nSource: practitioner post-mortem (T15 lineage); Phase 3 plan; Brain README\n\"provisional\" flag \u2014 this entry is that flag, held accountable in the ledger."
+    },
+    {
+      "repo": "tension",
+      "file": "tension-ledger.md",
+      "id": "T18",
+      "type": "tension",
+      "text": "### T18 \u00b7 open-question \u00b7 explain-to-teach vs tell-a-story (the vote film's north star)\nSurfaced across the Picture House film iterations. The film entry in the audience vote\n(vs the data Garden) swings between two goals that pull apart.\nPoles: **engage** \u2014 a narrative with want/opposition/stakes/choice, which *moves* the\nviewer (per the `chronicle-is-not-a-story` memory) **vs** **teach** \u2014 a plain\npicture-book explainer where clarity wins and dramatic structure is deliberately\ndropped (per the owner's stated objective: a non-expert must understand the memory\nsystem). Story maximizes *feeling*; explainer maximizes *comprehension*.\nLean: \ud83d\udfe1 teach \u2014 the audience skews non-expert and clarity likely wins votes there;\nbut the S7 synthesis (fresh-instance existential arc + one survivorship reveal) may keep\nclarity AND land emotionally, dissolving the fork.\nResolution path: the vote tally settles it (ties T9/T11 \u2014 only the human eye judges\nthis). If the explainer wins, teach-first is the default for novice-facing artifacts; if\nthe story cut would have won, the boundary added to the `chronicle-is-not-a-story` rule\nneeds tightening.\nUpdates:\n- 2026-07-04 opened during the film-explainer arc; write-back per orchestration v2.\nSource: this session's film passes; exploration E6/S7; ideas [SYSTEM/explainer].\n---\n\n## How to query this ledger (for the Brain orchestrator)\nBefore committing to a system, grep this file for the relevant area: an **open**\ntension touching your work means the decision is *not yours to silently make* \u2014\nsurface it. A **leaning** tension means there's a default; honor it unless you have\nnew information, and if you resolve it, flip the status to \ud83d\udfe2 and link the decision."
+    }
+  ]
 }

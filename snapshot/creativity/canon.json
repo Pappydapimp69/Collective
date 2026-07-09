@@ -1,7 +1,141 @@
 {
-  "generated": "2026-07-09T01:19:55.852358+00:00",
+  "generated": "2026-07-09T01:59:27.336010+00:00",
   "source_commits": {
-    "creativity": "e829663bfd3ee3bfa8ff673e37fefb54192c3566"
+    "ideas": "0559f598a0cd86a1904742bd05604add50367298"
   },
-  "entries": []
+  "entries": [
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "E1",
+      "type": "creativity",
+      "text": "### E1 \u00b7 experiment \u00b7 sim-before-render (proved the loop in a terminal first) \u00b7 **live**\nWe built the **entire game loop as a headless simulation** and asserted the five\nsuccess criteria (`npm run demo`) *before writing one line of renderer*. This\nflipped the usual order (graphics first, systems bolted on). Result: the\narchitecture's hardest, least-reversible risks (state ownership, determinism) were\nretired on day one, and \"feel\" was correctly isolated as the one thing graphics\nmust add. **Reusable as a method**, not just for this game: if a system's logic can\nbe expressed without its presentation, prove it without the presentation."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "E2",
+      "type": "creativity",
+      "text": "### E2 \u00b7 experiment \u00b7 replay-as-regression-test (deterministic golden runs) \u00b7 **promoted \u2192 build (see E4)**\nBecause the sim is deterministic and randomness is seeded, a recorded *command\nstream* + final-state hash is a perfect regression test: replay it, assert the\nworld matches. Cheaper and more total than unit-testing each system.\n*2026-06-30: promoted \u2014 realized as the M1 deploy gate (E4).*"
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "S1",
+      "type": "creativity",
+      "text": "### S1 \u00b7 synthesis \u00b7 pull the dormant RPG kernels into this world \u00b7 **promoted \u2192 build**\nStaged cross-pollination of filed kernels against the active build:\n[RPG / NPC-SIM / emergent-traits] \u2192 evolving village NPCs (relieves tension T4);\n[RPG / combat / courtroom-boss / evidence-as-moveset] \u2192 an alternate lore-evidence\nboss encounter; [RPG / progression / quests / offered-not-assigned] \u2192 the quest\nsystem's offered-never-pushed rule (shipped in Cycle 4)."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "S2",
+      "type": "creativity",
+      "text": "### S2 \u00b7 synthesis \u00b7 the Hollow King's lore from \"legendary = survivorship bias\" \u00b7 **live**\nFrom [RPG / narrative-design / legendary-transformation / survivorship-bias]:\nhis power was never legendary \u2014 every challenger died before anyone could explain\nhow ordinary he was. The \"vigil\" is the survivorship filter itself. A ready-made\nnarrative twist for the boss with zero new mechanics."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "Sp1",
+      "type": "creativity",
+      "text": "### Sp1 \u00b7 speculation \u00b7 two co-op paths, kept open \u00b7 **live** *(fork-shaped \u2014 candidate for `tension` promotion when co-op is scheduled)*\n- **Lockstep** (all clients run the deterministic sim, exchange only commands) \u2014\n  cheapest given the determinism we already have; fragile to any nondeterminism\n  (ties to tension T2).\n- **Authoritative server + state snapshots/deltas** \u2014 robust to nondeterminism,\n  costs bandwidth + reconciliation. The command/event seam supports *either*; we\n  don't have to choose until co-op is actually scheduled."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "Sp2",
+      "type": "creativity",
+      "text": "### Sp2 \u00b7 speculation \u00b7 day/night as a stealth/AI dimension, not just combat \u00b7 **live**\nNight already raises enemy aggression (a combat knob). Speculative extension: at\nnight husks *roam* and the village *locks down*, so the clock reshapes where you\ncan go and who's awake to talk to \u2014 turning one variable into a world-state dial.\nNo commitment; parked as a richness lever for after the slice.\n\n## Project: Echoes of the Shattered Realm \u2014 Milestone 1 (Render Spine)"
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "E3",
+      "type": "creativity",
+      "text": "### E3 \u00b7 experiment \u00b7 graceful-degradation made the 3D app CI-verifiable \u00b7 **live**\nThe render spine keeps its update loop (time, movement, HUD, command dispatch)\n*separate* from the draw call, so when WebGL is unavailable it skips only\n`renderer.render` and runs everything else headless. That one split let a 3D app\nbe driven end-to-end in CI and fail loud on logic errors. Reusable: **isolate the\nGPU-dependent line from the logic loop, and a graphics app becomes headlessly\ntestable.**"
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "E4",
+      "type": "creativity",
+      "text": "### E4 \u00b7 experiment \u00b7 realized E2 \u2014 replay-fingerprint as the M1 deploy gate \u00b7 **promoted \u2192 build (`src/sim/replay.mjs` + Pages deploy gate)**\nTwo same-seed runs must fingerprint-match *and* match a golden value. Promotion\nfrom speculation \u2192 shipped guard in one milestone; the loop working as intended."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "S3",
+      "type": "creativity",
+      "text": "### S3 \u00b7 synthesis \u00b7 the retrieval loop actually closed this milestone \u00b7 **promoted \u2192 record (brain/cognitive-updates/milestone-1.md)**\nBrain's retrieval changed the build before a line was written: `memory` lessons\nfrom a *different* game (lockstep \u2014 clamp max frame delta, edge-gate inputs) went\nstraight into the render loop; `tension` (T2) dictated movement stay cosmetic."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "Sp3",
+      "type": "creativity",
+      "text": "### Sp3 \u00b7 speculation \u00b7 data-drive the camera/combat *feel* in M2 \u00b7 **promoted \u2192 build (see Sp5)**\nPull tunables into a `feel.json` so the M2 combat/feel pass is iterable by JSON\nedit during live playtesting, not a recompile.\n\n## Project: Echoes of the Shattered Realm \u2014 Milestone 2 (Mobile combat + controller)"
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "E5",
+      "type": "creativity",
+      "text": "### E5 \u00b7 experiment \u00b7 headless WebGL + touch emulation as the \"is it playable\" gate \u00b7 **live**\nDrove the *entire* mobile slice (create\u2192quests\u2192real-time combat\u2192boss\u2192victory) in\nheadless Chromium with a touch/WebGL emulated phone context, through exposed\n`window.__game` hooks. Reusable method: expose a thin command-hook surface on any\ninteractive app and a headless driver can complete it."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "S4",
+      "type": "creativity",
+      "text": "### S4 \u00b7 synthesis \u00b7 the architecture *suggested* the dodge implementation \u00b7 **promoted \u2192 `idea-repository.md` [SYSTEM / gamedesign / iframes-as-command-withholding]**\nInvulnerability = *withhold the damage command*. No new state, no sim change."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "S5",
+      "type": "creativity",
+      "text": "### S5 \u00b7 synthesis \u00b7 one command vocabulary made the 4th input device trivial \u00b7 **promoted \u2192 `idea-repository.md` [SYSTEM / input / unified-command-vocabulary]**\nKeyboard, touch, mouse, gamepad all reduce to {move-vector, look-delta, attack,\ninteract, dodge}; adding Xbox was a ~20-line adapter."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "Sp4",
+      "type": "creativity",
+      "text": "### Sp4 \u00b7 speculation \u00b7 perceptual-diff screenshots to attack T11 \u00b7 **live**\nGolden-screenshot perceptual diffs at fixed camera/time/seed \u2014 brittle, but might\ncatch gross visual regressions (black screen, missing meshes, broken shader).\nWorth a spike; pair with the deterministic seed so frames are reproducible."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "Sp5",
+      "type": "creativity",
+      "text": "### Sp5 \u00b7 speculation \u00b7 realized Sp3 \u2014 feel.json is live \u00b7 **promoted \u2192 build**\nMove speed, time scale, camera, aggro/melee/cooldowns all live in `feel.json`;\nthe M2 tuning pass was a JSON edit, no recompile.\n\n## Cross-project mining (Shadow, Dog Park) \u2192 applied to the RPG"
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "S6",
+      "type": "creativity",
+      "text": "### S6 \u00b7 synthesis \u00b7 the full external\u2192mine\u2192file\u2192apply\u2192build loop closed \u00b7 **promoted \u2192 record**\nExternal repos were fed in (Shadow soundboard, Dog Park 3D), mined into\n`ideas`/`memory`, and those lessons were applied straight back into the RPG in\none cycle (spatial audio, `safe()` guards, cache-busting, ambience). Knowledge\nfrom *other* projects concretely fixed *this* project's weak spots \u2014 the\nstrongest evidence yet that the nodes beat working solo."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "Sp6",
+      "type": "creativity",
+      "text": "### Sp6 \u00b7 speculation \u00b7 sandbox self-play for breadth, external repos for novelty \u00b7 **live**\nStanding cadence: every 5 build-generations, spin up a randomly-chosen orthogonal\nsandbox project, mine it for 5 turns, discard the code, keep the lessons. Watch\nfor the echo-chamber risk: does sandbox mining yield anything not already implied\nby what's known?\n\n---\n\n## How the Brain orchestrator uses this file\nDuring retrieval, after mining `idea-repository.md`: scan the **live** entries\nfor an experiment worth running now or a synthesis/speculation ripe to promote.\nDuring write-back: residue that fails the artifact test lands here; anything that\ngraduates gets its state flipped to `promoted` with a pointer, in the same commit."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "E6",
+      "type": "creativity",
+      "text": "### E6 \u00b7 experiment \u00b7 one explainer film mutated three times chasing an audience \u00b7 **live**\nThe film entry in the Picture House vote (vs the data Garden) drifted through three\ndistinct forms under owner feedback, and the experiment's question changed with it:\n(1) \"The Lesson & the Seed\" \u2014 a cute two-protagonist drama; (2) \"The Sentence I Didn't\nWant to Write\" \u2014 a first-person auditor confession with a real moral choice at the\nclimax (the strongest STORY form), built then set aside as the entry; (3) \"The Robot\nWho Kept Forgetting\" \u2014 a plain-language picture-book explainer (pictures carry the\nmeaning, few words on screen), then made vibrant with a gentle music bed. So the vote\nno longer measures drama-vs-map; it now measures **explainer-vs-map** (fork tracked as\ntension T18). Road kept in git, not re-walked: the auditor-confession STORY cut \u2014 reach\nfor it if the goal flips back to *move the viewer* rather than *teach* them."
+    },
+    {
+      "repo": "ideas",
+      "file": "exploration.md",
+      "id": "S7",
+      "type": "creativity",
+      "text": "### S7 \u00b7 synthesis \u00b7 graft an emotional arc onto the explainer without losing clarity \u00b7 **live**\nStaged against the live goal (win the vote with a clear-AND-affecting film). From an\nideas mine: fold the filed `[narrative-design/AI-fiction/fresh-instance/inherited-files]`\nexistential arc (the robot wakes unmoored, acting on rules it never wrote -> the two\njars become *belonging*) plus one `[RPG/.../survivorship-bias]` style reveal (forgetting\nreframed weakness -> superpower) onto the picture-book explainer. Hypothesis: keeps the\nexplainer's comprehension win while adding the *feeling* the plain chronicle lacks \u2014\nreconciling the `chronicle-is-not-a-story` memory with the teach-first objective.\nPromote into the next film version if we iterate before staking."
+    }
+  ]
 }
