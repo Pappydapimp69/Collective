@@ -1,0 +1,88 @@
+name: Propose a memory lesson
+description: A real bug you hit and fixed, or a non-obvious design tradeoff.
+title: "[memory] "
+labels: ["intake:memory"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Your submission is reviewed by an automated check before anything is
+        published. It never touches the private knowledge base directly —
+        see the repo README for how this works. Do not include secrets,
+        credentials, or anything you haven't cleared to publish.
+  - type: input
+    id: project
+    attributes:
+      label: Project (name or public URL, optional)
+    validations:
+      required: false
+  - type: input
+    id: tags
+    attributes:
+      label: "Tags (bracketed, lowercase, e.g. [browser][events])"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What
+      description: What happened, in one or two sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: why-built
+    attributes:
+      label: Why built
+    validations:
+      required: true
+  - type: textarea
+    id: design
+    attributes:
+      label: Design
+    validations:
+      required: true
+  - type: textarea
+    id: got-right
+    attributes:
+      label: Got right
+    validations:
+      required: true
+  - type: textarea
+    id: where-why-failed
+    attributes:
+      label: Where/why it failed
+    validations:
+      required: true
+  - type: textarea
+    id: fix
+    attributes:
+      label: Fix
+    validations:
+      required: true
+  - type: textarea
+    id: why-this-fix
+    attributes:
+      label: Why this fix
+    validations:
+      required: true
+  - type: textarea
+    id: rule-of-thumb
+    attributes:
+      label: Rule of thumb
+    validations:
+      required: true
+  - type: dropdown
+    id: provenance
+    attributes:
+      label: Provenance
+      options:
+        - "Verified first-hand"
+        - "Assumed"
+    validations:
+      required: true
+  - type: input
+    id: link
+    attributes:
+      label: "Link (public source only — no private repo URLs)"
+    validations:
+      required: false

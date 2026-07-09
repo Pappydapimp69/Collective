@@ -1,0 +1,87 @@
+name: Report an open fork / tension
+description: A genuine unresolved contradiction, tradeoff, assumption, open question, or parked alternative — not just "I'm unsure."
+title: "[tension] "
+labels: ["intake:tension"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This mirrors the private `tension-ledger.md` convention (confirmed
+        2026-07-08): a fork the project is deliberately holding open, not a
+        question you could answer by looking something up. It is never
+        auto-resolved or auto-landed — a human always reviews tension reports
+        before they go live, even if this form's automated checks pass
+        cleanly.
+  - type: dropdown
+    id: type
+    attributes:
+      label: Type
+      description: >-
+        tradeoff (two goods in conflict) · assumption (a bet that could be
+        wrong) · open-question (genuinely undecided) · contradiction (two
+        commitments that can't both fully hold) · alternative (a road
+        considered and parked, kept with the reason and revisit condition —
+        including "creativity"-shaped explorations that were parked rather
+        than shipped; the old separate creativity-log form no longer accepts
+        these).
+      options:
+        - tradeoff
+        - assumption
+        - open-question
+        - contradiction
+        - alternative
+    validations:
+      required: true
+  - type: input
+    id: title
+    attributes:
+      label: Short title
+      description: "The fork in a few words, e.g. \"systems-over-data vs a real ECS\"."
+    validations:
+      required: true
+  - type: textarea
+    id: poles
+    attributes:
+      label: "Poles (both sides of the fork)"
+      description: >-
+        Required for every type EXCEPT assumption — assumption entries use
+        "Bet" below instead. State at least two viable, named positions.
+    validations:
+      required: false
+  - type: textarea
+    id: bet
+    attributes:
+      label: "Bet (only for type = assumption)"
+      description: The wagered claim, and what would prove it wrong.
+    validations:
+      required: false
+  - type: textarea
+    id: lean
+    attributes:
+      label: Current lean
+      description: >-
+        Your assessed status and reasoning — start with 🔴 open or 🟡
+        leaning (never 🟢 resolved or ⚪ superseded on a new public
+        submission).
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source (citation)
+      description: A PR, ADR, doc, commit, or public writeup this fork traces back to.
+    validations:
+      required: true
+  - type: input
+    id: cross-link
+    attributes:
+      label: "Cross-link to a related public idea/lesson entry (optional)"
+    validations:
+      required: false
+  - type: input
+    id: revisit-condition
+    attributes:
+      label: "Revisit condition (mainly for type = alternative; optional)"
+      description: The concrete signal that would make this worth reopening.
+    validations:
+      required: false

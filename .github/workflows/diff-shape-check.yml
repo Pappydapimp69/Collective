@@ -1,0 +1,78 @@
+# Second, independent check on every intake PR before merge — the plan's
+# "commit path" decision: mediated writes land via PR + this check, not
+# straight to main. Verifies the diff is EXACTLY what a well-behaved intake
+# run should produce: one new entry file + its bookkeeping state files, all
+# inside the one type-folder the PR claims to target. Catches a subverted
+# intake Action smuggling extra writes, or a bug that touches the wrong type.
+name: collective-diff-shape-check
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  diff-shape:
+    if: startsWith(github.head_ref, 'intake/')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Assert diff touches only the expected type folder + files
+        run: |
+          set -e
+          type="${GITHUB_HEAD_REF#intake/}"
+          type="${type%%-*}"
+          changed=$(git diff --name-only origin/main...HEAD)
+          echo "Changed files:"
+          echo "$changed"
+
+          bad=0
+          entry_count=0
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            case "$f" in
+              "$type/_state/existing.json"|"$type/_state/ratelimit.json"|"$type/_state/sequence")
+                ;;
+              "$type"/*.md)
+                entry_count=$((entry_count + 1))
+                ;;
+              *)
+                echo "UNEXPECTED file outside $type/: $f"
+                bad=1
+                ;;
+            esac
+          done <<< "$changed"
+
+          if [ "$entry_count" -ne 1 ]; then
+            echo "Expected exactly 1 new entry file, found $entry_count"
+            bad=1
+          fi
+          if [ "$bad" -ne 0 ]; then
+            echo "Diff-shape check FAILED — this PR does not match a clean intake run."
+            exit 1
+          fi
+          echo "Diff-shape check passed."
+
+      - name: Re-run mechanical validation against the committed entry
+        run: |
+          # Belt-and-suspenders: re-validate the actual committed file's
+          # content (not just trust the Action that opened the PR), so a
+          # compromised intake run can't smuggle a bad entry past this gate
+          # by lying about its own status.
+          type="${GITHUB_HEAD_REF#intake/}"
+          type="${type%%-*}"
+          entry_file=$(git diff --name-only origin/main...HEAD -- "$type/*.md")
+          python3 -c "
+          import sys
+          sys.path.insert(0, '.')
+          from intake_steward import scan_injection, scan_secrets
+          text = open('$entry_file', encoding='utf-8').read()
+          hits = scan_injection(text) + scan_secrets(text)
+          if hits:
+              print('Re-validation found issues the first pass should have caught:')
+              for h in hits: print(' -', h)
+              sys.exit(1)
+          print('Re-validation clean.')
+          "

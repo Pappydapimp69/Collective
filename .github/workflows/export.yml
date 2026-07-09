@@ -1,0 +1,147 @@
+# Core -> public export. Runs entirely in `collective`. READ-ONLY against the
+# private repos — nothing here has any write path back into them. Nightly +
+# manual dispatch, since publication is gated on a human editing
+# allowlist.json regardless of timing (no push-trigger needed in core, and
+# none is added there).
+#
+# All four private repos are checked out (memory, ideas, tension, creativity)
+# because output is now grouped by TARGET TYPE (the collective public folder),
+# not by source repo — creativity-typed entries are sourced from
+# ideas/exploration.md (repo="ideas") as well as, optionally, the frozen
+# creativity/creativity-log.md (repo="creativity") for historical legacy
+# entries. See export_job.py's AllowlistEntry docstring for why repo and type
+# diverge for creativity specifically.
+name: collective-export
+
+on:
+  schedule:
+    - cron: "17 6 * * *"  # nightly; time chosen off-peak, arbitrary otherwise
+  workflow_dispatch: {}
+
+permissions:
+  contents: write  # to collective only — this job never checks out core with write intent
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          path: collective
+
+      - name: Read-only checkout of memory
+        uses: actions/checkout@v4
+        with:
+          repository: Pappydapimp69/memory
+          path: private-memory
+          token: ${{ secrets.COLLECTIVE_READONLY_PAT }}
+
+      - name: Read-only checkout of ideas
+        uses: actions/checkout@v4
+        with:
+          repository: Pappydapimp69/ideas
+          path: private-ideas
+          token: ${{ secrets.COLLECTIVE_READONLY_PAT }}
+
+      - name: Read-only checkout of tension
+        uses: actions/checkout@v4
+        with:
+          repository: Pappydapimp69/tension
+          path: private-tension
+          token: ${{ secrets.COLLECTIVE_READONLY_PAT }}
+
+      - name: Read-only checkout of creativity (frozen — legacy entries only)
+        uses: actions/checkout@v4
+        with:
+          repository: Pappydapimp69/creativity
+          path: private-creativity
+          token: ${{ secrets.COLLECTIVE_READONLY_PAT }}
+
+      - name: Run the export job, grouped by target type
+        working-directory: collective
+        run: |
+          python3 - << 'PYEOF'
+          import json, os, subprocess, sys
+          sys.path.insert(0, ".")
+          from export_job import (
+              build_snapshot, EXTRACTORS, load_allowlist,
+              render_index_md, diff_retractions, allowlist_key,
+          )
+
+          SOURCE_REPOS = ["memory", "ideas", "tension", "creativity"]
+
+          full_allowlist = []
+          for repo in SOURCE_REPOS:
+              path = f"allowlist/{repo}.json"
+              if os.path.exists(path):
+                  full_allowlist.extend(load_allowlist(open(path).read()))
+
+          def fetch(repo_name, path):
+              with open(f"../private-{repo_name}/{path}", encoding="utf-8") as f:
+                  return f.read()
+
+          source_commits = {}
+          for repo in SOURCE_REPOS:
+              sha = subprocess.run(
+                  ["git", "-C", f"../private-{repo}", "rev-parse", "HEAD"],
+                  capture_output=True, text=True,
+              ).stdout.strip()
+              source_commits[repo] = sha
+
+          # Group by TARGET TYPE (collective folder), not source repo — a
+          # single build_snapshot call per type, since extractors dispatch on
+          # type already.
+          by_type = {}
+          for a in full_allowlist:
+              by_type.setdefault(a.type, []).append(a)
+
+          for out_type in ["memory", "ideas", "tension", "creativity"]:
+              allowlist = by_type.get(out_type, [])
+              relevant_repos = sorted({a.repo for a in allowlist}) or [out_type]
+              snapshot = build_snapshot(
+                  allowlist, fetch, EXTRACTORS,
+                  {r: source_commits[r] for r in relevant_repos},
+              )
+
+              os.makedirs(f"snapshot/{out_type}", exist_ok=True)
+              with open(f"snapshot/{out_type}/canon.json", "w", encoding="utf-8") as f:
+                  json.dump(snapshot, f, indent=2)
+              with open(f"snapshot/{out_type}/index.md", "w", encoding="utf-8") as f:
+                  f.write(render_index_md(snapshot))
+
+              # Retraction diff against the previous run's allowlist keys for this type.
+              prev_path = f"allowlist/_previous-{out_type}.json"
+              prev_keys = set()
+              if os.path.exists(prev_path):
+                  prev_keys = {
+                      allowlist_key(a.repo, a.file, a.entry_id)
+                      for a in load_allowlist(open(prev_path).read())
+                  }
+              curr_keys = {allowlist_key(a.repo, a.file, a.entry_id) for a in allowlist}
+              retractions = diff_retractions(prev_keys, curr_keys, "no longer public-eligible")
+              if retractions:
+                  existing = (
+                      json.load(open(f"{out_type}/retracted.json"))
+                      if os.path.exists(f"{out_type}/retracted.json") else []
+                  )
+                  existing.extend(retractions)
+                  os.makedirs(out_type, exist_ok=True)
+                  with open(f"{out_type}/retracted.json", "w", encoding="utf-8") as f:
+                      json.dump(existing, f, indent=2)
+
+              with open(prev_path, "w", encoding="utf-8") as f:
+                  json.dump([
+                      {"repo": a.repo, "file": a.file, "id": a.entry_id, "type": a.type}
+                      for a in allowlist
+                  ], f, indent=2)
+          PYEOF
+
+      - name: Commit under the dedicated bot identity
+        working-directory: collective
+        run: |
+          git -c user.name="collective-export-bot" -c user.email="collective-export-bot@users.noreply.github.com" \
+            add snapshot memory/retracted.json ideas/retracted.json tension/retracted.json \
+            creativity/retracted.json allowlist/_previous-*.json 2>/dev/null || true
+          git -c user.name="collective-export-bot" -c user.email="collective-export-bot@users.noreply.github.com" \
+            commit -m "export: refresh public snapshot" || echo "nothing to commit"
+          git push

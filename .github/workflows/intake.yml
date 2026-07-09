@@ -1,0 +1,182 @@
+# Mediated-write intake — the ONLY way anything reaches collective canon.
+# Contributors never hold a git credential; this Action's bot token does
+# every commit. One workflow handles all four types via the issue label,
+# rather than four near-duplicate files, since intake_steward.py is already
+# generic across types.
+#
+# The bot identity is a GitHub App installed ONLY on this repo (never
+# Brain/memory/ideas/tension/creativity), and its token is MINTED fresh each
+# run from COLLECTIVE_BOT_APP_ID + COLLECTIVE_BOT_APP_PRIVATE_KEY via
+# actions/create-github-app-token — genuinely short-lived (expires within the
+# hour), not a static secret pretending to be one. A dedicated App identity
+# (rather than the default GITHUB_TOKEN) is required for a real reason, not
+# just isolation: GitHub does not let a workflow run triggered by the default
+# GITHUB_TOKEN cascade into triggering ANOTHER workflow — so a PR opened with
+# GITHUB_TOKEN would silently never fire diff-shape-check.yml's
+# `on: pull_request` trigger. The App identity is a distinct actor, so its PRs
+# trigger the second check as intended.
+#
+# Concurrency is keyed per-label so four types can process in parallel
+# without contending on the same lock, while submissions of the SAME type
+# still serialize (avoids two runs racing to pick the same sequence number).
+name: collective-intake
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  issues: write
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: intake-${{ github.event.issue.labels[0].name }}
+  cancel-in-progress: false
+
+jobs:
+  validate-and-commit:
+    if: contains(github.event.issue.labels.*.name, 'intake:memory') ||
+        contains(github.event.issue.labels.*.name, 'intake:ideas') ||
+        contains(github.event.issue.labels.*.name, 'intake:tension') ||
+        contains(github.event.issue.labels.*.name, 'intake:creativity')
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mint a short-lived bot token from the GitHub App
+        id: app-token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.COLLECTIVE_BOT_APP_ID }}
+          private-key: ${{ secrets.COLLECTIVE_BOT_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: Collective
+
+      - uses: actions/checkout@v4
+        with:
+          # The minted App installation token — scoped ONLY to this repo (see
+          # the App's own installation scope, and `repositories:` above as a
+          # second, redundant restriction), expires automatically, never a
+          # long-lived PAT, never any scope on core repos.
+          token: ${{ steps.app-token.outputs.token }}
+
+      - name: Determine type from label
+        id: type
+        run: |
+          declare -A FORM_FILE=(
+            [memory]=memory-lesson.yml
+            [ideas]=idea-fragment.yml
+            [tension]=tension-fork.yml
+            [creativity]=creativity-log.yml
+          )
+          for label in memory ideas tension creativity; do
+            if echo '${{ toJson(github.event.issue.labels.*.name) }}' | grep -q "intake:$label"; then
+              echo "type=$label" >> "$GITHUB_OUTPUT"
+              echo "form_file=${FORM_FILE[$label]}" >> "$GITHUB_OUTPUT"
+            fi
+          done
+
+      - name: Write issue body to file
+        run: |
+          cat > /tmp/body.txt << 'ISSUE_BODY_EOF'
+          ${{ github.event.issue.body }}
+          ISSUE_BODY_EOF
+
+      - name: Fetch account age (for new-account extra scrutiny)
+        id: account
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          created_at=$(gh api "users/${{ github.event.issue.user.login }}" --jq .created_at)
+          echo "created_at=$created_at" >> "$GITHUB_OUTPUT"
+
+      - name: Load existing descriptions + rate-limit + sequence state
+        id: state
+        run: |
+          # existing.json / ratelimit.json / sequence counters live at
+          # collective/<type>/_state/ — committed alongside canon, read here,
+          # rewritten after a successful run in the "Commit" step below.
+          mkdir -p /tmp/state
+          cp "${{ steps.type.outputs.type }}/_state/existing.json" /tmp/state/existing.json \
+            2>/dev/null || echo '[]' > /tmp/state/existing.json
+          cp "${{ steps.type.outputs.type }}/_state/ratelimit.json" /tmp/state/ratelimit.json \
+            2>/dev/null || echo '{}' > /tmp/state/ratelimit.json
+          seq=$(cat "${{ steps.type.outputs.type }}/_state/sequence" 2>/dev/null || echo 0)
+          echo "sequence=$((seq + 1))" >> "$GITHUB_OUTPUT"
+
+      - name: Run the intake steward
+        id: validate
+        run: |
+          python3 cli_validate.py \
+            --type "${{ steps.type.outputs.type }}" \
+            --body-file /tmp/body.txt \
+            --login "${{ github.event.issue.user.login }}" \
+            --created-at "${{ steps.account.outputs.created_at }}" \
+            --sequence "${{ steps.state.outputs.sequence }}" \
+            --existing-file /tmp/state/existing.json \
+            --ratelimit-file /tmp/state/ratelimit.json \
+            --form-file ".github/ISSUE_TEMPLATE/${{ steps.type.outputs.form_file }}" \
+            > /tmp/result.json
+          cat /tmp/result.json
+          echo "status=$(python3 -c "import json;print(json.load(open('/tmp/result.json'))['status'])")" >> "$GITHUB_OUTPUT"
+
+      - name: Moderation hold — never close, never echo content, route to human queue
+        if: steps.validate.outputs.status == 'moderation_hold'
+        run: |
+          gh issue edit "${{ github.event.issue.number }}" --add-label "flagged:moderation"
+          gh issue comment "${{ github.event.issue.number }}" \
+            --body "This submission has been routed to human moderation review. No action needed from you."
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - name: Reject — comment specific reason, close
+        if: steps.validate.outputs.status == 'reject'
+        run: |
+          reasons=$(python3 -c "import json;print('\n'.join('- ' + r for r in json.load(open('/tmp/result.json'))['reasons']))")
+          gh issue comment "${{ github.event.issue.number }}" --body "Automated check failed:
+          $reasons
+
+          Fix the issue above and open a new submission — this one won't be auto-retried."
+          gh issue close "${{ github.event.issue.number }}" --reason "not planned"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - name: Accept or needs_human_review — open a PR, never commit straight to main
+        if: steps.validate.outputs.status == 'accept' || steps.validate.outputs.status == 'needs_human_review'
+        run: |
+          type="${{ steps.type.outputs.type }}"
+          filename=$(python3 -c "import json;print(json.load(open('/tmp/result.json'))['filename'])")
+          status="${{ steps.validate.outputs.status }}"
+          branch="intake/${type}-$(date +%s)"
+          git checkout -b "$branch"
+
+          python3 -c "
+          import json
+          r = json.load(open('/tmp/result.json'))
+          fields = r['fields']
+          lines = [f'{k}: {v}' for k, v in fields.items()]
+          lines.append(f\"tier: {r['tier']}\")
+          lines.append(f\"status: {'needs-human-review' if '$status' == 'needs_human_review' else 'quarantine'}\")
+          open('$type/$filename', 'w').write('\n'.join(lines) + '\n')
+          "
+          cp /tmp/state/existing.json "$type/_state/existing.json"
+          cp /tmp/state/ratelimit.json "$type/_state/ratelimit.json"
+          echo "${{ steps.state.outputs.sequence }}" > "$type/_state/sequence"
+
+          # Diff-shape assertion: this PR must touch exactly the new entry
+          # file + the three state files — nothing else, per the plan's
+          # verification checklist ("assert the diff is exactly one new
+          # file in the expected folder" + its bookkeeping).
+          git add "$type/$filename" "$type/_state/existing.json" "$type/_state/ratelimit.json" "$type/_state/sequence"
+
+          git -c user.name="collective-bot" -c user.email="collective-bot@users.noreply.github.com" \
+            commit -m "intake($type): #${{ github.event.issue.number }} from @${{ github.event.issue.user.login }}"
+          git push origin "$branch"
+
+          gh pr create --title "intake($type): ${filename}" \
+            --body "Mechanically validated submission from #${{ github.event.issue.number }}. Status: ${status}. A second, independent diff-shape check must pass before this merges." \
+            --label "tier:mechanical" --label "status:${status}"
+          gh issue comment "${{ github.event.issue.number }}" \
+            --body "Passed automated checks — opened as a pull request for a second check before it goes live."
+          gh issue close "${{ github.event.issue.number }}" --reason "completed"
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
