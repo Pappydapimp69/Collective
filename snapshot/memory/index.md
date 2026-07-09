@@ -1,4 +1,4 @@
-# collective index — generated 2026-07-09T01:59:27.304134+00:00
+# collective index — generated 2026-07-09T09:57:56.161606+00:00
 
 - `memory:projects/pappydapimp69__pocketzane.md#E1` — ## E1 — Synthetic events crash under a Tampermonkey @grant sandbox
 - `memory:projects/pappydapimp69__pocketzane.md#E2` — ## E2 — Picker detected by existence, not visibility
