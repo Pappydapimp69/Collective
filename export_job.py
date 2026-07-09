@@ -60,24 +60,38 @@ def allowlist_key(repo: str, file: str, entry_id: str) -> str:
 # Allow-listing controls WHICH entries export; redaction controls WHAT INSIDE
 # them exports — applied even to entries that were explicitly opted in.
 
+# memory's real entries are markdown bullet lists where one field's value can
+# WRAP across multiple physical lines via plain indentation continuation (no
+# "- " on the continuation line) — e.g. "- Link: ...\n  session 2026-07-04."
+# A same-line-only regex leaves that wrapped continuation untouched. This
+# boundary — stop at the next top-level bullet ("\n- ") or a blank line,
+# whichever comes first, otherwise run to the end of the (already
+# single-entry-scoped) text — is what FIELD_END encodes. Found by a dry run
+# against the real projects/pappydapimp69__brain.md#E1 entry, where the old
+# same-line regex left the wrapped Provenance detail (investigation specifics)
+# fully exposed despite appearing "coarsened" on its first line, and left a
+# session date dangling one line below a correctly-redacted Link line.
+_FIELD_END = r"(?:(?!\n[ \t]*-\s)(?!\n[ \t]*\n).)*"
+
 # Negative lookbehind for [\w-] so "Cross-link:" (a tension/creativity field
 # holding WANTED cross-reference content, e.g. "Cross-link: `ideas` -> [...]")
 # is never matched as if it were memory's own "Link:" field (an internal
 # claude.ai session URL that must be redacted) — caught by a dry run against
 # real tension-ledger.md content, where it was silently eating T4's Cross-link.
-_SESSION_LINK_RE = re.compile(r"(?<![\w-])(Link:\s*).*", re.I)
-# Consume the WHOLE rest of the line after the verified/assumed token, not
-# just the token itself — otherwise trailing detail ("...from prior lesson.")
-# survives redaction untouched (caught by test_coarsens_provenance).
+_SESSION_LINK_RE = re.compile(r"(?<![\w-])(Link:\s*)" + _FIELD_END, re.I | re.S)
+# Consume the WHOLE rest of the field after the verified/assumed token, not
+# just the token itself — otherwise trailing detail ("...from prior lesson.",
+# or a wrapped continuation line) survives redaction untouched.
 _PROVENANCE_DETAIL_RE = re.compile(
-    r"(Provenance[^:]*:\s*)(verified first-hand|assumed)[^\n]*", re.I
+    r"(Provenance[^:]*:\s*)(verified first-hand|assumed)" + _FIELD_END, re.I | re.S
 )
 
 
 def redact(entry_text: str) -> str:
     """Strip session IDs / internal links and collapse provenance to a coarse
-    label, dropping any trailing detail on that line. Applied on top of
-    allow-listing, not instead of it."""
+    label, dropping any trailing detail (same-line OR wrapped onto following
+    continuation lines) from that field. Applied on top of allow-listing, not
+    instead of it."""
     out = _SESSION_LINK_RE.sub(r"\1[redacted]", entry_text)
     out = _PROVENANCE_DETAIL_RE.sub(lambda m: m.group(1) + m.group(2).split()[0].lower(), out)
     return out

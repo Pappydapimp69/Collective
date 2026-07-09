@@ -156,13 +156,48 @@ class TestRedaction(unittest.TestCase):
         text = "Source: ADR-0005. Cross-link: `ideas` -> [NPC-SIM / emergent-traits]."
         self.assertEqual(redact(text), text)
 
-    def test_still_strips_a_real_link_field_next_to_other_text(self):
-        text = "Notes here.\nLink: https://claude.ai/code/session_ABC123\nMore notes."
+    def test_still_strips_a_real_link_field_next_to_other_bullets(self):
+        # Realistic shape: the real entries are bullet lists, so "the next
+        # field" is signaled by a new "- " bullet, not just any newline.
+        text = "- Notes: Notes here.\n- Link: https://claude.ai/code/session_ABC123\n- More: More notes."
         out = redact(text)
         self.assertNotIn("ABC123", out)
         self.assertIn("[redacted]", out)
         self.assertIn("Notes here.", out)
         self.assertIn("More notes.", out)
+
+    def test_strips_link_field_wrapped_onto_a_continuation_line(self):
+        # Regression: a dry run against the REAL projects/pappydapimp69__brain.md#E1
+        # entry found the Link field's value wrapped onto an indented
+        # continuation line (no "- " prefix, plain markdown line-wrap) — the
+        # old same-line-only regex left that continuation line, including a
+        # session date, sitting untouched right after "[redacted]".
+        text = (
+            "- Link: Brain commits (Windows install + hook), encoding-safety commit 4c1f147;\n"
+            "  session 2026-07-04.\n"
+            "- Next: unrelated field."
+        )
+        out = redact(text)
+        self.assertNotIn("4c1f147", out)
+        self.assertNotIn("2026-07-04", out)
+        self.assertIn("[redacted]", out)
+        self.assertIn("unrelated field.", out)
+
+    def test_coarsens_provenance_wrapped_onto_continuation_lines(self):
+        # Same bug, worse consequence: on the real entry, Provenance's detail
+        # wrapped onto TWO continuation lines and survived in full — defeating
+        # the entire point of coarsening it to just "verified"/"assumed".
+        text = (
+            "- Provenance (verified/assumed): VERIFIED first-hand — all three failures were\n"
+            "  observed in a real Codex/Windows session this day, and each fix was made and\n"
+            "  the Unix path regression-tested.\n"
+            "- Link: https://claude.ai/code/session_ABC123"
+        )
+        out = redact(text)
+        self.assertIn("verified", out.lower())
+        self.assertNotIn("Codex/Windows session", out)
+        self.assertNotIn("regression-tested", out)
+        self.assertNotIn("ABC123", out)  # the following Link field still redacts too
 
 
 class TestExtractMemoryEntry(unittest.TestCase):

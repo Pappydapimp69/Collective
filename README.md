@@ -24,10 +24,10 @@ until this holds"):
 
 ```
 python3 -m unittest test_intake_steward.py test_export_job.py -v
-# Ran 120 tests, OK
+# Ran 122 tests, OK
 ```
 
-Three real bugs were caught and fixed during development, worth knowing about:
+Four real bugs were caught and fixed during development, worth knowing about:
 1. `redact()` was stripping the provenance *label* but leaving trailing detail text
    ("...from prior lesson.") on the same line — defeated the point of coarsening it. Fixed to
    consume the whole line.
@@ -46,8 +46,17 @@ Three real bugs were caught and fixed during development, worth knowing about:
    is exactly the kind of thing hand-written fixtures don't catch because you write the fixture
    to match what you already expect. Fixed with a negative lookbehind so `Cross-link:` no longer
    matches `Link:`.
+4. Both `redact()` regexes only matched **one physical line** — but `memory`'s real entries are
+   markdown bullets whose value can wrap onto an indented continuation line with no `- ` prefix.
+   Found while allow-listing `projects/pappydapimp69__brain.md#E1` for real: its `Link:` field's
+   continuation line (a commit hash + session date) survived untouched right after
+   `[redacted]`, and worse — its `Provenance:` field's continuation lines (two full lines of
+   investigation detail) survived in full, defeating the entire point of coarsening it to just
+   `verified`/`assumed`. Fixed by bounding both fields to "everything up to the next top-level
+   bullet or a blank line" instead of "everything up to the next newline" — verified clean
+   against the real entry, not just a fixture built to match the fix.
 
-### Dry run (2026-07-08, no live repo/secrets required)
+### Dry run (2026-07-08 / 2026-07-09, no live repo/secrets required)
 
 Everything that doesn't need a live GitHub Action was exercised end-to-end offline:
 - All 7 YAML files (`.github/ISSUE_TEMPLATE/*.yml`, `workflows/*.yml`) parse cleanly.
@@ -62,6 +71,8 @@ Everything that doesn't need a live GitHub Action was exercised end-to-end offli
 - `export_job.py`'s extractors were run against the ACTUAL fetched text of `tension-ledger.md`
   and `ideas/exploration.md` (not recreated fixtures) for the exact entries named in
   `schema-examples/allowlist.example.json` (`T4`, `S2`) — this is what caught bug #3 above.
+- The same real-content check, run again against `projects/pappydapimp69__brain.md#E1` before
+  allow-listing it, is what caught bug #4 above.
 
 Not dry-run-able without live credentials: the `gh api`/`gh issue`/`gh pr` calls inside
 `intake.yml`, the App-token minting step, and `export.yml`'s cross-repo checkouts.
