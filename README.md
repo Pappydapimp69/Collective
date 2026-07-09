@@ -1,5 +1,8 @@
 # collective — reference implementation (staged, not deployed)
 
+**Want to contribute, by hand or by connecting an LLM?** See [`CONTRIBUTING.md`](CONTRIBUTING.md)
+— it has a ready-to-paste prompt for linking your own LLM to this repo's read/propose surface.
+
 Everything in this directory implements the "Public collective — full 4-type system, zero
 touches to core" plan. It is built and **tested locally in a scratchpad** — nothing here has
 been pushed anywhere, because the `collective` repo does not exist yet and creating/writing to
