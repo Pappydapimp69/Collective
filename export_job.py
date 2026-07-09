@@ -79,12 +79,35 @@ _FIELD_END = r"(?:(?!\n[ \t]*-\s)(?!\n[ \t]*\n).)*"
 # claude.ai session URL that must be redacted) — caught by a dry run against
 # real tension-ledger.md content, where it was silently eating T4's Cross-link.
 _SESSION_LINK_RE = re.compile(r"(?<![\w-])(Link:\s*)" + _FIELD_END, re.I | re.S)
-# Consume the WHOLE rest of the field after the verified/assumed token, not
-# just the token itself — otherwise trailing detail ("...from prior lesson.",
-# or a wrapped continuation line) survives redaction untouched.
-_PROVENANCE_DETAIL_RE = re.compile(
-    r"(Provenance[^:]*:\s*)(verified first-hand|assumed)" + _FIELD_END, re.I | re.S
-)
+
+# The whole Provenance field (label + value), value bound the same way as
+# _SESSION_LINK_RE (next top-level bullet or blank line).
+_PROVENANCE_FIELD_RE = re.compile(r"(Provenance[^:\n]*:\s*)" + _FIELD_END, re.I | re.S)
+
+
+def _classify_provenance(detail: str) -> str:
+    """Reduce a free-text provenance value to one coarse label. Bulk-allowing
+    all 78 memory entries (2026-07-09) surfaced how much real phrasing this
+    field actually has — "Verified first-hand", "VERIFIED first-hand",
+    "Verified — <detail>", "Assumed from prior lesson", "REPORTED by <project>
+    ... NOT independently verified", "(not verified): <detail>", "firsthand
+    ... not assumed" — a two-token exact-match regex ("verified first-hand" |
+    "assumed") only fired on the one entry (brain.md#E1) this was originally
+    tested against and silently left the free-text detail untouched on nearly
+    every other real entry. Classify by keyword instead of exact phrase, in
+    priority order so negated/qualified phrasing ("not assumed", "not yet
+    verified", "NOT independently verified") lands in the right bucket rather
+    than matching the bare word it negates."""
+    d = detail.lower()
+    if re.search(r"(?<!not )assumed", d):
+        return "assumed"
+    if re.search(r"not\s+(?:yet\s+|independently\s+)?verified|unverified", d):
+        return "not verified"
+    if re.search(r"verified|firsthand|first[- ]hand", d):
+        return "verified"
+    if re.search(r"reported\s+by", d):
+        return "reported"
+    return "unspecified"
 
 
 def redact(entry_text: str) -> str:
@@ -93,7 +116,13 @@ def redact(entry_text: str) -> str:
     continuation lines) from that field. Applied on top of allow-listing, not
     instead of it."""
     out = _SESSION_LINK_RE.sub(r"\1[redacted]", entry_text)
-    out = _PROVENANCE_DETAIL_RE.sub(lambda m: m.group(1) + m.group(2).split()[0].lower(), out)
+
+    def _prov_sub(m: re.Match) -> str:
+        label = m.group(1)
+        detail = m.group(0)[len(label):]
+        return label + _classify_provenance(detail)
+
+    out = _PROVENANCE_FIELD_RE.sub(_prov_sub, out)
     return out
 
 
