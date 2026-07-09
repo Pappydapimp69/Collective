@@ -199,6 +199,42 @@ class TestRedaction(unittest.TestCase):
         self.assertNotIn("regression-tested", out)
         self.assertNotIn("ABC123", out)  # the following Link field still redacts too
 
+    def test_classifies_the_real_phrasing_variety_found_bulk_allowing_memory(self):
+        # Regression for a real bug: the original exact-phrase regex
+        # (`"verified first-hand" | "assumed"`) only matched the one entry
+        # (brain.md#E1) it was tested against and silently left every OTHER
+        # real Provenance value's free-text detail untouched. Found while
+        # cross-checking all 78 memory PITFALLS.md citations before bulk
+        # allow-listing them (2026-07-09). Each of these is verbatim shape
+        # from a real project file.
+        cases = [
+            # test.md#E13 — "Verified — ..." (no "first-hand" suffix)
+            ("- Provenance (verified/assumed): Verified — the undefined-color throw appeared in a\n"
+             "  full-sweep run and vanished after the rename; a prior 3-timestamp pass reported clean.",
+             "verified", ["full-sweep run", "reported clean"]),
+            # chronicles.md#E1 — leads with "Assumed", also says "not yet verified"
+            ("- Provenance (verified/assumed): Assumed from prior E8 lesson; not yet verified "
+             "in running code (game not yet implemented)",
+             "assumed", ["prior E8 lesson", "not yet implemented"]),
+            # dog.md#E1-E6 / shadow.md#E1-E4 — "REPORTED by ... NOT independently verified"
+            ("- Provenance (verified/assumed): REPORTED by the Dog Park 3D project (its OVERVIEW) "
+             "and mined cross-project this session; NOT independently verified first-hand here.",
+             "not verified", ["Dog Park 3D project", "mined cross-project"]),
+            # local__warden-fables.md#E1 — category baked into the parenthetical itself
+            ("- Provenance (not verified): the file was never run through ElevenLabs, so the fix "
+             "and the break timings are unverified against actual audio output.",
+             "not verified", ["ElevenLabs", "actual audio output"]),
+            # lockstep.md#E10 — no parenthetical label; "not assumed" must NOT match "assumed"
+            ("Provenance: firsthand from the Lockstep session (relayed via its build-letter); "
+             "observed behavior,\n  not assumed.",
+             "verified", ["build-letter", "observed behavior"]),
+        ]
+        for text, expected_label, must_not_contain in cases:
+            out = redact(text)
+            self.assertIn(expected_label, out.lower(), msg=f"input: {text!r}\noutput: {out!r}")
+            for leaked in must_not_contain:
+                self.assertNotIn(leaked, out, msg=f"leaked {leaked!r} in: {out!r}")
+
 
 class TestExtractMemoryEntry(unittest.TestCase):
     def test_extracts_correct_block_only(self):

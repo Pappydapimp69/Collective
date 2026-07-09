@@ -1,1 +1,422 @@
-[]
+[
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / narrative-design / legendary-transformation / survivorship-bias",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / NPC-SIM / emergent-traits",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / companion-tool / matchup-advisor / counters",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / companion-tool / team-comp / draft-advisor",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / combat / courtroom-boss / evidence-as-moveset",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / progression / quests / offered-not-assigned",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / progression / archetype-plus-use-skills / hybrid-identity",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / day-night / clock-as-pressure / night-as-mechanic",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / progression / world-facets-as-reward / diegetic-restore",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / interactable / effect-gated-not-existence-gated / always-present-discovery",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / ai / pursuit-ring-territory / defend-and-reset",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / stealth / disguise-and-suspicion / fake-belonging",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / mechanic / thought-bubble-reclaim / anti-softlock-timeout",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "NPC-SIM / profiling / adaptive-quiz / contradiction-testing",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "NPC-SIM / journaling / longitudinal-insight / weirdly-specific",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "NPC-SIM / interaction-engine / zanegpt / controlled-blade",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "NPC-SIM / gamification / trust-as-character / inverted-scoring",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "NPC-SIM / progression / skill-unlocks-capability / lifecycle-gating",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "NPC-SIM / social / traits-rapport-memory / double-edged-signals",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / state / phase-offset-signal-fsm / never-conflict",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / crowdsource / plant-network / anonymized-aggregation",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / data-integrity / resilient-aggregation / trust-weighting",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / barter-economy / earned-currency / negotiation",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / wager / settlement-rules / precedent",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / coaching-loop / non-blame / confidence-gated",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / architecture / authoritative-reducer / command-event-seam",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / determinism / seeded-rng / save-replay-coop-from-one-stream",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / content / objective-types / content-meets-code-seam",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / determinism / split-state-by-determinism-need / discrete-vs-continuous",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / testing / replay-fingerprint / determinism-regression-guard",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / architecture / reaction-as-optional-flag / extend-without-forking",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / gamedesign / iframes-as-command-withholding / authority-as-design",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / input / unified-command-vocabulary / device-agnostic",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / input / device-adaptive-ui / show-the-active-scheme",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / audio / beacon-vs-directional / physical-separation-required",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / audio / localizability-over-directionality / broadband-sharp-onset",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / detection / functional-test-not-api / observe-the-effect",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / interaction / attention-then-guide / one-button-composition",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / explainer / show-dont-tell-picture-book / mechanism-as-plot",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / verification / audience-vote-as-feel-metric / contest-as-instrument",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / accessibility / sensory-calibration-profile / range-aware-signals",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / sync / share-codes-not-accounts / backendless-portability",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / data-model / overrides-not-mutation / resettable-defaults",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / scheduling / critical-path-priority / bounded-workers",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / algorithm / topological-waves / max-parallelism-schedule",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / algorithm / cycle-detection-free-from-toposort / unschedulable-leftover",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / parsing / pratt-binding-power / associativity-as-plus-one",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / algorithm / diff-as-edit-graph-shortest-path / free-diagonals",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / robustness / address-by-context-not-index / drift-resilient",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / algorithm / windowed-grouping-with-overlap-merge / gap-threshold",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / gamedesign / resolve-tension-by-offering-both / player-picks-tone",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / gamedesign / skill-gated-information / archetype-perception",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / audio / procedural-spatial-stage / hear-what-you-see",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / audio / event-driven-wind / objects-sound-where-they-are",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "SYSTEM / audio / generated-diegetic-radio / moving-panner-source",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "DATA-TOY / utility / house-biography / first-person-diary",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "DATA-TOY / utility / kwh-roguelike / survival-resource",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "DATA-TOY / utility / oracle / deadpan-divination",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "DATA-TOY / generative / bill-as-album / procedural-art",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "DATA-TOY / personal-finance / commodity-terminal / utility-bill",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "DATA-TOY / personal-finance / lag-slider / market-alignment",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "DATA-TOY / personal-finance / debt-ekg / payment-cycle",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "DATA-TOY / personal-finance / balance-point / temp-vs-usage",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "narrative-design / comedy / negotiation-arc / escalation",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "narrative-design / AI-fiction / fresh-instance / inherited-files",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "WORLDBUILDING / surveillance / panopticon / observation-as-architecture",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "GARDEN / pest-control / dragonfly-airforce / predator-recruitment",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "GARDEN / pest-control / co2-decoy / body-double",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "GARDEN / whimsy / water-curtain / gutter-reclaim",
+    "type": "ideas"
+  },
+  {
+    "repo": "ideas",
+    "file": "idea-repository.md",
+    "id": "RPG / saga / versioned-carryover-code / episodic-continuity",
+    "type": "ideas"
+  }
+]
