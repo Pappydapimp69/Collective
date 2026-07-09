@@ -1,0 +1,15 @@
+{
+  "generated": "2026-07-09T01:19:55.851400+00:00",
+  "source_commits": {
+    "memory": "998b9cddeffc1b85c534d6e495d21d4f96b2c034"
+  },
+  "entries": [
+    {
+      "repo": "memory",
+      "file": "projects/pappydapimp69__brain.md",
+      "id": "E1",
+      "type": "memory",
+      "text": "## E1 \u2014 cross platform cli windows papercuts\n- Date: 2026-07-04\n- Project: pappydapimp69/Brain\n- Tags: [process][tooling][cross-platform]\n- What: A Python stdlib CLI (`brain`) written and tested on Linux, then run for\n  the first time by an agent (Codex) inside a Windows sandbox. It \"worked\" but\n  the agent had to fight through three separate Windows-only breakages before\n  the commands ran clean.\n- Why built: The CLI is meant to be vendor- and OS-neutral \u2014 any agent with a\n  shell should be able to install it, link a project, and query the system.\n- Design: `install` symlinks the CLI onto PATH; a git `pre-commit` hook shells\n  out to `python3`; command output uses status glyphs (`\u2713`, `\u2717`, `\ud83d\udd34`/`\ud83d\udfe1`).\n- Got right: The core logic (clone cache, link, pull node repos, read-only\n  status) was genuinely portable and needed no change \u2014 the failures were all\n  at the OS boundary, not in the logic.\n- Where/why it failed: Three distinct Windows papercuts, each a silent or fatal\n  stop for a Unix-shaped assumption. (1) `os.symlink` needs admin/developer mode\n  on Windows, so `install` couldn't put `brain` on PATH. (2) The hook invoked\n  `python3`, which on Windows is usually just `python`. (3) The default Windows\n  console encoding (cp1252) cannot encode `\u2713` or emoji, so Python raised\n  UnicodeEncodeError and crashed mid-print \u2014 the command had actually completed\n  its work, but died displaying the success line.\n- Fix: (1) On Windows write a `brain.cmd` shim into a cache `bin/` dir and append\n  it to the *User* PATH via PowerShell, instead of a symlink. (2) Make the hook\n  `py=$(command -v python3 || command -v python)`. (3) Detect UTF capability from\n  the original stdout encoding, `reconfigure(errors=\"replace\")` as a crash net,\n  and swap glyphs for ASCII fallbacks (`[ok]`, `(open)`, `->`) when the console\n  isn't UTF-capable.\n- Why this fix: Each fix meets Windows where it is rather than assuming a POSIX\n  shell \u2014 shim over symlink, python-or-python3, degrade-don't-die on encoding.\n  The result is clean ASCII on a legacy console and pretty glyphs on a UTF one,\n  never a crash.\n- Rule of thumb: A stdlib CLI that \"should be cross-platform\" almost always has\n  three Unix assumptions baked in \u2014 symlinks, the `python3` name, and unicode\n  console output. Test on a real Windows console early; assume none of the three\n  until you have.\n- Provenance (verified/assumed): verified\n- Link: [redacted]"
+    }
+  ]
+}
