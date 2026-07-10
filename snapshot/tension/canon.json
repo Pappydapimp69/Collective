@@ -1,7 +1,7 @@
 {
-  "generated": "2026-07-09T09:57:56.217752+00:00",
+  "generated": "2026-07-10T09:53:35.520281+00:00",
   "source_commits": {
-    "tension": "13639e86dedc2ec0f2fb61e531dddad3d0801c2c"
+    "tension": "84d05178fa924ba92b1eb9c76629c714ff5c81a0"
   },
   "entries": [
     {
@@ -128,7 +128,7 @@
       "file": "tension-ledger.md",
       "id": "T18",
       "type": "tension",
-      "text": "### T18 \u00b7 open-question \u00b7 explain-to-teach vs tell-a-story (the vote film's north star)\nSurfaced across the Picture House film iterations. The film entry in the audience vote\n(vs the data Garden) swings between two goals that pull apart.\nPoles: **engage** \u2014 a narrative with want/opposition/stakes/choice, which *moves* the\nviewer (per the `chronicle-is-not-a-story` memory) **vs** **teach** \u2014 a plain\npicture-book explainer where clarity wins and dramatic structure is deliberately\ndropped (per the owner's stated objective: a non-expert must understand the memory\nsystem). Story maximizes *feeling*; explainer maximizes *comprehension*.\nLean: \ud83d\udfe1 teach \u2014 the audience skews non-expert and clarity likely wins votes there;\nbut the S7 synthesis (fresh-instance existential arc + one survivorship reveal) may keep\nclarity AND land emotionally, dissolving the fork.\nResolution path: the vote tally settles it (ties T9/T11 \u2014 only the human eye judges\nthis). If the explainer wins, teach-first is the default for novice-facing artifacts; if\nthe story cut would have won, the boundary added to the `chronicle-is-not-a-story` rule\nneeds tightening.\nUpdates:\n- 2026-07-04 opened during the film-explainer arc; write-back per orchestration v2.\nSource: this session's film passes; exploration E6/S7; ideas [SYSTEM/explainer].\n---\n\n## How to query this ledger (for the Brain orchestrator)\nBefore committing to a system, grep this file for the relevant area: an **open**\ntension touching your work means the decision is *not yours to silently make* \u2014\nsurface it. A **leaning** tension means there's a default; honor it unless you have\nnew information, and if you resolve it, flip the status to \ud83d\udfe2 and link the decision."
+      "text": "### T18 \u00b7 open-question \u00b7 explain-to-teach vs tell-a-story (the vote film's north star)\nSurfaced across the Picture House film iterations. The film entry in the audience vote\n(vs the data Garden) swings between two goals that pull apart.\nPoles: **engage** \u2014 a narrative with want/opposition/stakes/choice, which *moves* the\nviewer (per the `chronicle-is-not-a-story` memory) **vs** **teach** \u2014 a plain\npicture-book explainer where clarity wins and dramatic structure is deliberately\ndropped (per the owner's stated objective: a non-expert must understand the memory\nsystem). Story maximizes *feeling*; explainer maximizes *comprehension*.\nLean: \ud83d\udfe1 teach \u2014 the audience skews non-expert and clarity likely wins votes there;\nbut the S7 synthesis (fresh-instance existential arc + one survivorship reveal) may keep\nclarity AND land emotionally, dissolving the fork.\nResolution path: the vote tally settles it (ties T9/T11 \u2014 only the human eye judges\nthis). If the explainer wins, teach-first is the default for novice-facing artifacts; if\nthe story cut would have won, the boundary added to the `chronicle-is-not-a-story` rule\nneeds tightening.\nUpdates:\n- 2026-07-04 opened during the film-explainer arc; write-back per orchestration v2.\nSource: this session's film passes; exploration E6/S7; ideas [SYSTEM/explainer]."
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
-  "generated": "2026-07-09T09:57:56.187240+00:00",
+  "generated": "2026-07-10T09:53:35.479578+00:00",
   "source_commits": {
-    "ideas": "a27913460c4146a506b70c757f20b71ad36db8a3"
+    "ideas": "0aad6edbdaf13cb6309640231ad90980a677abb8"
   },
   "entries": [
     {
@@ -9,7 +9,7 @@
       "file": "idea-repository.md",
       "id": "RPG / narrative-design / legendary-transformation / survivorship-bias",
       "type": "ideas",
-      "text": "## [RPG / narrative-design / legendary-transformation / survivorship-bias]\n\nStory: player unlocks a \"legendary\" transformation; other players of the same class unlock it too, seemingly contradicting its legendary status. Reveal: it was legendary only because every prior achiever died in battle before explaining it. Now that survivors exist, it's demystified \u2014 which is why multiple people can hold it at once. Tonal reference: Super Saiyan in DBZ."
+      "text": "## [RPG / narrative-design / legendary-transformation / survivorship-bias]\n\nStory: player unlocks a \"legendary\" transformation; other players of the same class unlock it too, seemingly contradicting its legendary status. Reveal: it was legendary only because every prior achiever died in battle before explaining it. Now that survivors exist, it's demystified \u2014 which is why multiple people can hold it at once. Tonal reference: Super Saiyan in DBZ.\n\n*(External-research addendum, 2026-07-09): this is a recognized device \u2014 TV Tropes catalogs \"Survivorship Bias\" as a narrative trope precisely because a story's protagonist-focus inherently biases toward whoever lived to tell it; the twist here (demystification via new survivors) is a sharper variant, related to Decoy Protagonist / Posthumous Narration. Correction to the tonal reference: regular Super Saiyan has no such legend (Goku simply taught others); the real DBZ analog is the separate **Legendary Super Saiyan** form (Broly, Kale) \u2014 canon says it occurs once every thousand years and the wielder historically rampages until self-destructing, i.e. no survivors \u2014 but canon explains multiple appearances via independent recurrence across different universes, not \"survivors now exist to demystify it.\" This idea's mechanic is more clever than the canon it cites; cite it as an original twist on the trope, not as a retelling of DBZ lore.*"
     },
     {
       "repo": "ideas",
