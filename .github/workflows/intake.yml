@@ -36,10 +36,19 @@ concurrency:
 
 jobs:
   validate-and-commit:
-    if: contains(github.event.issue.labels.*.name, 'intake:memory') ||
-        contains(github.event.issue.labels.*.name, 'intake:ideas') ||
-        contains(github.event.issue.labels.*.name, 'intake:tension') ||
-        contains(github.event.issue.labels.*.name, 'intake:creativity')
+    # DISABLED — training-mode failsafe. While Collective is untested, the only
+    # public write path that operates is training mode (the gaps/ folder). The
+    # full entry-intake pipeline (public submissions that become canon) is
+    # switched off here, and its four issue forms are parked in
+    # ISSUE_TEMPLATE/_disabled/ so they don't appear. To re-enable the full
+    # system later, restore the label conditions below (in the git history) and
+    # move the four forms back into ISSUE_TEMPLATE/.
+    if: false
+    # Original condition (kept for the flip-back):
+    #   contains(github.event.issue.labels.*.name, 'intake:memory') ||
+    #   contains(github.event.issue.labels.*.name, 'intake:ideas') ||
+    #   contains(github.event.issue.labels.*.name, 'intake:tension') ||
+    #   contains(github.event.issue.labels.*.name, 'intake:creativity')
     runs-on: ubuntu-latest
     steps:
       - name: Mint a short-lived bot token from the GitHub App
@@ -76,10 +85,15 @@ jobs:
           done
 
       - name: Write issue body to file
+        # The issue body is untrusted public input. Pass it through the
+        # environment (never expanded as shell) rather than interpolating it
+        # into the script — a body containing the heredoc sentinel, backticks,
+        # or $(...) must be inert data, not executable text. printf %s writes
+        # it verbatim with no interpretation.
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
-          cat > /tmp/body.txt << 'ISSUE_BODY_EOF'
-          ${{ github.event.issue.body }}
-          ISSUE_BODY_EOF
+          printf '%s' "$ISSUE_BODY" > /tmp/body.txt
 
       - name: Fetch account age (for new-account extra scrutiny)
         id: account
