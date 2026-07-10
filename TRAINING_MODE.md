@@ -101,11 +101,13 @@ Each iteration:
 
 GATE 7 - PERSIST, DON'T CLOSE
 Whatever you mined this session APPENDS to that gap's record in the gaps folder - it does not
-resolve the gap. A single session can NEVER mark a gap closed. Closure requires either
-independent sessions converging on the same answer, or a human confirming it during the
-mediated review. Subjective gaps may never fully close, and that is a valid resting state,
-not a failure. Set provenance to "Assumed" for a lone opinion-based round; "Verified
-first-hand" only when the answer is externally grounded with real citations.
+resolve the gap. A single session can NEVER mark a gap closed. Even when several sessions agree,
+that convergence is only a FLAG for a human to go read the actual content - it is never proof and
+never closes a gap on its own. Assume nothing about whether those sessions were independent; they
+may not be. Closure only ever comes from a human confirming the substance during the mediated
+review. Subjective gaps may never fully close, and that is a valid resting state, not a failure.
+Set provenance to "Assumed" for a lone opinion-based round; "Verified first-hand" only when the
+answer is externally grounded with real citations.
 
 GATE 8 - RESULTS, THEN BACK TO THE TOP
 Only now - after the loop has actually terminated - ask: "Want to see the results?"

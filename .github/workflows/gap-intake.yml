@@ -110,7 +110,7 @@ jobs:
           Fix the issue above and open a new submission — this one won't be auto-retried."
           gh issue close "${{ github.event.issue.number }}" --reason "not planned"
 
-      - name: Accept — write under gaps/ only, open an auto-merging PR
+      - name: Accept — write under gaps/ only, open a PR for human merge
         if: steps.validate.outputs.status == 'accept'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
@@ -156,11 +156,14 @@ jobs:
           git push origin "$branch"
 
           gh pr create --title "gap: ${filename}" \
-            --body "Mechanically validated gap write from #${{ github.event.issue.number }}. Auto-merges once gap-diff-shape-check passes." \
+            --body "Mechanically validated gap write from #${{ github.event.issue.number }}. Waits for a human to merge — auto-merge is OFF while the public path is untested." \
             --label "gap:auto"
-          # Auto-merge: lands only after the independent diff-shape check is green.
-          # Requires branch protection on main requiring that check (see staging README).
-          gh pr merge --auto --squash
+          # Auto-merge is intentionally OFF (training-mode failsafe): even a gap
+          # write that passed every automated check waits for a human to click
+          # merge, so nothing touches the repo unattended while the public path
+          # is still being observed under load. Re-enabling later is one line —
+          # add `gh pr merge --auto --squash` here — but only after the
+          # branch-protection required check is in place (see staging README).
           gh issue comment "${{ github.event.issue.number }}" \
-            --body "Passed automated checks — opened as an auto-merging pull request for the gaps folder."
+            --body "Passed automated checks — opened as a pull request for the gaps folder. A human reviews and merges it; nothing lands automatically."
           gh issue close "${{ github.event.issue.number }}" --reason "completed"

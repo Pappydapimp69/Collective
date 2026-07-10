@@ -1,0 +1,20 @@
+# On-demand status report over the public gaps/ folder. Read-only: no App
+# token, no write permissions, opens nothing and merges nothing. Run it from
+# the Actions tab (the "Run workflow" button) whenever you want to see what the
+# public training-mode path has produced — the summary appears on the run's
+# page. Nothing here can modify the repo.
+name: collective-gaps-report
+
+on:
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build the gaps report
+        run: python3 gap_report.py gaps >> "$GITHUB_STEP_SUMMARY"

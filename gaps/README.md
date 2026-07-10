@@ -25,6 +25,17 @@ A gap moves through states; only the log grows, never shrinks:
 `reaction`/subjective gaps may sit at `accumulating` indefinitely. That is a valid resting
 state, not a stalled one — consensus on subjective terrain may never fully form.
 
+### Convergence is a flag for a human, never a verdict
+
+`converging` does **not** mean an answer is true or ready to promote. It means several sessions
+happened to land in the same place — and the system has no way to prove those sessions were
+actually independent. One person (or one motivated actor) can run several sessions and
+manufacture agreement, and every individual write will have passed screening cleanly. So
+convergence must only ever do one thing: **draw a human's attention to read the actual content**.
+It never counts as evidence on its own, and it never closes a gap. A human promoting anything out
+of this folder judges the substance, not the number of sessions that agreed. This is the same
+discipline the core system holds everywhere — a tally is not a truth.
+
 ## Record format
 
 Copy [`TEMPLATE.md`](TEMPLATE.md) to `gaps/<domain>--<slug>.md` and fill the header once; every
