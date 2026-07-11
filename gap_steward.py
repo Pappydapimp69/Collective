@@ -57,6 +57,14 @@ from intake_steward import (
 # stored here so later sessions and the folder's own tooling can see it.
 GAP_TYPES = {"fact-lookup", "fit", "reaction"}
 
+# Which gap types an AUTO session may work. auto is a supervised run (a human
+# watches and it pauses at Gate 8), so it can settle any gap whose signal is
+# OBJECTIVE — a 'fact-lookup' (an external source settles it) or a 'fit' (a
+# built artifact demonstrably works together or doesn't). It may NOT work a
+# 'reaction' gap: the only signal there is a real person's in-the-moment
+# reaction, and a machine cannot supply that even with someone watching.
+AUTO_ALLOWED_GAP_TYPES = {"fact-lookup", "fit"}
+
 # The session modes this path accepts. For the FIRST PUBLIC RELEASE, training is
 # limited to auto only — the highest-signal, most self-contained mode. Teacher
 # and playmate stay valid vocabulary (existing records use them) but a NEW
@@ -160,14 +168,14 @@ def check_gap_schema(
         gtype = fields.get("gap-type", "").strip().lower()
         if gtype and gtype not in GAP_TYPES:
             errors.append(f"gap type '{gtype}' is not one of {', '.join(sorted(GAP_TYPES))}")
-        # Auto (unattended) sessions may only self-run research-settleable gaps.
-        # A fit/reaction gap needs a real person's reaction as its only signal;
-        # a machine judging its own artifact is not a judge. So auto is confined
-        # to fact-lookup, where an external source — not an opinion — settles it.
-        if is_auto and gtype in ("fit", "reaction"):
+        # Auto sessions may only work gaps with an OBJECTIVE signal: fact-lookup
+        # (an external source settles it) or fit (a built artifact settles it).
+        # A 'reaction' gap's only signal is a real person's reaction — a machine
+        # cannot supply that even while supervised — so auto may not create one.
+        if is_auto and gtype and gtype not in AUTO_ALLOWED_GAP_TYPES:
             errors.append(
-                "auto mode may only create 'fact-lookup' gaps — 'fit' and 'reaction' gaps "
-                "need a human reaction, which an unattended run cannot supply"
+                "auto mode may only work 'fact-lookup' or 'fit' gaps — a 'reaction' gap "
+                "needs a real person's reaction, which an auto run cannot supply"
             )
         # a create may include an optional first session block; if a session
         # date is given, the whole block must be complete
@@ -193,12 +201,12 @@ def check_gap_schema(
             errors.append(f"append target '{target}' does not exist — create it first, or fix the name")
         else:
             filename = target
-            # Same fact-lookup-only rule as create, enforced against the TARGET
+            # Same objective-signal rule as create, enforced against the TARGET
             # gap's declared type. Default-deny: an unknown/blank type is not
-            # provably fact-lookup, so an auto append to it is rejected.
-            if is_auto and existing_gaps.get(target, "") != "fact-lookup":
+            # provably fact-lookup or fit, so an auto append to it is rejected.
+            if is_auto and existing_gaps.get(target, "") not in AUTO_ALLOWED_GAP_TYPES:
                 errors.append(
-                    "auto mode may only append to a 'fact-lookup' gap — this target is "
+                    "auto mode may only append to a 'fact-lookup' or 'fit' gap — this target is "
                     f"'{existing_gaps.get(target, '') or 'unknown'}', which needs a human reaction"
                 )
         # an append always logs a session — that's why you're appending

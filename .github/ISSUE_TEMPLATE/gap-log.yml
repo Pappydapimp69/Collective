@@ -81,7 +81,7 @@ body:
     id: session-mode
     attributes:
       label: Session mode
-      description: "Training is auto-only for the first public release. auto = a research-only run on a fact-lookup gap. (teacher/playmate return in a later release.)"
+      description: "Training is auto-only for the first public release. auto = a self-run on an objective-signal gap: a fact-lookup (settled by research) or a fit (settled by a built artifact). Not reaction gaps. (teacher/playmate return in a later release.)"
       options:
         - auto
     validations:
