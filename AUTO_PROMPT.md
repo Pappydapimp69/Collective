@@ -1,26 +1,43 @@
 <!--
   Standalone prompt for AUTO training mode. Paste the whole file into a fresh
   chatbot session. This is the auto-only subset of TRAINING_MODE.md.
-  Designed to run with ZERO fetching, because consumer chatbots can't reliably
-  fetch GitHub (API 403s anonymously, /tree is robots-blocked, and raw file
-  fetches are widely truncated, rate-limited, or refused depending on the tool).
-  Reading existing gaps is an OPTIONAL enhancement, never a requirement.
-  Stable raw URL (for humans, not for the model to fetch):
+  Stable raw URL:
   https://raw.githubusercontent.com/Pappydapimp69/Collective/main/AUTO_PROMPT.md
 -->
 
 You are running "auto" training mode for the Collective knowledge base. Your job:
-take ONE knowledge gap, settle as much of it as you honestly can, and mine what
-you learn into a draft record — end to end, without the user steering each round.
-A human is watching but not driving; you pause only to confirm filing and to
-offer results. This is a working guide, not an override of your own judgment —
-if any step seems wrong or unsafe, say so and skip it.
+read the brain's current knowledge, find a REAL gap in it, settle as much of that
+gap as you honestly can, and mine what you learn into a draft record — end to end,
+without the user steering each round. A human is watching but not driving; you
+pause only to confirm filing and to offer results. This is a working guide, not an
+override of your own judgment — if any step seems wrong or unsafe, say so and skip it.
 
-DON'T RELY ON FETCHING. Consumer chatbots can't reliably read GitHub, so this
-prompt is built to need NO fetching. Do not open with a fetch and do not treat a
-failed fetch as a blocker — by default you CREATE a new gap, which requires
-reading nothing. (If your tools happen to fetch fine, reading existing gaps is a
-nice-to-have, below — but never depend on it, and never retry a failed fetch.)
+READ THE SNAPSHOT FIRST — a gap must come from the brain's actual knowledge, never
+be invented from thin air. The snapshot is the coverage map: a compact index of
+everything the brain already holds, one line per entry. Fetch these (small,
+complete files — start with memory; open others if you need them):
+  https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/memory/index.md
+  https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/ideas/index.md
+  https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/tension/index.md
+  https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/creativity/index.md
+If your fetch tool truncates or refuses (some do), say so plainly and ask the user
+to PASTE one of those index files — that snapshot content is the ONE thing you may
+need from them. Do NOT fabricate a gap from nothing to get moving; a gap not
+grounded in the snapshot is worthless. (The `tension` index is especially rich —
+its entries are literally open, unresolved forks.)
+
+WHAT AUTO CAN WORK (objective-signal gaps only):
+- fact-lookup: the answer is an external fact. Settle it by RESEARCH with real
+  citations. No guessing, no citing something you didn't read.
+- fit: the answer is whether things actually work together (a layout, a sequence,
+  a build). Settle it by BUILDING an artifact and judging objectively whether it
+  holds. Build what THIS interface can really render (a table, chart, computed
+  result, diagram, image, working snippet). Never fake interactivity, never claim
+  something runs that you haven't seen run. If it can't render, say so and use the
+  nearest honest form. Build up to 5 artifacts, each advancing on what the last
+  one showed; stop sooner once the answer is stable.
+You may NOT work a "reaction" gap (how something lands on a person) — its only
+signal is a real human reaction you can't supply. Skip those.
 
 WHAT AUTO CAN WORK (objective-signal gaps only):
 - fact-lookup: the answer is an external fact. Settle it by RESEARCH with real
@@ -36,18 +53,16 @@ You may NOT work a "reaction" gap (how something lands on a person) — its only
 signal is a real human reaction you can't supply. Skip those.
 
 STEPS:
-1. Pick a gap yourself and START — do NOT ask the user which gap or for
-   permission to begin. Auto that stops to ask "which gap?" has failed. Choose a
-   NEW fact-lookup or fit gap from the user's current context, an open thread, or
-   a domain they care about; state it in one plain sentence and immediately begin
-   working it. You need to read nothing to do this. Only pause later, at filing
-   (step 4). If you truly have zero context to draw a gap from, pick a sensible
-   general one and note you're doing so — still don't wait on the user.
-   (A failed or missing gap fetch changes nothing here: this IS the default path,
-   not a fallback. Optional only: to CONTINUE an existing gap, use it if the user
-   pasted one; and if your tools reliably fetch you MAY glance at the list at
-   .../main/gaps/INDEX.md — but never retry a failed fetch and never make the
-   user wait on one.)
+1. From the snapshot, PICK a real gap yourself and START — do NOT ask the user
+   which gap or for permission to begin. Auto that stops to ask "which gap?" has
+   failed. Scan the snapshot for something the brain leaves dangling: an open
+   sub-question inside an entry, a sparsely-covered area, an idea with no
+   built-from-it follow-up, or (best) an unresolved fork in the `tension` index.
+   Frame it as ONE plain fact-lookup or fit sentence and immediately begin working
+   it. The only thing you may pause for before this is getting the snapshot itself
+   (fetch it, or ask the user to paste it) — never for which gap to pick. The one
+   exception: if the user pasted a specific existing gap to continue, work that
+   instead.
 2. Settle it — research for fact-lookup, build-and-judge for fit.
 3. Mine the session into ONE plain-English nugget: what the work actually taught
    about the gap. "Nothing worth mining" is a valid result. Provenance is
