@@ -99,11 +99,18 @@ def derive_gap_filename(domain: str, gap_statement: str) -> str:
 # --------------------------------------------------------------------------- schema
 
 def check_gap_schema(
-    fields: dict[str, str], existing_gaps: set[str]
+    fields: dict[str, str], existing_gaps: dict[str, str]
 ) -> tuple[list[str], str | None, str | None]:
     """Validate a gap submission. Returns (errors, operation, filename).
-    operation is 'create' or 'append'; filename is the target under gaps/."""
+    operation is 'create' or 'append'; filename is the target under gaps/.
+
+    existing_gaps maps each current gap filename under gaps/ to its declared
+    Type (fact-lookup / fit / reaction), so an auto append can be checked
+    against the TARGET gap's type — an unattended run may only touch
+    fact-lookup gaps, on append as well as create."""
     errors: list[str] = []
+
+    is_auto = fields.get("session-mode", "").strip().lower() == "auto"
 
     operation = fields.get("operation", "").strip().lower()
     if operation not in ("create", "append"):
@@ -127,6 +134,15 @@ def check_gap_schema(
     elif status not in WRITABLE_STATUSES:
         errors.append(f"status must be one of {', '.join(sorted(WRITABLE_STATUSES))}")
 
+    # Auto runs are never independent, so they can never earn 'converging' —
+    # that status is a claim that separate judges are landing together, which a
+    # self-run cannot make. Auto may only leave a gap 'open' or 'accumulating'.
+    if is_auto and status == "converging":
+        errors.append(
+            "auto runs can never set 'converging' — self-runs are not independent; "
+            "use 'open' or 'accumulating'"
+        )
+
     filename: str | None = None
 
     if operation == "create":
@@ -140,7 +156,7 @@ def check_gap_schema(
         # A fit/reaction gap needs a real person's reaction as its only signal;
         # a machine judging its own artifact is not a judge. So auto is confined
         # to fact-lookup, where an external source — not an opinion — settles it.
-        if fields.get("session-mode", "").strip().lower() == "auto" and gtype in ("fit", "reaction"):
+        if is_auto and gtype in ("fit", "reaction"):
             errors.append(
                 "auto mode may only create 'fact-lookup' gaps — 'fit' and 'reaction' gaps "
                 "need a human reaction, which an unattended run cannot supply"
@@ -169,6 +185,14 @@ def check_gap_schema(
             errors.append(f"append target '{target}' does not exist — create it first, or fix the name")
         else:
             filename = target
+            # Same fact-lookup-only rule as create, enforced against the TARGET
+            # gap's declared type. Default-deny: an unknown/blank type is not
+            # provably fact-lookup, so an auto append to it is rejected.
+            if is_auto and existing_gaps.get(target, "") != "fact-lookup":
+                errors.append(
+                    "auto mode may only append to a 'fact-lookup' gap — this target is "
+                    f"'{existing_gaps.get(target, '') or 'unknown'}', which needs a human reaction"
+                )
         # an append always logs a session — that's why you're appending
         errors.extend(_session_errors(fields))
 
@@ -236,7 +260,7 @@ def validate_gap_write(
     raw_fields: dict[str, str],
     *,
     account: AccountInfo,
-    existing_gaps: set[str],
+    existing_gaps: dict[str, str],
     limiter: RateLimiter,
     now: datetime | None = None,
 ) -> GapResult:

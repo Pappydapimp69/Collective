@@ -33,7 +33,8 @@ def main() -> int:
     p.add_argument("--login", required=True)
     p.add_argument("--created-at", required=True, help="ISO 8601, e.g. 2024-01-01T00:00:00+00:00")
     p.add_argument("--existing-gaps-file", required=True,
-                    help="JSON list of the .md filenames currently in gaps/")
+                    help="JSON: either a list of the .md filenames in gaps/, or a "
+                         "{filename: type} map (type enables the auto fact-lookup-only check)")
     p.add_argument("--ratelimit-file", required=True, help="JSON rate-limiter state, read AND rewritten")
     p.add_argument("--form-file", required=True,
                     help="Path to ISSUE_TEMPLATE/gap-log.yml — the label->id map is derived from it")
@@ -42,7 +43,12 @@ def main() -> int:
     with open(args.body_file, encoding="utf-8") as f:
         body = f.read()
     with open(args.existing_gaps_file, encoding="utf-8") as f:
-        existing_gaps = set(json.load(f))
+        raw_existing = json.load(f)
+    # Accept either a list of filenames (legacy) or a {filename: type} map. The
+    # map lets the steward enforce the fact-lookup-only rule for auto appends
+    # against the target gap's type; a bare list yields unknown types, which the
+    # steward treats as not-provably-fact-lookup (default-deny for auto).
+    existing_gaps = raw_existing if isinstance(raw_existing, dict) else {n: "" for n in raw_existing}
     with open(args.ratelimit_file, encoding="utf-8") as f:
         limiter = RateLimiter.from_json(f.read())
     with open(args.form_file, encoding="utf-8") as f:

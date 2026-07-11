@@ -66,13 +66,28 @@ jobs:
         run: |
           mkdir -p /tmp/state
           cp gaps/_state/ratelimit.json /tmp/state/ratelimit.json 2>/dev/null || echo '{}' > /tmp/state/ratelimit.json
-          # Only lowercase-slug .md files are gaps; README/TEMPLATE/GAP_WRITE_PATH
-          # (uppercase) are excluded and can never be append targets anyway.
+          # Only lowercase-slug .md files are gaps; README/TEMPLATE (uppercase)
+          # are excluded and can never be append targets anyway. Emit a
+          # {filename: type} map so the steward can enforce the auto
+          # fact-lookup-only rule against the TARGET gap's declared Type.
           python3 - << 'PY' > /tmp/existing_gaps.json
           import glob, json, os, re
           slug = re.compile(r"^[a-z0-9][a-z0-9-]*\.md$")
-          names = [os.path.basename(p) for p in glob.glob("gaps/*.md")]
-          print(json.dumps([n for n in names if slug.match(n)]))
+          type_re = re.compile(r"^-\s*\*\*Type:\*\*\s*(.+)$")
+          out = {}
+          for p in glob.glob("gaps/*.md"):
+              n = os.path.basename(p)
+              if not slug.match(n):
+                  continue
+              gtype = ""
+              with open(p, encoding="utf-8") as fh:
+                  for line in fh:
+                      m = type_re.match(line.strip())
+                      if m:
+                          gtype = m.group(1).strip().lower()
+                          break
+              out[n] = gtype
+          print(json.dumps(out))
           PY
 
       - name: Run the gap steward
