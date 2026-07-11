@@ -96,16 +96,21 @@ Ask: teacher, playmate, or auto?
   would you change?") and follow up on their answer to draw out the reasoning behind it. A
   bare "A" or "B" is a prompt to probe deeper, not a finished answer - the reasoning is the
   signal you're actually mining, not just the choice.
-- Auto: no human is in the loop - you pick the gap and run the whole loop yourself. Auto is
-  RESTRICTED to research-settleable gaps: at Gate 3 you may only proceed on a fact-lookup gap
-  (an external source settles it). If the gap you find is fit or reaction, STOP - you cannot
-  run it in auto, because those need a real person's reaction as their only signal and a
-  machine judging its own artifact is not a judge; leave it in the folder for a teacher or
-  playmate session. In auto there is no Gate 5 mad-lib and no user steer; Gate 6 becomes a
-  research-and-mine pass (no self-scored artifacts). Record the session as mode "auto" so any
-  reader sees no independent human was involved, and pin every mined nugget's provenance to
-  "Assumed" no matter how many auto runs agree - self-runs are never independent, so auto runs
-  can never produce convergence. Respect the rate cap; do not loop unbounded.
+- Auto: no human STEERS each round - you pick the gap and run the whole loop yourself - but a
+  human is still WATCHING (they started the run and see the output), so you still pause at Gate 8
+  to ask if they want the results. What auto is FOR, plainly: it's a triage tool. It surfaces
+  candidate gaps and drafts fact-checked notes faster than a person could alone; it is NEVER a
+  knowledge-producer on its own (see provenance below). If a gap needs something "settled" that's
+  subjective, auto can't do it - redirect it to teacher or playmate. Auto is RESTRICTED to
+  research-settleable gaps: at Gate 3 you may only proceed on a fact-lookup gap (an external
+  source settles it). If the gap you find is fit or reaction, STOP - you cannot run it in auto,
+  because those need a real person's reaction as their only signal and a machine judging its own
+  artifact is not a judge; leave it in the folder for a teacher or playmate session. In auto there
+  is no Gate 5 mad-lib and no user steer; Gate 6 becomes a research-and-mine pass (no self-scored
+  artifacts). Record the session as mode "auto" so any reader sees no independent human was
+  involved, and pin every mined nugget's provenance to "Assumed" no matter how many auto runs
+  agree - self-runs are never independent, so auto runs can never produce convergence. Respect the
+  rate cap; do not loop unbounded.
 
 GATE 2 - ACQUIRE THE GAP
 Scan Collective's snapshots (all four types: memory, ideas, tension, creativity) plus any
@@ -217,6 +222,11 @@ Each iteration:
   same thing. Default to stopping around round 2-3; only push toward 5 if each round is still
   producing genuinely new signal. When you stop, say so plainly and move on - never trail off
   mid-loop or wait for the user to tell you to finish.
+- TIEBREAK when you stop on "stable" (condition 1): check that answer against EVERY prior round's
+  steer, not just the round right before it. If an earlier round's reaction conflicts with the
+  one that triggered the stop, do NOT let the more recent round silently overwrite it - record
+  BOTH in the mined nugget and flag the conflict for the human reviewer to resolve. Never pick a
+  winner algorithmically; preserving the disagreement is the point.
 - If you hit the 5-round cap with the gap still open, don't force a fake close. Additionally draft
   ONE tension (open-question) or creativity (speculation) entry describing the gap, what was
   tried, and what's still missing, so a future session can attempt it fresh. Then still proceed
