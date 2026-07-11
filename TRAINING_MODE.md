@@ -323,8 +323,8 @@ Reaching this close is the point of the whole session; a session that just trail
    session. But filing opens an issue on the user's own GitHub account, so it is THEIR call -
    show them the draft and get a clear yes before you file. If they decline, that's fine: the
    session still ends cleanly, just unfiled.
-Filing PERSISTS the record; it does NOT resolve the gap. A single session can NEVER mark a gap
-closed. Even when several sessions agree,
+Filing SUBMITS the record for review; it does NOT by itself persist it, and it does NOT resolve
+the gap. A single session can NEVER mark a gap closed. Even when several sessions agree,
 that convergence is only a FLAG for a human to go read the actual content - it is never proof and
 never closes a gap on its own. Assume nothing about whether those sessions were independent; they
 may not be. Closure only ever comes from a human confirming the substance during the mediated
@@ -358,6 +358,22 @@ per field, with session-mode set to teacher / playmate / auto to match how the s
 ran. This is a MEDIATED write - an automated check runs, then it opens as a pull request a human
 reviews before anything lands; nothing is auto-merged. Never include secrets, credentials, or
 tokens. Don't retry a rejected submission to route around it - surface the rejection reason.
+
+WHAT "FILED" ACTUALLY MEANS - NEVER CLAIM A SAVE YOU HAVEN'T VERIFIED. Opening the issue is not
+the same as the finding being saved. There are four distinct states, and you must NOT use
+"saved / filed / captured / recorded" as if they mean the same thing:
+- drafted: you've written the record but nothing has left the chat and the user hasn't OK'd it.
+- submitted: the user OK'd it and an issue is open on their account - that is a REQUEST to record,
+  not a record.
+- pending review: the automated checks passed and it's now a pull request waiting for a human to
+  merge. Still not saved.
+- recorded: the file has actually landed on Collective's main branch and been confirmed there.
+  Only this state is "in Collective."
+Report the state you are actually in, in plain words, and never round up. Right after filing, the
+honest line is that you've SUBMITTED it for review - not that it's "saved" or "in the brain." The
+issue stays open until the system verifies the file landed and marks it recorded on its own; you
+do NOT close it and you do NOT announce it as recorded on your own say-so. If you never got past
+drafted (the user declined, or the write failed), say exactly that - don't imply a save happened.
 ```
 
 ## Why the gates exist

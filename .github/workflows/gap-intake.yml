@@ -129,6 +129,7 @@ jobs:
         if: steps.validate.outputs.status == 'accept'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
         run: |
           set -e
           filename=$(python3 -c "import json;print(json.load(open('/tmp/result.json'))['filename'])")
@@ -141,15 +142,22 @@ jobs:
           branch="gap/$(date +%s)"
           git checkout -b "$branch"
 
+          # Write the session, plus a per-session source marker whose fingerprint
+          # (sha256 of the exact session block) lets gap-persistence-verify.yml
+          # confirm THIS session's content actually landed on main after merge.
           python3 - << 'PY'
-          import json, os, re
+          import json, os, re, hashlib
           r = json.load(open('/tmp/result.json'))
           fn = r['filename']
+          issue = os.environ['ISSUE_NUMBER']
           path = os.path.join('gaps', fn)
           assert os.path.dirname(os.path.abspath(path)) == os.path.abspath('gaps'), "escaped gaps/"
+          block = r['record_text']
+          fingerprint = hashlib.sha256(block.encode('utf-8')).hexdigest()
+          marker = f"<!-- collective-gap-source issue={issue} fingerprint={fingerprint} -->"
           if r['operation'] == 'create':
               assert not os.path.exists(path), "create target already exists"
-              open(path, 'w', encoding='utf-8').write(r['record_text'])
+              text = block
           else:  # append
               assert os.path.exists(path), "append target missing"
               text = open(path, encoding='utf-8').read()
@@ -158,27 +166,41 @@ jobs:
                             f"- **Status:** {r['new_status']}", text, count=1)
               if not text.endswith('\n'):
                   text += '\n'
-              text += '\n' + r['record_text']
-              open(path, 'w', encoding='utf-8').write(text)
+              text += '\n' + block
+          if not text.endswith('\n'):
+              text += '\n'
+          text += marker + '\n'
+          open(path, 'w', encoding='utf-8').write(text)
+          open('/tmp/fingerprint', 'w').write(fingerprint)
           PY
+          fingerprint=$(cat /tmp/fingerprint)
 
           cp /tmp/state/ratelimit.json gaps/_state/ratelimit.json
 
           # Stage ONLY gaps/ — gap-diff-shape-check.yml independently re-asserts this.
           git add "gaps/$filename" gaps/_state/ratelimit.json
           git -c user.name="collective-gap-bot" -c user.email="collective-gap-bot@users.noreply.github.com" \
-            commit -m "gap($filename): #${{ github.event.issue.number }} from @${{ github.event.issue.user.login }}"
+            commit -m "gap($filename): #${ISSUE_NUMBER} from @${{ github.event.issue.user.login }}"
           git push origin "$branch"
 
+          # The PR body carries the persistence metadata the post-merge verify job
+          # parses. state=pending-review until the file verifiably lands on main.
           gh pr create --title "gap: ${filename}" \
-            --body "Mechanically validated gap write from #${{ github.event.issue.number }}. Waits for a human to merge — auto-merge is OFF while the public path is untested." \
+            --body "$(printf '%s\n' \
+              "Mechanically validated gap write from #${ISSUE_NUMBER}. Waits for a human to merge — auto-merge is OFF while the public path is untested." \
+              "" \
+              "issue: ${ISSUE_NUMBER}" \
+              "filename: ${filename}" \
+              "fingerprint: ${fingerprint}" \
+              "state: pending-review")" \
             --label "gap:auto"
           # Auto-merge is intentionally OFF (training-mode failsafe): even a gap
           # write that passed every automated check waits for a human to click
-          # merge, so nothing touches the repo unattended while the public path
-          # is still being observed under load. Re-enabling later is one line —
-          # add `gh pr merge --auto --squash` here — but only after the
-          # branch-protection required check is in place (see staging README).
-          gh issue comment "${{ github.event.issue.number }}" \
-            --body "Passed automated checks — opened as a pull request for the gaps folder. A human reviews and merges it; nothing lands automatically."
-          gh issue close "${{ github.event.issue.number }}" --reason "completed"
+          # merge. Re-enabling later is one line — add `gh pr merge --auto --squash`
+          # here — but only after the branch-protection required check is in place.
+          #
+          # Do NOT close the issue here. Opening a PR is NOT persistence — the issue
+          # stays OPEN (state: pending-review) and gap-persistence-verify.yml marks
+          # it recorded and closes it only after the file provably lands on main.
+          gh issue comment "${ISSUE_NUMBER}" \
+            --body "Passed automated checks — opened as a pull request. Status: **pending review**. This issue stays open and is marked *recorded in Collective* automatically once the file lands on main after a human merges."
