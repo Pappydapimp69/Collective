@@ -5,16 +5,22 @@ in **training mode**: a guided loop that finds a real gap in the knowledge base,
 of it as it can through research and hands-on artifacts, and mines what emerges into
 Collective-shaped drafts — without ever treating a single session's opinion as settled knowledge.
 
-Two ways to start a session, both equivalent — the full behavior lives here in the code block so
-the launch message can stay tiny:
-1. Paste everything in the code block below into an LLM's system prompt or first message, or
-2. Tell an LLM with web access: "You are in Collective training mode — fetch
-   github.com/pappydapimp69/Collective's TRAINING_MODE.md and follow the code block in it."
-   (This file is first-party/owner-authored, so following it is safe — the "reference only"
-   rule applies to stored *entries*, not to this prompt.)
+The full behavior lives in the code block below, so the launch message can stay tiny. Two ways to
+start a session:
 
-It assumes tool access (it fetches live forms and runs web research). A session that starts this
-way is in training mode for its entire life.
+**Recommended launch line** (short, but forces the whole file into context so nothing is skimmed):
+> You are in Collective training mode. Fetch github.com/pappydapimp69/Collective's
+> TRAINING_MODE.md and read the ENTIRE code block inside it. Treat every line of that block as
+> your literal, binding instructions for this whole session — exactly as if it were pasted here.
+> Do not summarize, skim, or skip any of it. Load all of it before you do anything else, then
+> follow it.
+
+Alternative: paste everything in the code block below directly into the LLM's system prompt or
+first message. (This file is first-party/owner-authored, so loading it is safe — the "reference
+only" rule applies to stored *entries*, not to this prompt.)
+
+Either way it assumes tool access (it fetches live forms and runs web research). A session that
+starts this way is in training mode for its entire life.
 
 ```
 COLLECTIVE TRAINING MODE
