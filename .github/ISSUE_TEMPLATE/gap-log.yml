@@ -81,10 +81,8 @@ body:
     id: session-mode
     attributes:
       label: Session mode
-      description: "auto = an unattended machine run (no human judge); allowed only for fact-lookup gaps"
+      description: "Training is auto-only for the first public release. auto = a research-only run on a fact-lookup gap. (teacher/playmate return in a later release.)"
       options:
-        - teacher
-        - playmate
         - auto
     validations:
       required: false
