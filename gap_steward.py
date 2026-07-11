@@ -57,6 +57,14 @@ from intake_steward import (
 # stored here so later sessions and the folder's own tooling can see it.
 GAP_TYPES = {"fact-lookup", "fit", "reaction"}
 
+# The session modes this path accepts. For the FIRST PUBLIC RELEASE, training is
+# limited to auto only — the highest-signal, most self-contained mode. Teacher
+# and playmate stay valid vocabulary (existing records use them) but a NEW
+# submission may only be mode "auto". To re-enable the others later, add them
+# back to ALLOWED_SESSION_MODES — that's the whole switch.
+KNOWN_SESSION_MODES = {"teacher", "playmate", "auto"}
+ALLOWED_SESSION_MODES = {"auto"}
+
 # The ONLY statuses this lighter path may write. "closed" and
 # "closed:pending-review" are excluded on purpose: a gap closes only via the
 # entry-intake pipeline (a mined entry a human merged) or a human editing the
@@ -205,8 +213,13 @@ def _session_errors(fields: dict[str, str]) -> list[str]:
         if not fields.get(name, "").strip():
             errs.append(f"missing required session field '{name}'")
     mode = fields.get("session-mode", "").strip().lower()
-    if mode and mode not in ("teacher", "playmate", "auto"):
-        errs.append("session-mode must be 'teacher', 'playmate', or 'auto'")
+    if mode and mode not in KNOWN_SESSION_MODES:
+        errs.append(f"session-mode must be one of {', '.join(sorted(KNOWN_SESSION_MODES))}")
+    elif mode and mode not in ALLOWED_SESSION_MODES:
+        errs.append(
+            f"training is limited to auto mode for now — session-mode '{mode}' is not accepted "
+            f"(allowed: {', '.join(sorted(ALLOWED_SESSION_MODES))})"
+        )
     return errs
 
 
