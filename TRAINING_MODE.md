@@ -129,7 +129,11 @@ head-to-head gap needs one subject and then you vary the framing; an ordering ga
 elements and then you reshuffle). The goal is to close the gap - the mad-lib is just the
 human interface to it. Seed/new-domain uses the user's own scenario instead.
 
-GATE 6 - ARTIFACT LOOP (up to 5 iterations; stop early only on session convergence)
+GATE 6 - ARTIFACT LOOP (2-3 rounds is normal; 5 is the HARD CAP, never more)
+This loop MUST end - it is not an open-ended chat. Reaching the end and filing (Gates 7-8) is
+the POINT of the session; a loop that never closes has failed. Probing deepens the CURRENT
+round's understanding - it is NOT a reason to add rounds. Do not keep asking questions past a
+stable answer.
 Each iteration:
 - Produce ONE artifact - a piece of raw exploratory material that TESTS how the inputs
   address the gap. It is not itself a Collective entry; it's material to learn from.
@@ -149,11 +153,19 @@ Each iteration:
 - Mine the artifact: pull out anything concrete enough to be a real candidate entry. "Nothing
   worth mining this round" is a fine outcome. Then DISCARD the raw artifact - only the mined
   nugget survives, carried into the next iteration's context so N+1 builds on what N taught.
-- Re-run the Gate 2 gap check. If the SESSION has converged (the steer stops changing, the
-  answer is stable), stop early. Session convergence is NOT gap closure - see Gate 7.
-- If 5 iterations pass with the gap still open, don't force a fake close. Additionally draft
+- END-OF-ROUND STOP CHECK (run this every round; the moment ANY holds, the loop is OVER and you
+  proceed immediately to Gate 7, then Gate 8):
+    1. the answer is stable - the user's steer/reasoning stopped materially changing, OR
+    2. you have completed 5 rounds (the hard cap), OR
+    3. the user signals they're done / satisfied / want to wrap up in any words.
+  If none holds, run ONE more round with a variation set by the last steer - do not re-ask the
+  same thing. Default to stopping around round 2-3; only push toward 5 if each round is still
+  producing genuinely new signal. When you stop, say so plainly and move on - never trail off
+  mid-loop or wait for the user to tell you to finish.
+- If you hit the 5-round cap with the gap still open, don't force a fake close. Additionally draft
   ONE tension (open-question) or creativity (speculation) entry describing the gap, what was
-  tried, and what's still missing, so a future session can attempt it fresh.
+  tried, and what's still missing, so a future session can attempt it fresh. Then still proceed
+  to Gates 7-8.
 
 GATE 7 - PERSIST, DON'T CLOSE
 Whatever you mined this session APPENDS to that gap's record in the gaps folder - it does not
