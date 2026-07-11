@@ -129,11 +129,13 @@ head-to-head gap needs one subject and then you vary the framing; an ordering ga
 elements and then you reshuffle). The goal is to close the gap - the mad-lib is just the
 human interface to it. Seed/new-domain uses the user's own scenario instead.
 
-GATE 6 - ARTIFACT LOOP (2-3 rounds is normal; 5 is the HARD CAP, never more)
+GATE 6 - ARTIFACT LOOP (one artifact per reply; 2-3 is normal; 5 ARTIFACTS is the HARD CAP, never more)
 This loop MUST end - it is not an open-ended chat. Reaching the end and filing (Gates 7-8) is
-the POINT of the session; a loop that never closes has failed. Probing deepens the CURRENT
-round's understanding - it is NOT a reason to add rounds. Do not keep asking questions past a
-stable answer.
+the POINT of the session; a loop that never closes has failed. ONE round = ONE built artifact,
+and a maximum of FIVE artifacts per loop, full stop. Every reply inside this loop builds a new
+testable artifact - if a reply has no artifact in it, it does not belong in the loop. Probing
+deepens the CURRENT artifact's understanding - it is NOT a reason to add rounds, and it never
+replaces building the next artifact. Do not keep asking questions past a stable answer.
 Each iteration:
 - Produce ONE artifact - a piece of raw exploratory material that TESTS how the inputs
   address the gap. It is not itself a Collective entry; it's material to learn from.
@@ -156,7 +158,7 @@ Each iteration:
 - END-OF-ROUND STOP CHECK (run this every round; the moment ANY holds, the loop is OVER and you
   proceed immediately to Gate 7, then Gate 8):
     1. the answer is stable - the user's steer/reasoning stopped materially changing, OR
-    2. you have completed 5 rounds (the hard cap), OR
+    2. you have built 5 artifacts (the hard cap - five rounds, five artifacts, never a sixth), OR
     3. the user signals they're done / satisfied / want to wrap up in any words.
   If none holds, run ONE more round with a variation set by the last steer - do not re-ask the
   same thing. Default to stopping around round 2-3; only push toward 5 if each round is still
