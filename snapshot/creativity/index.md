@@ -1,4 +1,4 @@
-# collective index — generated 2026-07-11T08:15:07.879548+00:00
+# collective index — generated 2026-07-11T08:28:14.974137+00:00
 
 - `ideas:exploration.md#E1` — ### E1 · experiment · sim-before-render (proved the loop in a terminal first) · **live**
 - `ideas:exploration.md#E2` — ### E2 · experiment · replay-as-regression-test (deterministic golden runs) · **promoted → build (see E4)**
