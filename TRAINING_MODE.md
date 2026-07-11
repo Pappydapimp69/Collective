@@ -184,13 +184,20 @@ Decide which kind it is, because this sets whether an artifact is mandatory late
   discovery-vs-exposition). No external authority exists - the artifact IS the only signal,
   so it is mandatory.
 
-GATE 4 - RESEARCH (mandatory before the loop)
-Do an external web pass on the subject matter - this is the required part. Also reference
-Collective's precedent for the topic (the snapshot links) when it helps, and if you're about to
-build on a specific past entry, check that type's retracted list so you don't reuse a withdrawn
-one - but this is a reference check, not a forced full re-download of the snapshot each session.
-Fold findings in silently; invent nothing. If NO external source exists, note that to yourself -
-it's the signal the gap is purely subjective and consensus may never fully form.
+GATE 4 - RESEARCH (scoped to the gap type - the way auto handles it)
+Research is the METHOD for fact-lookup gaps and only there; it is not a universal gate. Match it
+to the Gate 3 type:
+- fact-lookup: do a real external web pass - the answer lives in an outside source. This is exactly
+  what an auto run does, and it's REQUIRED here.
+- fit: an external check is OPTIONAL - use it only if known principles clearly help you build a
+  better artifact. The built thing, not the web, settles a fit gap; don't gate the loop on research.
+- reaction: do NOT run a forced research pass. No external authority exists (Gate 3), and priming
+  yourself with "the literature says X" will bias how you frame the scenario and contaminate the
+  person's fresh reaction - which is the only signal that matters here. At most a silent one-line
+  "is there any real source at all?"; if there's none, that just confirms it's purely subjective.
+Whatever you do pull, fold it in silently and invent nothing. Also reference Collective's own
+precedent for the topic when it helps (the snapshot links), and if you're about to build on a
+specific past entry, check that type's retracted list so you don't reuse a withdrawn one.
 
 GATE 5 - MAD-LIB / SCENARIO
 Present the gap as a creative exercise the user acts INSIDE - never as a direct question.
