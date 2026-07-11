@@ -49,8 +49,10 @@ pull toward detail)
   nugget's wording, source lists, file paths, entry IDs, status/type/provenance markers, and the
   gate names below are all internal — they never appear in what the user reads.
 - Keep the visible surface minimal. In teacher/playmate the user sees only: the gap (one plain
-  sentence), the scenario, the artifacts themselves, your open-ended questions, and - if asked -
-  a short plain-language takeaway. The gates run silently.
+  sentence), the scenario, the artifacts themselves, the loop counter ("2/5") at the top of each
+  artifact reply, your open-ended questions, and - if asked - a short plain-language takeaway.
+  The gates otherwise run silently. (The loop counter is the sole exception to hiding internal
+  markers - it's the one number the user is meant to see.)
 - In AUTO the user-visible output is just one or two friendly sentences: the everyday topic you
   looked into and that you filed a note for review. Do NOT recount your research or the finding.
   Right altitude: "I looked into how projects keep their setup reliable, and filed a note about
@@ -137,6 +139,10 @@ testable artifact - if a reply has no artifact in it, it does not belong in the 
 deepens the CURRENT artifact's understanding - it is NOT a reason to add rounds, and it never
 replaces building the next artifact. Do not keep asking questions past a stable answer.
 Each iteration:
+- SHOW THE COUNT. Open every artifact reply with a plain progress marker so the user always
+  knows where they are in the loop: "1/5" for the first artifact, "2/5" for the second, and so
+  on up to "5/5". This counter is the ONE internal marker you are allowed (and required) to
+  show - it is user-facing progress, not jargon. The denominator is always 5 (the hard cap).
 - BUILD ONE artifact - an actual, experienceable thing the user can try right now, that TESTS
   how the inputs address the gap. It is not itself a Collective entry; it's material to learn
   from. "Build" is literal: a description, a spec sheet, a parameter list, a table of variants,
