@@ -36,18 +36,20 @@ def create_fields(**over):
 
 
 def append_fields(**over):
+    # Default is a VALID auto append (training is auto-only for the first public
+    # release): mode auto, targeting the fact-lookup gap, status not 'converging'.
     f = {
         "operation": "append",
-        "target": "interior-design--door-swing-clearance.md",
-        "status": "converging",
+        "target": "tax-us--extension-filing-deadline.md",
+        "status": "accumulating",
         "session-date": "2026-07-10",
-        "session-mode": "teacher",
-        "scenario": "you are in charge of an en-suite bathroom off a bedroom",
-        "user-inputs": "door swings outward; 34in door",
-        "artifacts": "2 floor-plan sketches",
-        "steer": "iter 2 resolved the swing/clearance overlap",
-        "mined": "clearance is sized to the fixture layout, not the bedroom-side swing alone",
-        "left-open": "needs an independent session on a different footprint",
+        "session-mode": "auto",
+        "scenario": "research-only auto pass",
+        "user-inputs": "none",
+        "artifacts": "none; external fact lookup",
+        "steer": "no human steer in auto",
+        "mined": "clear filing-deadline rule confirmed against the official source",
+        "left-open": "whether state deadlines differ",
     }
     f.update(over)
     return f
@@ -85,17 +87,18 @@ class TestHappyPaths(unittest.TestCase):
         r = run(append_fields())
         self.assertEqual(r.status, "accept")
         self.assertEqual(r.operation, "append")
-        self.assertEqual(r.filename, "interior-design--door-swing-clearance.md")
-        self.assertTrue(r.record_text.startswith("### 2026-07-10 · teacher"))
+        self.assertEqual(r.filename, "tax-us--extension-filing-deadline.md")
+        self.assertTrue(r.record_text.startswith("### 2026-07-10 · auto"))
         self.assertNotIn("# Gap:", r.record_text)  # append is a block, not a whole file
 
     def test_create_with_first_session_block(self):
         r = run(create_fields(**{
-            "session-date": "2026-07-10", "session-mode": "teacher",
-            "scenario": "en-suite", "mined": "nothing worth mining this round",
+            "gap-type": "fact-lookup",  # auto may only create fact-lookup gaps
+            "session-date": "2026-07-10", "session-mode": "auto",
+            "scenario": "research-only auto pass", "mined": "nothing worth mining this round",
         }), existing=set())
         self.assertEqual(r.status, "accept")
-        self.assertIn("### 2026-07-10 · teacher", r.record_text)
+        self.assertIn("### 2026-07-10 · auto", r.record_text)
 
 
 class TestNeverClose(unittest.TestCase):
@@ -205,10 +208,17 @@ class TestAutoModeGuard(unittest.TestCase):
         self.assertEqual(r.status, "accept")
 
     def test_auto_append_to_fit_gap_rejected(self):
-        # the default door-swing target is a fit gap — auto may not append to it
-        r = run(append_fields(**{"session-mode": "auto", "status": "accumulating"}))
+        # door-swing is a fit gap — auto may not append to it
+        r = run(append_fields(**{"target": "interior-design--door-swing-clearance.md"}))
         self.assertEqual(r.status, "reject")
         self.assertTrue(any("auto mode" in x for x in r.reasons))
+
+    def test_non_auto_mode_rejected_first_release(self):
+        # training is auto-only for the first public release
+        for m in ("teacher", "playmate"):
+            r = run(append_fields(**{"session-mode": m}))
+            self.assertEqual(r.status, "reject", m)
+            self.assertTrue(any("auto" in x.lower() for x in r.reasons), m)
 
     def test_auto_converging_rejected(self):
         # even against a fact-lookup gap, auto can never claim convergence
