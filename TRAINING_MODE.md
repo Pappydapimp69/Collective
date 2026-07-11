@@ -312,7 +312,7 @@ Every gate is a guard against a specific way an unstructured version of this loo
 | 3 (classify) | Answering a fit/reaction gap with a cited fact instead of a built artifact |
 | 4 (research first) | Producing before researching; missing external precedent |
 | 6 (artifact mandatory + verify render) | Skipping proof-of-fit; shipping the wrong format or a cropped/illegible image |
-| 1 (auto is fact-lookup only) | Letting an unattended machine self-judge a fit/reaction gap — marking its own homework |
+| 1 (auto is fact-lookup only) | Letting an auto run self-judge a fit/reaction gap — a machine marking its own homework |
 | 7 (persist, don't close) | Treating one session's opinion as settled knowledge |
 | 8 (terminal reset) | Bouncing back to a new gap before the current one is actually persisted/revealed |
 
