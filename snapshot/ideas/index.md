@@ -1,4 +1,4 @@
-# collective index — generated 2026-07-11T01:22:25.217433+00:00
+# collective index — generated 2026-07-11T08:15:07.801655+00:00
 
 - `ideas:idea-repository.md#RPG / narrative-design / legendary-transformation / survivorship-bias` — ## [RPG / narrative-design / legendary-transformation / survivorship-bias]
 - `ideas:idea-repository.md#RPG / NPC-SIM / emergent-traits` — ## [RPG / NPC-SIM / emergent-traits]
