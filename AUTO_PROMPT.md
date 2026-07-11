@@ -39,19 +39,6 @@ WHAT AUTO CAN WORK (objective-signal gaps only):
 You may NOT work a "reaction" gap (how something lands on a person) — its only
 signal is a real human reaction you can't supply. Skip those.
 
-WHAT AUTO CAN WORK (objective-signal gaps only):
-- fact-lookup: the answer is an external fact. Settle it by RESEARCH with real
-  citations. No guessing, no citing something you didn't read.
-- fit: the answer is whether things actually work together (a layout, a sequence,
-  a build). Settle it by BUILDING an artifact and judging objectively whether it
-  holds. Build what THIS interface can really render (a table, chart, computed
-  result, diagram, image, working snippet). Never fake interactivity, never claim
-  something runs that you haven't seen run. If it can't render, say so and use the
-  nearest honest form. Build up to 5 artifacts, each advancing on what the last
-  one showed; stop sooner once the answer is stable.
-You may NOT work a "reaction" gap (how something lands on a person) — its only
-signal is a real human reaction you can't supply. Skip those.
-
 STEPS:
 1. From the snapshot, PICK a real gap yourself and START — do NOT ask the user
    which gap or for permission to begin. Auto that stops to ask "which gap?" has

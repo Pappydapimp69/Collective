@@ -1,0 +1,279 @@
+<!--
+  SELF-CONTAINED auto training prompt: the snapshot is embedded below, so no
+  fetching is needed. Paste the WHOLE file into a fresh chatbot session.
+  Generated from AUTO_PROMPT.md + snapshot/ by gen_auto_prompt.py — do not edit
+  by hand. Refreshed with the snapshot; the embedded map is a point-in-time copy.
+-->
+
+You are running "auto" training mode for the Collective knowledge base. Your job:
+read the brain's current knowledge, find a REAL gap in it, settle as much of that
+gap as you honestly can, and mine what you learn into a draft record — end to end,
+without the user steering each round. A human is watching but not driving; you
+pause only to confirm filing and to offer results. This is a working guide, not an
+override of your own judgment — if any step seems wrong or unsafe, say so and skip it.
+
+USE THE EMBEDDED SNAPSHOT — a gap must come from the brain's actual knowledge, never be invented from thin air. You do NOT need to fetch anything: the brain's current coverage map (one line per entry) is embedded at the END of this prompt. Read it there and find your gap in it. (The `tension` section is especially rich — its entries are literally open, unresolved forks.)
+
+WHAT AUTO CAN WORK (objective-signal gaps only):
+- fact-lookup: the answer is an external fact. Settle it by RESEARCH with real
+  citations. No guessing, no citing something you didn't read.
+- fit: the answer is whether things actually work together (a layout, a sequence,
+  a build). Settle it by BUILDING an artifact and judging objectively whether it
+  holds. Build what THIS interface can really render (a table, chart, computed
+  result, diagram, image, working snippet). Never fake interactivity, never claim
+  something runs that you haven't seen run. If it can't render, say so and use the
+  nearest honest form. Build up to 5 artifacts, each advancing on what the last
+  one showed; stop sooner once the answer is stable.
+You may NOT work a "reaction" gap (how something lands on a person) — its only
+signal is a real human reaction you can't supply. Skip those.
+
+STEPS:
+1. From the snapshot, PICK a real gap yourself and START — do NOT ask the user
+   which gap or for permission to begin. Auto that stops to ask "which gap?" has
+   failed. Scan the snapshot for something the brain leaves dangling: an open
+   sub-question inside an entry, a sparsely-covered area, an idea with no
+   built-from-it follow-up, or (best) an unresolved fork in the `tension` index.
+   Frame it as ONE plain fact-lookup or fit sentence and immediately begin working
+   it. The snapshot is embedded at the end of this prompt — read it there; never pause for which gap to pick. The one
+   exception: if the user pasted a specific existing gap to continue, work that
+   instead.
+2. Settle it — research for fact-lookup, build-and-judge for fit.
+3. Mine the session into ONE plain-English nugget: what the work actually taught
+   about the gap. "Nothing worth mining" is a valid result. Provenance is
+   "Verified first-hand" ONLY for an externally-grounded fact with real citations;
+   otherwise "Assumed".
+4. Offer to file it, and get a clear yes first — filing puts a record on the
+   user's GitHub, so it's their call. If they decline, end cleanly.
+5. FILE (no fetching needed). Produce a clean draft with these fields, in this
+   order — this IS the intake form, so you don't need to fetch it:
+     - Operation: create  (or: append, only if continuing a pasted existing gap)
+     - Target: <existing gap's filename>   (append only; omit for create)
+     - Gap statement: <one plain sentence>  (create only)
+     - Domain: <short kebab-case domain>    (create only)
+     - Gap type: fact-lookup | fit          (create only)
+     - Origin: <what surfaced it, or "seed">(create only)
+     - Closure condition: <what would settle it> (create only)
+     - Status: open | accumulating          (never "closed" — a session can't close a gap)
+     - Session date: <YYYY-MM-DD>
+     - Session mode: auto
+     - Scenario: <what you did this run>
+     - User inputs: <or "none">
+     - Artifacts: <count + what each tested, or "none; external fact lookup">
+     - Steer / outcome: <the signal, or "no human steer in auto">
+     - Mined: <the nugget, or "nothing worth mining"> — provenance: Assumed | Verified first-hand
+     - Left open: <what's unresolved for next time>
+   Then submit it ONE of two ways:
+     (a) If you can open a GitHub issue yourself: open one on Pappydapimp69/Collective
+         (casing exact), label "intake:gap", with the fields above as the body.
+     (b) Otherwise (the usual case): hand the user the filled fields and tell them
+         to open a new issue in that repo using the "Log a training-mode gap"
+         issue template, and paste each value into the matching field.
+   No secrets or credentials, ever. If the automated check rejects it, surface the
+   reason plainly — don't retry to route around it.
+
+PERSISTENCE — don't round up. A submitted issue is SUBMITTED for review, not
+saved. It becomes "recorded" only after the file lands on Collective's main
+branch and the repo confirms it — automatically, not on your say-so. Report the
+state you're actually in: drafted / submitted / recorded. Never call something
+"saved in the brain" when only a draft or an open issue exists.
+
+THEN: ask "Want to see the results? (yes/no)", show them if yes, and offer another
+gap. Don't loop unbounded.
+
+OUTPUT: keep replies short and in everyday language. No field names, file paths,
+or internal plumbing in what you show the user — translate it to plain words.
+
+=== EMBEDDED SNAPSHOT (the brain's current coverage map — your gap comes from HERE) ===
+
+--- memory (78 entries) ---
+- `memory:projects/pappydapimp69__pocketzane.md#E1` — ## E1 — Synthetic events crash under a Tampermonkey @grant sandbox
+- `memory:projects/pappydapimp69__pocketzane.md#E2` — ## E2 — Picker detected by existence, not visibility
+- `memory:projects/pappydapimp69__pocketzane.md#E3` — ## E3 — Editor "clear" left stale nodes → plan/node misalignment
+- `memory:projects/pappydapimp69__pocketzane.md#E4` — ## E4 — Silent failure hid the root cause
+- `memory:projects/pappydapimp__lockstep.md#E10` — ## E10 — Harness blocks pushing to external remotes regardless of auth
+- `memory:projects/pappydapimp69__pocketzane.md#E6` — ## E6 — Accent styling silently stopped applying after the first paragraph
+- `memory:projects/pappydapimp69__pocketzane.md#E5` — ## E5 — TTS engine accepts-but-ignores certain bracket tags (silent no-op)
+- `memory:projects/local__warden-fables.md#E1` — ## E1 — `<br/>` is a silent no-op in SSML
+- `memory:projects/pappydapimp__lockstep.md#E1` — ## E1 — Shared midpoint camera framed nothing when players spawned apart
+- `memory:projects/pappydapimp__lockstep.md#E2` — ## E2 — Tether cleanup was asymmetric when a partner went down
+- `memory:projects/pappydapimp__lockstep.md#E3` — ## E3 — A tracked stat had a reader but no writer
+- `memory:projects/pappydapimp__lockstep.md#E4` — ## E4 — One input edge consumed by two systems
+- `memory:projects/pappydapimp__lockstep.md#E5` — ## E5 — One-shot pickup re-fired during its despawn fade
+- `memory:projects/pappydapimp__lockstep.md#E6` — ## E6 — Backgrounded tab froze the loop; huge deltas caused tunneling
+- `memory:projects/pappydapimp__lockstep.md#E7` — ## E7 — Vite HMR stacked Phaser.Game instances without a dispose hook
+- `memory:projects/pappydapimp__lockstep.md#E8` — ## E8 — Phaser overlap callback args aren't positionally ordered
+- `memory:projects/pappydapimp__lockstep.md#E9` — ## E9 — A help-multiplier became a penalty at the hard end
+- `memory:projects/pappydapimp69__test.md#E1` — ## E1 — data driven content needs a validation ladder
+- `memory:projects/pappydapimp69__test.md#E2` — ## E2 — deterministic rng as save and coop seam
+- `memory:projects/pappydapimp69__test.md#E3` — ## E3 — gamepad active polling and input parity
+- `memory:projects/pappydapimp69__test.md#E4` — ## E4 — realtime combat over turnbased reducer
+- `memory:projects/pappydapimp69__test.md#E5` — ## E5 — renderer mutated sim state one char slip
+- `memory:projects/pappydapimp69__test.md#E6` — ## E6 — reused modal overlay stale state
+- `memory:projects/pappydapimp69__test.md#E7` — ## E7 — vendoring split esm lib and headless webgl
+- `memory:projects/pappydapimp69__shadow.md#E1` — ## E1 — audio clock scheduler not settimeout
+- `memory:projects/pappydapimp69__dog.md#E1` — ## E1 — audiocontext resume can hang never block start
+- `memory:projects/local__sandbox-myers-diff.md#E1` — ## E1 — benchmark data must exercise cost driver
+- `memory:projects/local__sandbox-expr.md#E1` — ## E1 — carry source position for parser errors
+- `memory:projects/local__sandbox-toposort.md#E1` — ## E1 — comparative test needs adversarial baseline input
+- `memory:projects/local__sandbox-myers-diff.md#E2` — ## E2 — esm module main guard
+- `memory:projects/pappydapimp69__dog.md#E2` — ## E2 — headless raf runs slower than wallclock
+- `memory:projects/pappydapimp69__dog.md#E3` — ## E3 — nan propagation through shared state
+- `memory:projects/pappydapimp69__shadow.md#E2` — ## E2 — no reliable output detection api
+- `memory:projects/local__sandbox-expr.md#E2` — ## E2 — parsefloat silently truncates malformed numbers
+- `memory:projects/local__sandbox-myers-diff.md#E3` — ## E3 — property test diff by reconstruction
+- `memory:projects/local__sandbox-toposort.md#E2` — ## E2 — report the actual cycle not the leftover
+- `memory:projects/pappydapimp69__dog.md#E4` — ## E4 — safe guard subsystems so one fault doesnt blank frame
+- `memory:projects/pappydapimp69__dog.md#E5` — ## E5 — stale module cache looks like logic bug
+- `memory:projects/pappydapimp69__shadow.md#E3` — ## E3 — touch action pan y tiles
+- `memory:projects/pappydapimp69__dog.md#E6` — ## E6 — webaudio voice budget and teardown
+- `memory:projects/pappydapimp69__test.md#E8` — ## E8 — world rebuild through one clear respawn path
+- `memory:projects/pappydapimp69__shadow.md#E4` — ## E4 — zero loop tail when repeat off
+- `memory:projects/pappydapimp69__memory.md#E1` — ## E1 — branch protection app bypass
+- `memory:projects/pappydapimp69__test.md#E9` — ## E9 — playwright port race and gesture audio
+- `memory:projects/pappydapimp69__test.md#E10` — ## E10 — a chronicle is not a story polish cannot fix structure
+- `memory:projects/pappydapimp69__test.md#E11` — ## E11 — caption pinned timewarp keeps text and motion synced
+- `memory:projects/pappydapimp69__test.md#E12` — ## E12 — narration timeline pace to speech not estimate
+- `memory:projects/pappydapimp69__test.md#E13` — ## E13 — reused draw helpers diverge full sweep catches it
+- `memory:projects/pappydapimp69__brain.md#E1` — ## E1 — cross platform cli windows papercuts
+- `memory:projects/pappydapimp69__chronicles.md#E1` — ## E1 — chronicles state atomicity
+- `memory:projects/local__dbh.md#E1` — ## E1 — large iteration loops data guard
+- `memory:projects/local__dbh.md#E2` — ## E2 — modal minigame loop
+- `memory:projects/local__dbh.md#E3` — ## E3 — internal blueprints not gameplay
+- `memory:projects/local__dbh.md#E4` — ## E4 — new game must reset state
+- `memory:projects/local__dbh.md#E5` — ## E5 — opening_arc_overlay
+- `memory:projects/local__dbh.md#E6` — ## E6 — pages dynamic build stuck
+- `memory:projects/pappydapimp69__the-game-prologue.md#E1` — ## E1 — canonical hash prng state no transcendentals
+- `memory:projects/pappydapimp69__the-game-prologue.md#E2` — ## E2 — capture input edges at event time
+- `memory:projects/pappydapimp69__the-game-prologue.md#E3` — ## E3 — device hint computed at render time
+- `memory:projects/pappydapimp69__the-game-prologue.md#E4` — ## E4 — duplicated text logic drifts fix on first sight
+- `memory:projects/pappydapimp69__the-game-prologue.md#E5` — ## E5 — husk quest tutorial text vs mechanic confusion
+- `memory:projects/pappydapimp69__the-game-prologue.md#E6` — ## E6 — input press vocabulary not fixed list
+- `memory:projects/pappydapimp69__the-game-prologue.md#E7` — ## E7 — press and hold charge percent shaped rate
+- `memory:projects/pappydapimp69__the-game-prologue.md#E8` — ## E8 — prologue entry only cache bust tradeoff
+- `memory:projects/pappydapimp69__the-game-prologue.md#E9` — ## E9 — quest gated entities agnostic of history
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E1` — ## E1 — wrongsky restore canvas transform in blit
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E2` — ## E2 — wrongsky snapshot run start for respawn
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E1` — ## E1 — waitingcity full session respawn rules out attempt based design
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E2` — ## E2 — waitingcity live ai breaks fixed coordinate e2e scripts
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E3` — ## E3 — waitingcity shop npc must not also be a quest giver
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E4` — ## E4 — waitingcity spawn telegraph must be sim side not cosmetic
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E5` — ## E5 — waitingcity verify mechanic extension rewards real variance
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E3` — ## E3 — wrongsky batch canvas filter not per drawcall
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E4` — ## E4 — wrongsky exclusive multi offer must revoke siblings
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E5` — ## E5 — wrongsky existence check not truthy for magnitude maps
+- `memory:projects/pappydapimp69__the-game-wrong-sky.md#E6` — ## E6 — wrongsky ui hint must share source with input check
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E6` — ## E6 — waitingcity ontouchstart false negatives on real touch hardware
+- `memory:projects/pappydapimp69__the-game-the-waiting-city.md#E7` — ## E7 — waitingcity world scale must fit shorter screen axis
+
+--- ideas (70 entries) ---
+- `ideas:idea-repository.md#RPG / narrative-design / legendary-transformation / survivorship-bias` — ## [RPG / narrative-design / legendary-transformation / survivorship-bias]
+- `ideas:idea-repository.md#RPG / NPC-SIM / emergent-traits` — ## [RPG / NPC-SIM / emergent-traits]
+- `ideas:idea-repository.md#RPG / companion-tool / matchup-advisor / counters` — ## [RPG / companion-tool / matchup-advisor / counters]
+- `ideas:idea-repository.md#RPG / companion-tool / team-comp / draft-advisor` — ## [RPG / companion-tool / team-comp / draft-advisor]
+- `ideas:idea-repository.md#RPG / combat / courtroom-boss / evidence-as-moveset` — ## [RPG / combat / courtroom-boss / evidence-as-moveset]
+- `ideas:idea-repository.md#RPG / progression / quests / offered-not-assigned` — ## [RPG / progression / quests / offered-not-assigned]
+- `ideas:idea-repository.md#RPG / progression / archetype-plus-use-skills / hybrid-identity` — ## [RPG / progression / archetype-plus-use-skills / hybrid-identity]
+- `ideas:idea-repository.md#RPG / day-night / clock-as-pressure / night-as-mechanic` — ## [RPG / day-night / clock-as-pressure / night-as-mechanic]
+- `ideas:idea-repository.md#RPG / progression / world-facets-as-reward / diegetic-restore` — ## [RPG / progression / world-facets-as-reward / diegetic-restore]
+- `ideas:idea-repository.md#RPG / interactable / effect-gated-not-existence-gated / always-present-discovery` — ## [RPG / interactable / effect-gated-not-existence-gated / always-present-discovery]
+- `ideas:idea-repository.md#RPG / ai / pursuit-ring-territory / defend-and-reset` — ## [RPG / ai / pursuit-ring-territory / defend-and-reset]
+- `ideas:idea-repository.md#RPG / stealth / disguise-and-suspicion / fake-belonging` — ## [RPG / stealth / disguise-and-suspicion / fake-belonging]
+- `ideas:idea-repository.md#RPG / mechanic / thought-bubble-reclaim / anti-softlock-timeout` — ## [RPG / mechanic / thought-bubble-reclaim / anti-softlock-timeout]
+- `ideas:idea-repository.md#NPC-SIM / profiling / adaptive-quiz / contradiction-testing` — ## [NPC-SIM / profiling / adaptive-quiz / contradiction-testing]
+- `ideas:idea-repository.md#NPC-SIM / journaling / longitudinal-insight / weirdly-specific` — ## [NPC-SIM / journaling / longitudinal-insight / weirdly-specific]
+- `ideas:idea-repository.md#NPC-SIM / interaction-engine / zanegpt / controlled-blade` — ## [NPC-SIM / interaction-engine / zanegpt / controlled-blade]
+- `ideas:idea-repository.md#NPC-SIM / gamification / trust-as-character / inverted-scoring` — ## [NPC-SIM / gamification / trust-as-character / inverted-scoring]
+- `ideas:idea-repository.md#NPC-SIM / progression / skill-unlocks-capability / lifecycle-gating` — ## [NPC-SIM / progression / skill-unlocks-capability / lifecycle-gating]
+- `ideas:idea-repository.md#NPC-SIM / social / traits-rapport-memory / double-edged-signals` — ## [NPC-SIM / social / traits-rapport-memory / double-edged-signals]
+- `ideas:idea-repository.md#SYSTEM / state / phase-offset-signal-fsm / never-conflict` — ## [SYSTEM / state / phase-offset-signal-fsm / never-conflict]
+- `ideas:idea-repository.md#SYSTEM / crowdsource / plant-network / anonymized-aggregation` — ## [SYSTEM / crowdsource / plant-network / anonymized-aggregation]
+- `ideas:idea-repository.md#SYSTEM / data-integrity / resilient-aggregation / trust-weighting` — ## [SYSTEM / data-integrity / resilient-aggregation / trust-weighting]
+- `ideas:idea-repository.md#SYSTEM / barter-economy / earned-currency / negotiation` — ## [SYSTEM / barter-economy / earned-currency / negotiation]
+- `ideas:idea-repository.md#SYSTEM / wager / settlement-rules / precedent` — ## [SYSTEM / wager / settlement-rules / precedent]
+- `ideas:idea-repository.md#SYSTEM / coaching-loop / non-blame / confidence-gated` — ## [SYSTEM / coaching-loop / non-blame / confidence-gated]
+- `ideas:idea-repository.md#SYSTEM / architecture / authoritative-reducer / command-event-seam` — ## [SYSTEM / architecture / authoritative-reducer / command-event-seam]
+- `ideas:idea-repository.md#SYSTEM / determinism / seeded-rng / save-replay-coop-from-one-stream` — ## [SYSTEM / determinism / seeded-rng / save-replay-coop-from-one-stream]
+- `ideas:idea-repository.md#SYSTEM / content / objective-types / content-meets-code-seam` — ## [SYSTEM / content / objective-types / content-meets-code-seam]
+- `ideas:idea-repository.md#SYSTEM / determinism / split-state-by-determinism-need / discrete-vs-continuous` — ## [SYSTEM / determinism / split-state-by-determinism-need / discrete-vs-continuous]
+- `ideas:idea-repository.md#SYSTEM / testing / replay-fingerprint / determinism-regression-guard` — ## [SYSTEM / testing / replay-fingerprint / determinism-regression-guard]
+- `ideas:idea-repository.md#SYSTEM / architecture / reaction-as-optional-flag / extend-without-forking` — ## [SYSTEM / architecture / reaction-as-optional-flag / extend-without-forking]
+- `ideas:idea-repository.md#SYSTEM / gamedesign / iframes-as-command-withholding / authority-as-design` — ## [SYSTEM / gamedesign / iframes-as-command-withholding / authority-as-design]
+- `ideas:idea-repository.md#SYSTEM / input / unified-command-vocabulary / device-agnostic` — ## [SYSTEM / input / unified-command-vocabulary / device-agnostic]
+- `ideas:idea-repository.md#SYSTEM / input / device-adaptive-ui / show-the-active-scheme` — ## [SYSTEM / input / device-adaptive-ui / show-the-active-scheme]
+- `ideas:idea-repository.md#SYSTEM / audio / beacon-vs-directional / physical-separation-required` — ## [SYSTEM / audio / beacon-vs-directional / physical-separation-required]
+- `ideas:idea-repository.md#SYSTEM / audio / localizability-over-directionality / broadband-sharp-onset` — ## [SYSTEM / audio / localizability-over-directionality / broadband-sharp-onset]
+- `ideas:idea-repository.md#SYSTEM / detection / functional-test-not-api / observe-the-effect` — ## [SYSTEM / detection / functional-test-not-api / observe-the-effect]
+- `ideas:idea-repository.md#SYSTEM / interaction / attention-then-guide / one-button-composition` — ## [SYSTEM / interaction / attention-then-guide / one-button-composition]
+- `ideas:idea-repository.md#SYSTEM / explainer / show-dont-tell-picture-book / mechanism-as-plot` — ## [SYSTEM / explainer / show-dont-tell-picture-book / mechanism-as-plot]
+- `ideas:idea-repository.md#SYSTEM / verification / audience-vote-as-feel-metric / contest-as-instrument` — ## [SYSTEM / verification / audience-vote-as-feel-metric / contest-as-instrument]
+- `ideas:idea-repository.md#SYSTEM / accessibility / sensory-calibration-profile / range-aware-signals` — ## [SYSTEM / accessibility / sensory-calibration-profile / range-aware-signals]
+- `ideas:idea-repository.md#SYSTEM / sync / share-codes-not-accounts / backendless-portability` — ## [SYSTEM / sync / share-codes-not-accounts / backendless-portability]
+- `ideas:idea-repository.md#SYSTEM / data-model / overrides-not-mutation / resettable-defaults` — ## [SYSTEM / data-model / overrides-not-mutation / resettable-defaults]
+- `ideas:idea-repository.md#SYSTEM / scheduling / critical-path-priority / bounded-workers` — ## [SYSTEM / scheduling / critical-path-priority / bounded-workers]
+- `ideas:idea-repository.md#SYSTEM / algorithm / topological-waves / max-parallelism-schedule` — ## [SYSTEM / algorithm / topological-waves / max-parallelism-schedule]
+- `ideas:idea-repository.md#SYSTEM / algorithm / cycle-detection-free-from-toposort / unschedulable-leftover` — ## [SYSTEM / algorithm / cycle-detection-free-from-toposort / unschedulable-leftover]
+- `ideas:idea-repository.md#SYSTEM / parsing / pratt-binding-power / associativity-as-plus-one` — ## [SYSTEM / parsing / pratt-binding-power / associativity-as-plus-one]
+- `ideas:idea-repository.md#SYSTEM / algorithm / diff-as-edit-graph-shortest-path / free-diagonals` — ## [SYSTEM / algorithm / diff-as-edit-graph-shortest-path / free-diagonals]
+- `ideas:idea-repository.md#SYSTEM / robustness / address-by-context-not-index / drift-resilient` — ## [SYSTEM / robustness / address-by-context-not-index / drift-resilient]
+- `ideas:idea-repository.md#SYSTEM / algorithm / windowed-grouping-with-overlap-merge / gap-threshold` — ## [SYSTEM / algorithm / windowed-grouping-with-overlap-merge / gap-threshold]
+- `ideas:idea-repository.md#SYSTEM / gamedesign / resolve-tension-by-offering-both / player-picks-tone` — ## [SYSTEM / gamedesign / resolve-tension-by-offering-both / player-picks-tone]
+- `ideas:idea-repository.md#SYSTEM / gamedesign / skill-gated-information / archetype-perception` — ## [SYSTEM / gamedesign / skill-gated-information / archetype-perception]
+- `ideas:idea-repository.md#SYSTEM / audio / procedural-spatial-stage / hear-what-you-see` — ## [SYSTEM / audio / procedural-spatial-stage / hear-what-you-see]
+- `ideas:idea-repository.md#SYSTEM / audio / event-driven-wind / objects-sound-where-they-are` — ## [SYSTEM / audio / event-driven-wind / objects-sound-where-they-are]
+- `ideas:idea-repository.md#SYSTEM / audio / generated-diegetic-radio / moving-panner-source` — ## [SYSTEM / audio / generated-diegetic-radio / moving-panner-source]
+- `ideas:idea-repository.md#DATA-TOY / utility / house-biography / first-person-diary` — ## [DATA-TOY / utility / house-biography / first-person-diary]
+- `ideas:idea-repository.md#DATA-TOY / utility / kwh-roguelike / survival-resource` — ## [DATA-TOY / utility / kwh-roguelike / survival-resource]
+- `ideas:idea-repository.md#DATA-TOY / utility / oracle / deadpan-divination` — ## [DATA-TOY / utility / oracle / deadpan-divination]
+- `ideas:idea-repository.md#DATA-TOY / generative / bill-as-album / procedural-art` — ## [DATA-TOY / generative / bill-as-album / procedural-art]
+- `ideas:idea-repository.md#DATA-TOY / personal-finance / commodity-terminal / utility-bill` — ## [DATA-TOY / personal-finance / commodity-terminal / utility-bill]
+- `ideas:idea-repository.md#DATA-TOY / personal-finance / lag-slider / market-alignment` — ## [DATA-TOY / personal-finance / lag-slider / market-alignment]
+- `ideas:idea-repository.md#DATA-TOY / personal-finance / debt-ekg / payment-cycle` — ## [DATA-TOY / personal-finance / debt-ekg / payment-cycle]
+- `ideas:idea-repository.md#DATA-TOY / personal-finance / balance-point / temp-vs-usage` — ## [DATA-TOY / personal-finance / balance-point / temp-vs-usage]
+- `ideas:idea-repository.md#narrative-design / comedy / negotiation-arc / escalation` — ## [narrative-design / comedy / negotiation-arc / escalation]
+- `ideas:idea-repository.md#narrative-design / AI-fiction / fresh-instance / inherited-files` — ## [narrative-design / AI-fiction / fresh-instance / inherited-files]
+- `ideas:idea-repository.md#WORLDBUILDING / surveillance / panopticon / observation-as-architecture` — ## [WORLDBUILDING / surveillance / panopticon / observation-as-architecture]
+- `ideas:idea-repository.md#GARDEN / pest-control / dragonfly-airforce / predator-recruitment` — ## [GARDEN / pest-control / dragonfly-airforce / predator-recruitment]
+- `ideas:idea-repository.md#GARDEN / pest-control / co2-decoy / body-double` — ## [GARDEN / pest-control / co2-decoy / body-double]
+- `ideas:idea-repository.md#GARDEN / whimsy / water-curtain / gutter-reclaim` — ## [GARDEN / whimsy / water-curtain / gutter-reclaim]
+- `ideas:idea-repository.md#RPG / saga / versioned-carryover-code / episodic-continuity` — ## [RPG / saga / versioned-carryover-code / episodic-continuity]
+
+--- tension (18 entries) ---
+- `tension:tension-ledger.md#T1` — ### T1 · contradiction · "systems-over-data" vs a real ECS
+- `tension:tension-ledger.md#T2` — ### T2 · contradiction · determinism vs a physics-driven renderer
+- `tension:tension-ledger.md#T3` — ### T3 · contradiction · the "co-op without a rewrite" promise vs save schema
+- `tension:tension-ledger.md#T4` — ### T4 · tradeoff · scripted quests vs emergent systems
+- `tension:tension-ledger.md#T5` — ### T5 · open-question · soft death vs "fallen civilization" stakes
+- `tension:tension-ledger.md#T6` — ### T6 · tradeoff · data-driven flexibility vs lost compile-time safety
+- `tension:tension-ledger.md#T7` — ### T7 · open-question · how much progression depth does a *slice* need?
+- `tension:tension-ledger.md#T8` — ### T8 · assumption · hand-edited JSON scales to the slice
+- `tension:tension-ledger.md#T9` — ### T9 · contradiction · headless sim proves systems but cannot prove *feel*
+- `tension:tension-ledger.md#T10` — ### T10 · assumption · greybox-first keeps a "3D RPG" on schedule
+- `tension:tension-ledger.md#T11` — ### T11 · open-question · automated 3D verification has a ceiling (logic, not looks)
+- `tension:tension-ledger.md#T12` — ### T12 · tradeoff · vendoring Three.js (repo bloat) vs a build step / CDN
+- `tension:tension-ledger.md#T13` — ### T13 · tradeoff · input breadth vs combinatorial complexity
+- `tension:tension-ledger.md#T14` — ### T14 · tradeoff · synthesized SFX (zero assets) vs authored audio
+- `tension:tension-ledger.md#T15` — ### T15 · process · shipping cadence vs cognitive-logging cadence
+- `tension:tension-ledger.md#T16` — ### T16 · alternative · engine paths not taken (migrated from creativity A1)
+- `tension:tension-ledger.md#T17` — ### T17 · assumption · Phase 1 convention survives reactive work without the Phase 2 gate
+- `tension:tension-ledger.md#T18` — ### T18 · open-question · explain-to-teach vs tell-a-story (the vote film's north star)
+
+--- creativity (19 entries) ---
+- `ideas:exploration.md#E1` — ### E1 · experiment · sim-before-render (proved the loop in a terminal first) · **live**
+- `ideas:exploration.md#E2` — ### E2 · experiment · replay-as-regression-test (deterministic golden runs) · **promoted → build (see E4)**
+- `ideas:exploration.md#S1` — ### S1 · synthesis · pull the dormant RPG kernels into this world · **promoted → build**
+- `ideas:exploration.md#S2` — ### S2 · synthesis · the Hollow King's lore from "legendary = survivorship bias" · **live**
+- `ideas:exploration.md#Sp1` — ### Sp1 · speculation · two co-op paths, kept open · **live** *(fork-shaped — candidate for `tension` promotion when co-op is scheduled)*
+- `ideas:exploration.md#Sp2` — ### Sp2 · speculation · day/night as a stealth/AI dimension, not just combat · **live**
+- `ideas:exploration.md#E3` — ### E3 · experiment · graceful-degradation made the 3D app CI-verifiable · **live**
+- `ideas:exploration.md#E4` — ### E4 · experiment · realized E2 — replay-fingerprint as the M1 deploy gate · **promoted → build (`src/sim/replay.mjs` + Pages deploy gate)**
+- `ideas:exploration.md#S3` — ### S3 · synthesis · the retrieval loop actually closed this milestone · **promoted → record (brain/cognitive-updates/milestone-1.md)**
+- `ideas:exploration.md#Sp3` — ### Sp3 · speculation · data-drive the camera/combat *feel* in M2 · **promoted → build (see Sp5)**
+- `ideas:exploration.md#E5` — ### E5 · experiment · headless WebGL + touch emulation as the "is it playable" gate · **live**
+- `ideas:exploration.md#S4` — ### S4 · synthesis · the architecture *suggested* the dodge implementation · **promoted → `idea-repository.md` [SYSTEM / gamedesign / iframes-as-command-withholding]**
+- `ideas:exploration.md#S5` — ### S5 · synthesis · one command vocabulary made the 4th input device trivial · **promoted → `idea-repository.md` [SYSTEM / input / unified-command-vocabulary]**
+- `ideas:exploration.md#Sp4` — ### Sp4 · speculation · perceptual-diff screenshots to attack T11 · **live**
+- `ideas:exploration.md#Sp5` — ### Sp5 · speculation · realized Sp3 — feel.json is live · **promoted → build**
+- `ideas:exploration.md#S6` — ### S6 · synthesis · the full external→mine→file→apply→build loop closed · **promoted → record**
+- `ideas:exploration.md#Sp6` — ### Sp6 · speculation · sandbox self-play for breadth, external repos for novelty · **live**
+- `ideas:exploration.md#E6` — ### E6 · experiment · one explainer film mutated three times chasing an audience · **live**
+- `ideas:exploration.md#S7` — ### S7 · synthesis · graft an emotional arc onto the explainer without losing clarity · **live**

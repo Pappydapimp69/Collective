@@ -136,11 +136,15 @@ jobs:
                   ], f, indent=2)
           PYEOF
 
+      - name: Regenerate the self-contained bundled auto prompt from the fresh snapshot
+        working-directory: collective
+        run: python3 gen_auto_prompt.py
+
       - name: Commit under the dedicated bot identity
         working-directory: collective
         run: |
           git -c user.name="collective-export-bot" -c user.email="collective-export-bot@users.noreply.github.com" \
-            add snapshot memory/retracted.json ideas/retracted.json tension/retracted.json \
+            add snapshot AUTO_PROMPT_BUNDLED.md memory/retracted.json ideas/retracted.json tension/retracted.json \
             creativity/retracted.json allowlist/_previous-*.json 2>/dev/null || true
           git -c user.name="collective-export-bot" -c user.email="collective-export-bot@users.noreply.github.com" \
             commit -m "export: refresh public snapshot" || echo "nothing to commit"
