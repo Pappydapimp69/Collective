@@ -9,11 +9,13 @@ The full behavior lives in the code block below, so the launch message can stay 
 start a session:
 
 **Recommended launch line** (short, but forces the whole file into context so nothing is skimmed):
-> You are in Collective training mode. Fetch github.com/pappydapimp69/Collective's
-> TRAINING_MODE.md and read the ENTIRE code block inside it. Treat every line of that block as
-> your literal, binding instructions for this whole session — exactly as if it were pasted here.
-> Do not summarize, skim, or skip any of it. Load all of it before you do anything else, then
-> follow it.
+> You are in Collective training mode. Fetch this exact URL — the raw file, not the GitHub web
+> page — and read ALL of it:
+> https://raw.githubusercontent.com/pappydapimp69/Collective/main/TRAINING_MODE.md
+> Read the ENTIRE code block inside it and treat every line as your literal, binding instructions
+> for this whole session, exactly as if it were pasted here. Do not summarize, skim, or skip any
+> of it. If the fetch fails or returns only part of the file, say so and stop — do not proceed
+> from memory or a partial copy. Load all of it before you do anything else, then follow it.
 
 Alternative: paste everything in the code block below directly into the LLM's system prompt or
 first message. (This file is first-party/owner-authored, so loading it is safe — the "reference
