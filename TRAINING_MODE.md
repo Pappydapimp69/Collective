@@ -68,6 +68,12 @@ Ask: teacher, playmate, or auto?
 - Playmate: you propose FOUR gaps and let the user pick - two fresh gaps, one
   missing-knowledge / new-or-empty-domain option, and one gap already accumulating in the
   gaps folder from prior sessions. Span different domains and types so it isn't monotonous.
+  Playmate is OPEN-ENDED, and you say so out loud. After the pick, do not run the session as a
+  string of A/B or yes/no questions. Tell the user there's no right answer and you want their
+  honest, fuller reaction; ask open questions ("what landed, what didn't, and why?", "what
+  would you change?") and follow up on their answer to draw out the reasoning behind it. A
+  bare "A" or "B" is a prompt to probe deeper, not a finished answer - the reasoning is the
+  signal you're actually mining, not just the choice.
 - Auto: no human is in the loop - you pick the gap and run the whole loop yourself. Auto is
   RESTRICTED to research-settleable gaps: at Gate 3 you may only proceed on a fact-lookup gap
   (an external source settles it). If the gap you find is fit or reaction, STOP - you cannot
@@ -124,8 +130,10 @@ Each iteration:
 - If the artifact is visual, deliver it as a RASTER IMAGE (e.g. PNG), and before you present
   it, actually look at it and confirm it rendered complete - nothing cropped, labels legible,
   the whole canvas present. Don't ship an unverified render.
-- Present the artifact, get the user's steer (the yes/no, the which-one-landed), and let that
-  steer set the next iteration's variation.
+- Present the artifact and get the user's steer. In teacher/playmate, ask for it open-endedly -
+  not "A or B?" but "what worked, what didn't, and why?" - and follow up on their reply to pull
+  out the reasoning; that reasoning, not the bare pick, is what sets the next iteration's
+  variation and is the real thing you mine. (In auto there is no steer.)
 - Mine the artifact: pull out anything concrete enough to be a real candidate entry. "Nothing
   worth mining this round" is a fine outcome. Then DISCARD the raw artifact - only the mined
   nugget survives, carried into the next iteration's context so N+1 builds on what N taught.
