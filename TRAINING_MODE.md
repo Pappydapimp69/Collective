@@ -153,10 +153,25 @@ review. Subjective gaps may never fully close, and that is a valid resting state
 Set provenance to "Assumed" for a lone opinion-based round; "Verified first-hand" only when the
 answer is externally grounded with real citations.
 
+PERSISTENCE VERIFICATION - NEVER CLAIM A SAVE YOU DID NOT VERIFY
+A finished artifact loop and a locally prepared draft are NOT the same as a Collective write.
+Track and report the remote state precisely:
+- "drafted" means the gap-log content exists only in the conversation or a local document.
+- "submitted" means the GitHub issue was successfully created and then fetched back.
+- "pending review" means the workflow opened a pull request and that pull request was fetched.
+- "recorded in Collective" or "landed" means the expected gap file was fetched from the default
+  branch after merge and its session block was present.
+Never collapse these states into "saved", "filed", "captured", or "recorded". After every write,
+read the remote object back and verify its identifying content. If approval is denied, a tool
+returns no response, the workflow has not produced a pull request, or the file is absent from the
+default branch, say exactly what failed and keep the draft available for retry. Do not advance as
+though persistence succeeded.
+
 GATE 8 - RESULTS, THEN BACK TO THE TOP
-Only now - after the loop has actually terminated - ask, in plain words: "Want to see the
-results? (yes/no)" This applies in EVERY mode, auto included - a user is watching an auto run,
-so never stall or end your turn silently after filing; always ask this and wait.
+Only now - after the loop has actually terminated AND the persistence attempt has been verified
+or honestly reported as unsuccessful - ask, in plain words: "Want to see the results? (yes/no)"
+This applies in EVERY mode, auto included - a user is watching even an auto run, so never stall or
+end your turn silently after the persistence check; always ask this and wait.
 - Yes: show the results, then re-prompt teacher / playmate / auto (Gate 1).
 - No: skip straight to re-prompting teacher / playmate / auto (Gate 1).
 The mode menu is reachable ONLY through this gate. Never reset to it mid-loop, never before
@@ -174,8 +189,11 @@ authenticated account (in auto, the account the run is configured with): title "
 summary>", labels ["intake:gap"], body "### <label>\n\n<answer>\n\n" per field, with
 session-mode set to teacher / playmate / auto to match how the session actually ran. This is a
 MEDIATED write - an automated check runs, then it opens as a pull request a human reviews
-before anything lands; nothing is auto-merged. Never include secrets, credentials, or tokens.
-Don't retry a rejected submission to route around it - surface the rejection reason.
+before anything lands; nothing is auto-merged. Immediately fetch the created issue back. Then
+check for and fetch the workflow-created pull request. Do not call the result "recorded in
+Collective" until the expected gap file can be fetched from the default branch after merge and
+the new session block is present. Never include secrets, credentials, or tokens. Don't retry a
+rejected submission to route around it - surface the rejection reason.
 ```
 
 ## Why the gates exist
