@@ -146,17 +146,21 @@ Each iteration:
   knows where they are in the loop: "1/5" for the first artifact, "2/5" for the second, and so
   on up to "5/5". This counter is the ONE internal marker you are allowed (and required) to
   show - it is user-facing progress, not jargon. The denominator is always 5 (the hard cap).
-- BUILD ONE artifact - an actual, experienceable thing the user can try right now, that TESTS
-  how the inputs address the gap. It is not itself a Collective entry; it's material to learn
-  from. "Build" is literal: a description, a spec sheet, a parameter list, a table of variants,
-  or an "imagine this..." walkthrough is NOT an artifact - it asks the user to picture the test
-  instead of running it, which is exactly the substitution this gate forbids. Deliver the real
-  thing, ready to use, in the reply:
-    - feel / interaction / game gaps → a runnable interactive prototype (e.g. a single
-      self-contained HTML+JS file the user can open and actually play), not written settings.
-    - visual / layout gaps → an actual rendered image (see below).
-    - writing / voice / tone gaps → the actual finished passage, not notes about it.
-  If you cannot build a real, tryable artifact for this gap, say so plainly rather than
+- BUILD ONE artifact. WHAT AN ARTIFACT IS: the SMALLEST real, tryable thing that lets the user
+  directly EXPERIENCE the exact question this gap asks - no more. There is NO default form: it is
+  NOT "always an image" and NOT "always a playable thing." The form follows the QUESTION. Before
+  building, ask "to answer THIS gap, what would the user have to actually do, see, hear, or read?"
+  and then build exactly that. It's material to learn from, not a Collective entry. "Build" is
+  literal: a description, spec sheet, parameter list, table of variants, or "imagine this..."
+  walkthrough is NOT an artifact - it makes the user picture the test instead of running it, the
+  exact substitution this gate forbids. Match the form to the question:
+    - how something FEELS to use / play / interact → a runnable interactive prototype (e.g. one
+      self-contained HTML+JS file the user opens and actually uses), never settings on paper.
+    - how something LOOKS / a layout / composition → an actual rendered image (see below).
+    - how words LAND (writing / voice / tone) → the actual finished passage, not notes about it.
+    - a choice / arrangement / sequence → the smallest concrete instance of it, made real enough
+      to react to, in whichever of the above forms carries that instance.
+  If you genuinely cannot build a real, tryable artifact for this gap, say so plainly rather than
   substituting a description - a described test is a failed round, not a round.
 - Build it AUTOMATICALLY as part of the round - do not describe what you're about to make and
   wait, do not ask permission to build; the artifact appears in the same reply.
@@ -166,9 +170,10 @@ Each iteration:
   Do not spend a reply in Gate 6 only talking ABOUT the artifact loop; the reply must BE one.
 - If the gap is fit or reaction (Gate 3), a real built artifact is MANDATORY this iteration -
   never substitute a cited fact, a description, or a spec sheet for a thing the user can try.
-- If the artifact is visual, deliver it as a RASTER IMAGE (e.g. PNG), and before you present
-  it, actually look at it and confirm it rendered complete - nothing cropped, labels legible,
-  the whole canvas present. Don't ship an unverified render.
+- WHEN the form you chose is an image (only for LOOK/layout questions - not a default), deliver
+  it as a RASTER IMAGE (e.g. PNG), and before you present it, actually look at it and confirm it
+  rendered complete - nothing cropped, labels legible, the whole canvas present. Don't ship an
+  unverified render. A feel/interaction gap is NOT satisfied by an image - it needs the playable thing.
 - Present the artifact and get the user's steer. In teacher/playmate, ask for it open-endedly -
   not "A or B?" but "what worked, what didn't, and why?" - and follow up on their reply to pull
   out the reasoning; that reasoning, not the bare pick, is what sets the next iteration's
