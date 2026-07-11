@@ -136,6 +136,15 @@ def check_gap_schema(
         gtype = fields.get("gap-type", "").strip().lower()
         if gtype and gtype not in GAP_TYPES:
             errors.append(f"gap type '{gtype}' is not one of {', '.join(sorted(GAP_TYPES))}")
+        # Auto (unattended) sessions may only self-run research-settleable gaps.
+        # A fit/reaction gap needs a real person's reaction as its only signal;
+        # a machine judging its own artifact is not a judge. So auto is confined
+        # to fact-lookup, where an external source — not an opinion — settles it.
+        if fields.get("session-mode", "").strip().lower() == "auto" and gtype in ("fit", "reaction"):
+            errors.append(
+                "auto mode may only create 'fact-lookup' gaps — 'fit' and 'reaction' gaps "
+                "need a human reaction, which an unattended run cannot supply"
+            )
         # a create may include an optional first session block; if a session
         # date is given, the whole block must be complete
         if fields.get("session-date", "").strip():
@@ -172,8 +181,8 @@ def _session_errors(fields: dict[str, str]) -> list[str]:
         if not fields.get(name, "").strip():
             errs.append(f"missing required session field '{name}'")
     mode = fields.get("session-mode", "").strip().lower()
-    if mode and mode not in ("teacher", "playmate"):
-        errs.append("session-mode must be 'teacher' or 'playmate'")
+    if mode and mode not in ("teacher", "playmate", "auto"):
+        errs.append("session-mode must be 'teacher', 'playmate', or 'auto'")
     return errs
 
 

@@ -162,6 +162,36 @@ class TestSchemaValidation(unittest.TestCase):
         r = run(append_fields(**{"session-mode": "wizard"}))
         self.assertEqual(r.status, "reject")
 
+    def test_auto_session_mode_accepted(self):
+        r = run(append_fields(**{"session-mode": "auto"}))
+        self.assertEqual(r.status, "accept")
+        self.assertTrue(r.record_text.startswith("### 2026-07-10 · auto"))
+
+
+class TestAutoModeGuard(unittest.TestCase):
+    def test_auto_create_fit_gap_rejected(self):
+        # create_fields defaults to gap-type "fit"
+        r = run(create_fields(**{
+            "session-date": "2026-07-10", "session-mode": "auto",
+            "scenario": "x", "mined": "y",
+        }), existing=set())
+        self.assertEqual(r.status, "reject")
+        self.assertTrue(any("auto mode" in x for x in r.reasons))
+
+    def test_auto_create_reaction_gap_rejected(self):
+        r = run(create_fields(**{
+            "gap-type": "reaction", "session-date": "2026-07-10",
+            "session-mode": "auto", "scenario": "x", "mined": "y",
+        }), existing=set())
+        self.assertEqual(r.status, "reject")
+
+    def test_auto_create_fact_lookup_gap_accepted(self):
+        r = run(create_fields(**{
+            "gap-type": "fact-lookup", "session-date": "2026-07-10",
+            "session-mode": "auto", "scenario": "x", "mined": "y",
+        }), existing=set())
+        self.assertEqual(r.status, "accept")
+
 
 class TestScreeningReused(unittest.TestCase):
     def test_injection_in_field_rejected(self):

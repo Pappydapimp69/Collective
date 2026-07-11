@@ -81,9 +81,11 @@ body:
     id: session-mode
     attributes:
       label: Session mode
+      description: "auto = an unattended machine run (no human judge); allowed only for fact-lookup gaps"
       options:
         - teacher
         - playmate
+        - auto
     validations:
       required: false
   - type: textarea

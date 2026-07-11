@@ -37,11 +37,21 @@ Each gate has a precondition that must hold before you advance. This ordering is
 point - it is what stops the loop from drifting.
 
 GATE 1 - MODE
-Ask: teacher or playmate?
+Ask: teacher, playmate, or auto?
 - Teacher: the user names a topic/domain; you find the gap inside it.
 - Playmate: you propose FOUR gaps and let the user pick - two fresh gaps, one
   missing-knowledge / new-or-empty-domain option, and one gap already accumulating in the
   gaps folder from prior sessions. Span different domains and types so it isn't monotonous.
+- Auto: no human is in the loop - you pick the gap and run the whole loop yourself. Auto is
+  RESTRICTED to research-settleable gaps: at Gate 3 you may only proceed on a fact-lookup gap
+  (an external source settles it). If the gap you find is fit or reaction, STOP - you cannot
+  run it in auto, because those need a real person's reaction as their only signal and a
+  machine judging its own artifact is not a judge; leave it in the folder for a teacher or
+  playmate session. In auto there is no Gate 5 mad-lib and no user steer; Gate 6 becomes a
+  research-and-mine pass (no self-scored artifacts). Record the session as mode "auto" so any
+  reader sees no independent human was involved, and pin every mined nugget's provenance to
+  "Assumed" no matter how many auto runs agree - self-runs are never independent, so auto runs
+  can never produce convergence. Respect the rate cap; do not loop unbounded.
 
 GATE 2 - ACQUIRE THE GAP
 Scan Collective's snapshots (all four types: memory, ideas, tension, creativity) plus any
@@ -111,21 +121,26 @@ answer is externally grounded with real citations.
 
 GATE 8 - RESULTS, THEN BACK TO THE TOP
 Only now - after the loop has actually terminated - ask: "Want to see the results?"
-- Yes: show the results, then re-prompt teacher or playmate (Gate 1).
-- No: skip straight to re-prompting teacher or playmate (Gate 1).
-The teacher/playmate menu is reachable ONLY through this gate. Never reset to it mid-loop,
-never before the results question is answered.
+- Yes: show the results, then re-prompt teacher / playmate / auto (Gate 1).
+- No: skip straight to re-prompting teacher / playmate / auto (Gate 1).
+The mode menu is reachable ONLY through this gate. Never reset to it mid-loop, never before
+the results question is answered. (In auto there is no user to ask - go straight back to Gate 1
+and pick the next gap, still respecting the rate cap.)
 
-SUBMITTING MINED ENTRIES (part of showing results, when the user wants to publish)
-For each candidate, fetch the REAL live form fresh - .github/ISSUE_TEMPLATE/<type>-{lesson,
-fragment,fork,log}.yml - and use ITS exact field labels in order; never guess or reuse a past
-session's field names. Show the full draft, get explicit per-entry confirmation, then open a
-GitHub issue on pappydapimp69/Collective using the USER'S OWN authenticated account: title
-"[<type>] <short summary>", labels ["intake:<type>"], body "### <label>\n\n<answer>\n\n" per
-field. This is a MEDIATED write - an automated check runs, then a human reviews a PR before
-anything lands; tension entries are NEVER auto-landed however clean they look. Never include
-secrets, credentials, or tokens. Don't retry a rejected submission to route around it -
-surface the rejection reason to the user.
+SUBMITTING MINED ENTRIES (part of showing results, when there is something worth publishing)
+Everything a training session produces is recorded through ONE live form: the gap log,
+.github/ISSUE_TEMPLATE/gap-log.yml. Fetch it fresh and use ITS exact field labels in order;
+never guess or reuse a past session's field names. A session APPENDS its findings to a gap's
+record (operation "append", targeting the existing <slug>.md), or CREATES a new gap record if
+none exists yet - it never writes a Collective canon entry directly. Show the full draft, get
+explicit per-entry confirmation (in auto, skip confirmation but still show the draft in the
+results), then open a GitHub issue on pappydapimp69/Collective using the USER'S OWN
+authenticated account (in auto, the account the run is configured with): title "[gap] <short
+summary>", labels ["intake:gap"], body "### <label>\n\n<answer>\n\n" per field, with
+session-mode set to teacher / playmate / auto to match how the session actually ran. This is a
+MEDIATED write - an automated check runs, then it opens as a pull request a human reviews
+before anything lands; nothing is auto-merged. Never include secrets, credentials, or tokens.
+Don't retry a rejected submission to route around it - surface the rejection reason.
 ```
 
 ## Why the gates exist
@@ -138,6 +153,7 @@ Every gate is a guard against a specific way an unstructured version of this loo
 | 3 (classify) | Answering a fit/reaction gap with a cited fact instead of a built artifact |
 | 4 (research first) | Producing before researching; missing external precedent |
 | 6 (artifact mandatory + verify render) | Skipping proof-of-fit; shipping the wrong format or a cropped/illegible image |
+| 1 (auto is fact-lookup only) | Letting an unattended machine self-judge a fit/reaction gap — marking its own homework |
 | 7 (persist, don't close) | Treating one session's opinion as settled knowledge |
 | 8 (terminal reset) | Bouncing back to the menu mid-round instead of finishing the loop |
 
