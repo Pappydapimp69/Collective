@@ -1,14 +1,8 @@
 # Lighter-gated gap-write path — sibling to intake.yml, NOT a replacement for it.
-# Entry intake (intake.yml) lands canon via a human-merged PR. This lands a
-# gaps/ write via an AUTO-MERGED PR, because a gap record is working scratch
-# that updates every training session. The trade (no human in the merge) is only
-# safe because the write is sandboxed: a fresh short-lived App token, the same
-# injection/secret/moderation screening as entries, a server-derived path that
-# can only be under gaps/, append-only content, and an INDEPENDENT second check
-# (gap-diff-shape-check.yml) that must pass before auto-merge fires.
-#
-# Contributors never hold a git credential — same invariant as intake.yml. Only
-# the bot token commits, and only ever under gaps/.
+# Entry intake (intake.yml) lands canon via a human-merged PR. Gap writes also wait
+# for human merge. Persistence is tracked on the source issue: submitted -> pending
+# review -> recorded. The issue stays open until a separate post-merge workflow
+# verifies the expected fingerprint in the expected file on main.
 name: collective-gap-intake
 
 on:
@@ -21,7 +15,6 @@ permissions:
   pull-requests: write
 
 concurrency:
-  # serialize gap writes so two runs can't race on the same file/sequence
   group: gap-intake
   cancel-in-progress: false
 
@@ -43,18 +36,23 @@ jobs:
         with:
           token: ${{ steps.app-token.outputs.token }}
 
+      - name: Record submitted state
+        env:
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+        run: |
+          gh issue comment "${{ github.event.issue.number }}" --body '<!-- collective-gap-persistence
+          state: submitted
+          issue: ${{ github.event.issue.number }}
+          -->
+          Submission received. It is not recorded in Collective yet.'
+
       - name: Write issue body to file
-        # The issue body is untrusted public input. Pass it through the
-        # environment (never expanded as shell) rather than interpolating it
-        # into the script — a body containing the heredoc sentinel, backticks,
-        # or $(...) must be inert data, not executable text. printf %s writes
-        # it verbatim with no interpretation.
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
         run: |
           printf '%s' "$ISSUE_BODY" > /tmp/body.txt
 
-      - name: Fetch account age (for new-account extra scrutiny)
+      - name: Fetch account age
         id: account
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
@@ -62,14 +60,10 @@ jobs:
           created_at=$(gh api "users/${{ github.event.issue.user.login }}" --jq .created_at)
           echo "created_at=$created_at" >> "$GITHUB_OUTPUT"
 
-      - name: Load rate-limit state + list existing gaps
+      - name: Load rate-limit state and existing gaps
         run: |
           mkdir -p /tmp/state
           cp gaps/_state/ratelimit.json /tmp/state/ratelimit.json 2>/dev/null || echo '{}' > /tmp/state/ratelimit.json
-          # Only lowercase-slug .md files are gaps; README/TEMPLATE (uppercase)
-          # are excluded and can never be append targets anyway. Emit a
-          # {filename: type} map so the steward can enforce the auto
-          # fact-lookup-only rule against the TARGET gap's declared Type.
           python3 - << 'PY' > /tmp/existing_gaps.json
           import glob, json, os, re
           slug = re.compile(r"^[a-z0-9][a-z0-9-]*\.md$")
@@ -104,81 +98,108 @@ jobs:
           cat /tmp/result.json
           echo "status=$(python3 -c "import json;print(json.load(open('/tmp/result.json'))['status'])")" >> "$GITHUB_OUTPUT"
 
-      - name: Moderation hold — never close, never echo content, route to human queue
+      - name: Moderation hold
         if: steps.validate.outputs.status == 'moderation_hold'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           gh issue edit "${{ github.event.issue.number }}" --add-label "flagged:moderation"
-          gh issue comment "${{ github.event.issue.number }}" \
-            --body "This gap submission was routed to human moderation review. No action needed from you."
+          gh issue comment "${{ github.event.issue.number }}" --body '<!-- collective-gap-persistence
+          state: moderation-hold
+          issue: ${{ github.event.issue.number }}
+          -->
+          This submission is awaiting human moderation. It is not recorded in Collective.'
 
-      - name: Reject — comment specific reason, close
+      - name: Reject and close
         if: steps.validate.outputs.status == 'reject'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           reasons=$(python3 -c "import json;print('\n'.join('- ' + r for r in json.load(open('/tmp/result.json'))['reasons']))")
-          gh issue comment "${{ github.event.issue.number }}" --body "Automated gap check failed:
+          gh issue comment "${{ github.event.issue.number }}" --body "<!-- collective-gap-persistence
+          state: rejected
+          issue: ${{ github.event.issue.number }}
+          -->
+          Automated gap check failed:
           $reasons
 
-          Fix the issue above and open a new submission — this one won't be auto-retried."
+          Nothing was recorded in Collective. Fix the issue and open a new submission."
           gh issue close "${{ github.event.issue.number }}" --reason "not planned"
 
-      - name: Accept — write under gaps/ only, open a PR for human merge
+      - name: Accept, fingerprint, and open review PR
         if: steps.validate.outputs.status == 'accept'
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
-          set -e
+          set -euo pipefail
           filename=$(python3 -c "import json;print(json.load(open('/tmp/result.json'))['filename'])")
-
-          # Hard re-assertion of the path guard at the workflow layer: the write
-          # target must be a bare lowercase slug .md — never a path. Belt to the
-          # steward's braces; a bug or tampered result.json cannot escape gaps/.
           echo "$filename" | grep -Eq '^[a-z0-9][a-z0-9-]*\.md$' || { echo "unsafe filename '$filename'"; exit 1; }
 
-          branch="gap/$(date +%s)"
+          fingerprint=$(python3 - << 'PY'
+          import hashlib, json
+          r = json.load(open('/tmp/result.json'))
+          print(hashlib.sha256(r['record_text'].encode('utf-8')).hexdigest())
+          PY
+          )
+
+          branch="gap/${{ github.event.issue.number }}-$(date +%s)"
           git checkout -b "$branch"
 
-          python3 - << 'PY'
+          ISSUE_NUMBER="${{ github.event.issue.number }}" FINGERPRINT="$fingerprint" python3 - << 'PY'
           import json, os, re
           r = json.load(open('/tmp/result.json'))
           fn = r['filename']
           path = os.path.join('gaps', fn)
           assert os.path.dirname(os.path.abspath(path)) == os.path.abspath('gaps'), "escaped gaps/"
+          marker = f"<!-- collective-gap-source issue={os.environ['ISSUE_NUMBER']} fingerprint={os.environ['FINGERPRINT']} -->\n"
           if r['operation'] == 'create':
               assert not os.path.exists(path), "create target already exists"
-              open(path, 'w', encoding='utf-8').write(r['record_text'])
-          else:  # append
+              text = r['record_text']
+              if not text.endswith('\n'):
+                  text += '\n'
+              open(path, 'w', encoding='utf-8').write(text + marker)
+          else:
               assert os.path.exists(path), "append target missing"
               text = open(path, encoding='utf-8').read()
-              # advance the single Status header line (the one permitted modification)
               text = re.sub(r'(?m)^- \*\*Status:\*\* .*$',
                             f"- **Status:** {r['new_status']}", text, count=1)
               if not text.endswith('\n'):
                   text += '\n'
-              text += '\n' + r['record_text']
+              block = r['record_text']
+              if not block.endswith('\n'):
+                  block += '\n'
+              text += '\n' + block + marker
               open(path, 'w', encoding='utf-8').write(text)
           PY
 
           cp /tmp/state/ratelimit.json gaps/_state/ratelimit.json
-
-          # Stage ONLY gaps/ — gap-diff-shape-check.yml independently re-asserts this.
           git add "gaps/$filename" gaps/_state/ratelimit.json
           git -c user.name="collective-gap-bot" -c user.email="collective-gap-bot@users.noreply.github.com" \
             commit -m "gap($filename): #${{ github.event.issue.number }} from @${{ github.event.issue.user.login }}"
           git push origin "$branch"
 
-          gh pr create --title "gap: ${filename}" \
-            --body "Mechanically validated gap write from #${{ github.event.issue.number }}. Waits for a human to merge — auto-merge is OFF while the public path is untested." \
-            --label "gap:auto"
-          # Auto-merge is intentionally OFF (training-mode failsafe): even a gap
-          # write that passed every automated check waits for a human to click
-          # merge, so nothing touches the repo unattended while the public path
-          # is still being observed under load. Re-enabling later is one line —
-          # add `gh pr merge --auto --squash` here — but only after the
-          # branch-protection required check is in place (see staging README).
-          gh issue comment "${{ github.event.issue.number }}" \
-            --body "Passed automated checks — opened as a pull request for the gaps folder. A human reviews and merges it; nothing lands automatically."
-          gh issue close "${{ github.event.issue.number }}" --reason "completed"
+          pr_body="$(cat <<EOF
+          Mechanically validated gap write from #${{ github.event.issue.number }}. A human must merge it.
+
+          <!-- collective-gap-persistence
+          issue: ${{ github.event.issue.number }}
+          filename: $filename
+          fingerprint: $fingerprint
+          state: pending-review
+          -->
+          EOF
+          )"
+          pr_url=$(gh pr create --title "gap: ${filename}" --body "$pr_body" --label "gap:auto")
+          pr_number="${pr_url##*/}"
+
+          gh issue comment "${{ github.event.issue.number }}" --body "<!-- collective-gap-persistence
+          state: pending-review
+          issue: ${{ github.event.issue.number }}
+          pr: $pr_number
+          filename: $filename
+          fingerprint: $fingerprint
+          -->
+          Passed automated checks and opened PR #$pr_number. The issue remains open because the session is not recorded in Collective until that PR is merged and the file fingerprint is verified on main."
+
+          # Deliberately do not close the issue here. The post-merge verifier is
+          # the only workflow allowed to close it as completed.
