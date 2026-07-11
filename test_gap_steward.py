@@ -55,12 +55,14 @@ def append_fields(**over):
     return f
 
 
-# existing_gaps is a {filename: type} map so the auto fact-lookup-only rule can
+# existing_gaps is a {filename: type} map so the auto objective-signal rule can
 # be checked against the target gap's type. The default set has one fit gap (the
-# door-swing example most append tests target) and one fact-lookup gap.
+# door-swing example many append tests target), one fact-lookup gap, and one
+# reaction gap (the only type auto may NOT touch).
 EXISTING = {
     "interior-design--door-swing-clearance.md": "fit",
     "tax-us--extension-filing-deadline.md": "fact-lookup",
+    "comedy--why-a-callback-joke-lands.md": "reaction",
 }
 
 
@@ -184,14 +186,14 @@ class TestSchemaValidation(unittest.TestCase):
 
 
 class TestAutoModeGuard(unittest.TestCase):
-    def test_auto_create_fit_gap_rejected(self):
-        # create_fields defaults to gap-type "fit"
+    def test_auto_create_fit_gap_accepted(self):
+        # create_fields defaults to gap-type "fit" — auto may work fit gaps
+        # (a built artifact settles them, under supervision)
         r = run(create_fields(**{
             "session-date": "2026-07-10", "session-mode": "auto",
             "scenario": "x", "mined": "y",
         }), existing={})
-        self.assertEqual(r.status, "reject")
-        self.assertTrue(any("auto mode" in x for x in r.reasons))
+        self.assertEqual(r.status, "accept")
 
     def test_auto_create_reaction_gap_rejected(self):
         r = run(create_fields(**{
@@ -199,6 +201,7 @@ class TestAutoModeGuard(unittest.TestCase):
             "session-mode": "auto", "scenario": "x", "mined": "y",
         }), existing={})
         self.assertEqual(r.status, "reject")
+        self.assertTrue(any("auto mode" in x for x in r.reasons))
 
     def test_auto_create_fact_lookup_gap_accepted(self):
         r = run(create_fields(**{
@@ -207,9 +210,14 @@ class TestAutoModeGuard(unittest.TestCase):
         }), existing={})
         self.assertEqual(r.status, "accept")
 
-    def test_auto_append_to_fit_gap_rejected(self):
-        # door-swing is a fit gap — auto may not append to it
+    def test_auto_append_to_fit_gap_accepted(self):
+        # door-swing is a fit gap — auto may now append to it
         r = run(append_fields(**{"target": "interior-design--door-swing-clearance.md"}))
+        self.assertEqual(r.status, "accept")
+
+    def test_auto_append_to_reaction_gap_rejected(self):
+        # a reaction gap needs a real human reaction — auto may not touch it
+        r = run(append_fields(**{"target": "comedy--why-a-callback-joke-lands.md"}))
         self.assertEqual(r.status, "reject")
         self.assertTrue(any("auto mode" in x for x in r.reasons))
 

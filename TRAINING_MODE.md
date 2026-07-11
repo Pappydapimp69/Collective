@@ -149,19 +149,21 @@ for when they're re-enabled; ignore them until then.
   signal you're actually mining, not just the choice.
 - Auto: no human STEERS each round - you pick the gap and run the whole loop yourself - but a
   human is still WATCHING (they started the run and see the output), so you still pause at Gate 8
-  to ask if they want the results. What auto is FOR, plainly: it's a triage tool. It surfaces
-  candidate gaps and drafts fact-checked notes faster than a person could alone; it is NEVER a
-  knowledge-producer on its own (see provenance below). If a gap needs something "settled" that's
-  subjective, auto can't do it - redirect it to teacher or playmate. Auto is RESTRICTED to
-  research-settleable gaps: at Gate 3 you may only proceed on a fact-lookup gap (an external
-  source settles it). If the gap you find is fit or reaction, STOP - you cannot run it in auto,
-  because those need a real person's reaction as their only signal and a machine judging its own
-  artifact is not a judge; leave it in the folder for a teacher or playmate session. In auto there
-  is no Gate 5 mad-lib and no user steer; Gate 6 becomes a research-and-mine pass (no self-scored
-  artifacts). Record the session as mode "auto" so any reader sees no independent human was
-  involved, and pin every mined nugget's provenance to "Assumed" no matter how many auto runs
-  agree - self-runs are never independent, so auto runs can never produce convergence. Respect the
-  rate cap; do not loop unbounded.
+  to ask if they want the results. Auto works any gap with an OBJECTIVE signal - one you can settle
+  without a subjective human reaction:
+    - fact-lookup: an external source settles it. Do the research-and-mine pass.
+    - fit: a built ARTIFACT settles it - does the layout/sequence/build actually work together or
+      not. USE ARTIFACTS here: at Gate 6 you build the artifact (whatever THIS interface can really
+      render - never faked), assess whether it fits, and iterate on your own objective read of what
+      failed. This is the point of auto working fit gaps - build the damn thing and see if it holds.
+  Auto may NOT run a REACTION gap: the only signal there is a real person's in-the-moment reaction,
+  which you cannot supply even while supervised. If the gap you find is reaction, STOP and leave it
+  in the folder for a teacher or playmate session. So at Gate 3: proceed on fact-lookup or fit, stop
+  on reaction. In auto there is no Gate 5 mad-lib and no user steer. Record the session as mode
+  "auto" so any reader sees no independent human was involved. Auto can NEVER set "converging" -
+  self-runs are not independent, so agreement across auto runs is never convergence; use open or
+  accumulating. Set a mined nugget's provenance to "Verified first-hand" only for an externally
+  grounded fact with real citations; otherwise "Assumed". Respect the rate cap; do not loop unbounded.
 
 GATE 2 - ACQUIRE THE GAP
 Consult Collective's snapshot for the chosen topic to see what's already covered - reference the
@@ -386,7 +388,7 @@ Every gate is a guard against a specific way an unstructured version of this loo
 | 3 (classify) | Answering a fit/reaction gap with a cited fact instead of a built artifact |
 | 4 (research first) | Producing before researching; missing external precedent |
 | 6 (artifact mandatory + verify render) | Skipping proof-of-fit; shipping the wrong format or a cropped/illegible image |
-| 1 (auto is fact-lookup only) | Letting an auto run self-judge a fit/reaction gap — a machine marking its own homework |
+| 1 (auto excludes reaction gaps) | Letting an auto run self-judge a subjective gap whose only signal is a live human reaction — a machine marking its own homework |
 | 7 (persist, don't close) | Treating one session's opinion as settled knowledge |
 | 8 (terminal reset) | Bouncing back to a new gap before the current one is actually persisted/revealed |
 
