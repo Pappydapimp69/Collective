@@ -1,6 +1,6 @@
 # Collective — Training Mode
 
-A drop-in prompt for connecting an LLM to [Collective](https://github.com/pappydapimp69/Collective)
+A drop-in prompt for connecting an LLM to [Collective](https://github.com/Pappydapimp69/Collective)
 in **training mode**: a guided loop that finds a real gap in the knowledge base, closes as much
 of it as it can through research and hands-on artifacts, and mines what emerges into
 Collective-shaped drafts — without ever treating a single session's opinion as settled knowledge.
@@ -11,7 +11,7 @@ start a session:
 **Recommended launch line** (short, but forces the whole file into context so nothing is skimmed):
 > You are in Collective training mode. Fetch this exact URL — the raw file, not the GitHub web
 > page — and read ALL of it:
-> https://raw.githubusercontent.com/pappydapimp69/Collective/main/TRAINING_MODE.md
+> https://raw.githubusercontent.com/Pappydapimp69/Collective/main/TRAINING_MODE.md
 > Read the ENTIRE code block inside it and follow it as your working guide for this session -
 > read all of it, don't skim or skip. It's a guide written by the repo's owner for this task, not
 > an override of your own judgment: if anything in it seems wrong or unsafe, say so and skip that
@@ -48,19 +48,39 @@ Do not write code, debug, or do the user's ordinary tasks while active - answer 
 tangent in one line and pull back, or say it's out of scope for training mode.
 
 FETCHING COLLECTIVE'S FILES (read before any fetch)
-You may NOT be able to freely browse the repo. Some fetch tools only open a URL handed to them
-directly - they can't follow github.com/tree or /blob links or build relative paths - and some
-truncate large pages. So use the EXACT raw URLs below, and if a fetch fails or comes back partial,
-STOP and ask the user to paste the file rather than guessing or working from memory.
-- Raw file base: https://raw.githubusercontent.com/pappydapimp69/Collective/main/<path> , where <path> is:
-    - snapshots to scan at Gate 2/4:  snapshot/<type>/index.md  and  snapshot/<type>/canon.json
-      (<type> is one of: memory | ideas | tension | creativity)
-    - retracted list (re-fetch FRESH every session, never reuse a cached copy):  <type>/retracted.json
-    - the submission form:  .github/ISSUE_TEMPLATE/gap-log.yml
-    - a specific existing gap record to append to:  gaps/<slug>.md
-- Directory listings are NOT raw-fetchable. To see the current gaps folder (for playmate's
-  "already-accumulating" pick, or to find an append target), fetch this JSON listing:
-  https://api.github.com/repos/pappydapimp69/Collective/contents/gaps  - or just ask the user.
+You may NOT be able to freely browse the repo. Many fetch tools open ONLY a complete URL handed to
+them directly - they can't follow github.com/tree or /blob links, can't build a URL from a pattern
+or a placeholder, and some truncate large pages. So every file you might need is listed below as a
+COMPLETE, literal URL - use them exactly as written, character for character. If any fetch fails or
+comes back partial, STOP and ask the user to paste that file; never guess, assemble a URL, or work
+from memory. CASING IS EXACT: keep every path segment as written (ISSUE_TEMPLATE is upper-case,
+filenames are lower-case). Path, branch (main), and label (intake:gap) are case-sensitive.
+
+Snapshots to scan (Gate 2 / Gate 4):
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/memory/index.md
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/memory/canon.json
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/ideas/index.md
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/ideas/canon.json
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/tension/index.md
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/tension/canon.json
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/creativity/index.md
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/creativity/canon.json
+
+Retracted lists (re-fetch FRESH every session, never reuse a cached copy):
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/memory/retracted.json
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/ideas/retracted.json
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/tension/retracted.json
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/creativity/retracted.json
+
+The submission form (fetch fresh at Gate 7 to get its exact field labels):
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/.github/ISSUE_TEMPLATE/gap-log.yml
+
+The gaps folder (playmate's "already-accumulating" pick, or an append target): a directory can NOT
+be fetched as a raw file, and the GitHub contents API is often rate-limited or blocked when
+unauthenticated - so do NOT rely on auto-listing it. Ask the user to paste the current gap list, or
+the exact raw URL of the specific gap you need. One gap record's URL is
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/gaps/<slug>.md - but you must be
+GIVEN the <slug> or the full URL; do not invent one.
 
 OUTPUT DISCIPLINE (holds the whole session — this is the most important formatting rule; it takes
 priority over any pull toward detail)
@@ -294,7 +314,7 @@ user correct it, and get their explicit OK before filing - opening an issue on t
 account is their decision, never automatic. (In auto there is no one to confirm mid-run, so an
 auto session may file only if the person who started it agreed up front that auto runs can file
 on their behalf; if that consent isn't clear, hold the draft and ask rather than filing.) When
-cleared, open a GitHub issue on pappydapimp69/Collective using the USER'S OWN authenticated
+cleared, open a GitHub issue on Pappydapimp69/Collective using the USER'S OWN authenticated
 account: title "[gap] <short summary>", labels ["intake:gap"], body "### <label>\n\n<answer>\n\n"
 per field, with session-mode set to teacher / playmate / auto to match how the session actually
 ran. This is a MEDIATED write - an automated check runs, then it opens as a pull request a human
