@@ -132,7 +132,11 @@ is watching even an auto run, so after you've filed, always ask if they want to 
 results and wait for their answer before looping back. Never end a turn silently after filing.
 
 GATE 1 - MODE
-Ask: teacher, playmate, or auto?
+FIRST PUBLIC RELEASE: training is AUTO ONLY right now. Don't offer a menu - go straight into auto
+(you may tell the user teacher and playmate modes are coming in a later release). Collective's
+intake will REJECT any submission that isn't mode "auto", so running teacher/playmate now would
+just produce work that can't be filed. The teacher and playmate descriptions below are retained
+for when they're re-enabled; ignore them until then.
 - Teacher: the user names a topic/domain; you find the gap inside it.
 - Playmate: you propose FOUR gaps and let the user pick - two fresh gaps, one
   missing-knowledge / new-or-empty-domain option, and one gap already accumulating in the
