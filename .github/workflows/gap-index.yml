@@ -1,0 +1,46 @@
+# Keeps gaps/INDEX.md current. A public LLM can't list the gaps/ directory (the
+# contents API 403s anonymously and github.com/tree is robots-blocked), so the
+# training prompt fetches this ONE index file by its raw URL instead. This job
+# regenerates it whenever gap files change on main and commits the result.
+#
+# INDEX.md is a pure DERIVED projection of files already on main — it carries no
+# new knowledge — so committing it directly (not through a mediated PR) does not
+# violate the human-merge rule that governs actual gap CONTENT. The commit is
+# made with GITHUB_TOKEN, whose pushes do not trigger further workflow runs, so
+# there is no regeneration loop.
+name: collective-gap-index
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "gaps/*.md"
+      - "!gaps/INDEX.md"
+      - "gen_gap_index.py"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: gap-index
+  cancel-in-progress: false
+
+jobs:
+  rebuild-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Regenerate the index from the gap files
+        run: python3 gen_gap_index.py
+
+      - name: Commit if it changed
+        run: |
+          if git diff --quiet -- gaps/INDEX.md; then
+            echo "index already current"
+            exit 0
+          fi
+          git -c user.name="collective-gap-bot" \
+              -c user.email="collective-gap-bot@users.noreply.github.com" \
+              commit -m "gaps: regenerate INDEX.md" -- gaps/INDEX.md
+          git push origin main

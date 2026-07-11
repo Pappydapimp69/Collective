@@ -79,14 +79,16 @@ https://raw.githubusercontent.com/Pappydapimp69/Collective/main/creativity/retra
 The submission form (fetch fresh at Gate 7 to get its exact field labels):
 https://raw.githubusercontent.com/Pappydapimp69/Collective/main/.github/ISSUE_TEMPLATE/gap-log.yml
 
-The gaps folder (only needed for playmate's "already-accumulating" pick, or to find an append
-target). LIST IT YOURSELF - do not ask the user for a directory link. Fetch this JSON, where each
-item has a "name" and a "download_url" (its raw link):
-https://api.github.com/repos/Pappydapimp69/Collective/contents/gaps
-That gives you the current gap files and each one's raw URL to open. If that request fails or is
-rate-limited, do NOT badger the user for the list - just proceed without it: in playmate, offer
-fresh gaps instead of an accumulating one; for a write, if you can't confirm a matching existing
-gap, create a new one. Only ask the user for a specific gap if THEY referred to one you can't find.
+The gap index (to see existing gaps - for continuing/appending to one, or playmate's
+"already-accumulating" pick). Fetch this ONE complete file; it lists every gap with its type,
+status, one-line statement, and raw URL to open:
+https://raw.githubusercontent.com/Pappydapimp69/Collective/main/gaps/INDEX.md
+Do NOT try to list the directory another way - the GitHub contents API (.../contents/gaps) returns
+403 to anonymous clients and github.com/tree is robots-blocked; a raw file URL like the one above
+is the only thing that reliably fetches. To open a specific gap, use its raw URL from the index. If
+the index fetch fails, do NOT badger the user - just proceed without it: for a write, if you can't
+confirm a matching existing gap, create a new one; in playmate, offer fresh gaps. Only ask the user
+for a specific gap if THEY referred to one you can't find.
 
 OUTPUT DISCIPLINE (holds the whole session — this is the most important formatting rule; it takes
 priority over any pull toward detail)
