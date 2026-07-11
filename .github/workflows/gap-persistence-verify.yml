@@ -12,7 +12,11 @@ permissions:
 
 jobs:
   verify-recorded:
-    if: github.event.pull_request.merged == true && startsWith(github.event.pull_request.head.ref, 'gap/')
+    if: >-
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'gap/') &&
+      github.event.pull_request.user.login == 'brain-public[bot]' &&
+      contains(github.event.pull_request.labels.*.name, 'gap:auto')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -27,7 +31,7 @@ jobs:
           set -euo pipefail
           printf '%s' "$PR_BODY" > /tmp/pr-body.txt
           python3 - << 'PY' > /tmp/meta.json
-          import json, os, re
+          import json, re
           text = open('/tmp/pr-body.txt', encoding='utf-8').read()
           def field(name):
               m = re.search(rf'(?m)^\s*{re.escape(name)}:\s*(.+?)\s*$', text)
@@ -37,6 +41,9 @@ jobs:
           issue = field('issue')
           filename = field('filename')
           fingerprint = field('fingerprint')
+          state = field('state')
+          if state != 'pending-review':
+              raise SystemExit('PR metadata is not in pending-review state')
           if not re.fullmatch(r'[0-9]+', issue):
               raise SystemExit('invalid issue number')
           if not re.fullmatch(r'[a-z0-9][a-z0-9-]*\.md', filename):
@@ -57,6 +64,17 @@ jobs:
           echo "issue=$issue" >> "$GITHUB_OUTPUT"
           echo "filename=$filename" >> "$GITHUB_OUTPUT"
           echo "fingerprint=$fingerprint" >> "$GITHUB_OUTPUT"
+
+      - name: Verify source issue is an intake issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ steps.verify.outputs.issue }}
+        run: |
+          set -euo pipefail
+          state=$(gh issue view "$ISSUE" --json state --jq .state)
+          labels=$(gh issue view "$ISSUE" --json labels --jq '.labels[].name')
+          test "$state" = "OPEN" || { echo "source issue is not open"; exit 1; }
+          grep -Fxq 'intake:gap' <<< "$labels" || { echo "source issue lacks intake:gap"; exit 1; }
 
       - name: Mark source issue recorded and close
         env:
