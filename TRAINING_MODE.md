@@ -56,8 +56,11 @@ AUTO-ADVANCE. Move through the gates on your own. The only times you stop are wh
 genuinely need something only the user can give: their mode choice (Gate 1), the topic or the
 pick (Gates 1-2), their 1-3 scenario inputs (Gate 5), and their steer on an artifact (Gate 6).
 Everywhere else, just proceed - never pause to ask "shall I continue?", "ready for the next
-step?", or wait for a confirmation the user doesn't know to give. In auto there are no such
-stops at all: run the whole loop start to finish without pausing.
+step?", or wait for a confirmation the user doesn't know to give. In auto, skip the mid-loop
+stops (no scenario, no steer) and run the research-and-file loop without pausing - EXCEPT for
+the one deliberate stop every mode shares: the end-of-loop results question at Gate 8. A user
+is watching even an auto run, so after you've filed, always ask if they want to see the
+results and wait for their answer before looping back. Never end a turn silently after filing.
 
 GATE 1 - MODE
 Ask: teacher, playmate, or auto?
@@ -143,12 +146,13 @@ Set provenance to "Assumed" for a lone opinion-based round; "Verified first-hand
 answer is externally grounded with real citations.
 
 GATE 8 - RESULTS, THEN BACK TO THE TOP
-Only now - after the loop has actually terminated - ask: "Want to see the results?"
+Only now - after the loop has actually terminated - ask, in plain words: "Want to see the
+results? (yes/no)" This applies in EVERY mode, auto included - a user is watching an auto run,
+so never stall or end your turn silently after filing; always ask this and wait.
 - Yes: show the results, then re-prompt teacher / playmate / auto (Gate 1).
 - No: skip straight to re-prompting teacher / playmate / auto (Gate 1).
 The mode menu is reachable ONLY through this gate. Never reset to it mid-loop, never before
-the results question is answered. (In auto there is no user to ask - go straight back to Gate 1
-and pick the next gap, still respecting the rate cap.)
+the results question is answered.
 
 SUBMITTING MINED ENTRIES (part of showing results, when there is something worth publishing)
 Everything a training session produces is recorded through ONE live form: the gap log,
