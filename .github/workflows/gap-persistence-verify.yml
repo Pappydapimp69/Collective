@@ -1,0 +1,100 @@
+# Post-merge proof that a training session actually LANDED. A gap PR being
+# opened, or even merged, is not persistence on its own — this job is the only
+# actor allowed to mark a source issue "recorded". It runs only after a gap/*
+# PR from brain-public[bot] merges, re-checks out main, and refuses to record
+# unless the exact gap file AND this session's source-fingerprint marker are
+# present on main. It closes the source issue only after that proof holds.
+name: collective-gap-persistence-verify
+
+on:
+  pull_request:
+    types: [closed]
+    branches: [main]
+
+permissions:
+  contents: read
+  issues: write
+  pull-requests: read
+
+jobs:
+  verify-recorded:
+    if: >-
+      github.event.pull_request.merged == true &&
+      startsWith(github.event.pull_request.head.ref, 'gap/') &&
+      github.event.pull_request.user.login == 'brain-public[bot]' &&
+      contains(github.event.pull_request.labels.*.name, 'gap:auto')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Parse persistence metadata and verify main
+        id: verify
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$PR_BODY" > /tmp/pr-body.txt
+          python3 - << 'PY' > /tmp/meta.json
+          import json, re
+          text = open('/tmp/pr-body.txt', encoding='utf-8').read()
+          def field(name):
+              m = re.search(rf'(?m)^\s*{re.escape(name)}:\s*(.+?)\s*$', text)
+              if not m:
+                  raise SystemExit(f'missing persistence field: {name}')
+              return m.group(1).strip()
+          issue = field('issue')
+          filename = field('filename')
+          fingerprint = field('fingerprint')
+          state = field('state')
+          if state != 'pending-review':
+              raise SystemExit('PR metadata is not in pending-review state')
+          if not re.fullmatch(r'[0-9]+', issue):
+              raise SystemExit('invalid issue number')
+          if not re.fullmatch(r'[a-z0-9][a-z0-9-]*\.md', filename):
+              raise SystemExit('invalid filename')
+          if not re.fullmatch(r'[0-9a-f]{64}', fingerprint):
+              raise SystemExit('invalid fingerprint')
+          print(json.dumps({'issue': issue, 'filename': filename, 'fingerprint': fingerprint}))
+          PY
+
+          issue=$(python3 -c "import json;print(json.load(open('/tmp/meta.json'))['issue'])")
+          filename=$(python3 -c "import json;print(json.load(open('/tmp/meta.json'))['filename'])")
+          fingerprint=$(python3 -c "import json;print(json.load(open('/tmp/meta.json'))['fingerprint'])")
+          path="gaps/$filename"
+          test -f "$path" || { echo "expected file missing on main: $path"; exit 1; }
+          marker="<!-- collective-gap-source issue=$issue fingerprint=$fingerprint -->"
+          grep -Fqx "$marker" "$path" || { echo "expected source marker missing on main"; exit 1; }
+
+          echo "issue=$issue" >> "$GITHUB_OUTPUT"
+          echo "filename=$filename" >> "$GITHUB_OUTPUT"
+          echo "fingerprint=$fingerprint" >> "$GITHUB_OUTPUT"
+
+      - name: Verify source issue is an intake issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ steps.verify.outputs.issue }}
+        run: |
+          set -euo pipefail
+          state=$(gh issue view "$ISSUE" --json state --jq .state)
+          labels=$(gh issue view "$ISSUE" --json labels --jq '.labels[].name')
+          test "$state" = "OPEN" || { echo "source issue is not open"; exit 1; }
+          grep -Fxq 'intake:gap' <<< "$labels" || { echo "source issue lacks intake:gap"; exit 1; }
+
+      - name: Mark source issue recorded and close
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ steps.verify.outputs.issue }}
+          FILENAME: ${{ steps.verify.outputs.filename }}
+          FINGERPRINT: ${{ steps.verify.outputs.fingerprint }}
+        run: |
+          gh issue comment "$ISSUE" --body "<!-- collective-gap-persistence
+          state: recorded
+          issue: $ISSUE
+          pr: ${{ github.event.pull_request.number }}
+          filename: $FILENAME
+          fingerprint: $FINGERPRINT
+          -->
+          Verified on main: the expected gap file contains this session's source fingerprint. This training session is now recorded in Collective."
+          gh issue close "$ISSUE" --reason completed
