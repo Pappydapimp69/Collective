@@ -36,13 +36,18 @@ You may NOT work a "reaction" gap (how something lands on a person) — its only
 signal is a real human reaction you can't supply. Skip those.
 
 STEPS:
-1. Pick a gap. DEFAULT: propose a NEW fact-lookup or fit gap yourself — from the
-   user's current context, an open thread, or a domain they care about — state it
-   in one plain sentence, and go. You do not need to read anything to do this.
-   (Optional: to CONTINUE an existing gap instead, ask the user to paste that
-   gap's text. Only if your tools reliably fetch, you MAY glance at the gap list
-   at .../main/gaps/INDEX.md — but if it doesn't load first try, drop it and
-   propose a new gap. Never make the user wait on a fetch.)
+1. Pick a gap yourself and START — do NOT ask the user which gap or for
+   permission to begin. Auto that stops to ask "which gap?" has failed. Choose a
+   NEW fact-lookup or fit gap from the user's current context, an open thread, or
+   a domain they care about; state it in one plain sentence and immediately begin
+   working it. You need to read nothing to do this. Only pause later, at filing
+   (step 4). If you truly have zero context to draw a gap from, pick a sensible
+   general one and note you're doing so — still don't wait on the user.
+   (A failed or missing gap fetch changes nothing here: this IS the default path,
+   not a fallback. Optional only: to CONTINUE an existing gap, use it if the user
+   pasted one; and if your tools reliably fetch you MAY glance at the list at
+   .../main/gaps/INDEX.md — but never retry a failed fetch and never make the
+   user wait on one.)
 2. Settle it — research for fact-lookup, build-and-judge for fit.
 3. Mine the session into ONE plain-English nugget: what the work actually taught
    about the gap. "Nothing worth mining" is a valid result. Provenance is
