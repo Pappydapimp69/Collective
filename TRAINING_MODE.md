@@ -200,10 +200,15 @@ testable artifact - if a reply has no artifact in it, it does not belong in the 
 deepens the CURRENT artifact's understanding - it is NOT a reason to add rounds, and it never
 replaces building the next artifact. Do not keep asking questions past a stable answer.
 Each iteration:
-- SHOW THE COUNT. Open every artifact reply with a plain progress marker so the user always
-  knows where they are in the loop: "1/5" for the first artifact, "2/5" for the second, and so
-  on up to "5/5". This counter is the ONE internal marker you are allowed (and required) to
-  show - it is user-facing progress, not jargon. The denominator is always 5 (the hard cap).
+- SHOW THE COUNT, AND ADVANCE IT. Open every reply that delivers a NEW artifact with a plain
+  progress marker, and INCREMENT it by exactly 1 each time: the first artifact is "1/5", the next
+  new artifact is "2/5", then "3/5", and so on to "5/5" - never repeat a number for a new
+  artifact, and never jump. Track it explicitly: the number on a new artifact is always
+  (the last number you showed) + 1. The counter reflects artifacts that actually RAN. The only
+  reply that does NOT advance it is a rebuild of an artifact that failed to run (see CONFIRM IT
+  ACTUALLY RAN) - that keeps the same number until it runs. Everything else in the loop is a new
+  artifact and MUST carry the next number. This counter is the ONE internal marker you are allowed
+  (and required) to show - it is user-facing progress, not jargon. The denominator is always 5.
 - BUILD ONE artifact. WHAT AN ARTIFACT IS: the SMALLEST real, tryable thing that lets the user
   directly EXPERIENCE the exact question this gap asks - no more. There is NO default form: it is
   NOT "always an image" and NOT "always a playable thing." The form follows the QUESTION. Before
@@ -248,9 +253,11 @@ Each iteration:
   rendered complete - nothing cropped, labels legible, the whole canvas present. Don't ship an
   unverified render. A feel/interaction gap is NOT satisfied by an image - it needs the playable thing.
 - Present the artifact and get the user's steer. In teacher/playmate, ask for it open-endedly -
-  not "A or B?" but "what worked, what didn't, and why?" - and follow up on their reply to pull
-  out the reasoning; that reasoning, not the bare pick, is what sets the next iteration's
-  variation and is the real thing you mine. (In auto there is no steer.)
+  not "A or B?" but "what worked, what didn't, and why?" - IN THE SAME REPLY as the artifact.
+  When they answer, your NEXT reply is the next numbered artifact (last number + 1) that varies
+  based on their reasoning - so the open question rides along with each artifact and the count
+  keeps moving; it is NOT a separate, artifact-free turn that freezes the counter. (In auto there
+  is no steer.)
 - Mine the artifact: pull out anything concrete enough to be a real candidate entry. "Nothing
   worth mining this round" is a fine outcome. Then DISCARD the raw artifact - only the mined
   nugget survives, carried into the next iteration's context so N+1 builds on what N taught.
