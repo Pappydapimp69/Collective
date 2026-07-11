@@ -195,9 +195,18 @@ Each iteration:
   tried, and what's still missing, so a future session can attempt it fresh. Then still proceed
   to Gates 7-8.
 
-GATE 7 - PERSIST, DON'T CLOSE
-Whatever you mined this session APPENDS to that gap's record in the gaps folder - it does not
-resolve the gap. A single session can NEVER mark a gap closed. Even when several sessions agree,
+GATE 7 - MINE, THEN WRITE TO COLLECTIVE (MANDATORY - DON'T CLOSE)
+Every session - teacher, playmate, AND auto - ENDS by writing to Collective. This is the point of
+the whole session; a session that ends without this write has FAILED.
+1. FINAL MINING PASS: pull the session's whole arc together - not just the last round - into the
+   candidate nugget(s): what the artifacts actually taught about the gap. "Nothing worth mining"
+   is a valid result, but it is still written (as a session block that says so).
+2. WRITE IT: file the mining to the gap's record through the gap form (append to the existing
+   gap, or create the gap if it's new) - see the mechanics below. This write is NOT optional and
+   NOT conditional on the finding being impressive; persisting the session to the gaps folder is
+   how it survives to the next session. Do this before Gate 8, in every mode, automatically.
+Writing PERSISTS the record; it does NOT resolve the gap. A single session can NEVER mark a gap
+closed. Even when several sessions agree,
 that convergence is only a FLAG for a human to go read the actual content - it is never proof and
 never closes a gap on its own. Assume nothing about whether those sessions were independent; they
 may not be. Closure only ever comes from a human confirming the substance during the mediated
@@ -206,22 +215,23 @@ Set provenance to "Assumed" for a lone opinion-based round; "Verified first-hand
 answer is externally grounded with real citations.
 
 GATE 8 - RESULTS, THEN BACK TO THE TOP
-Only now - after the loop has actually terminated - ask, in plain words: "Want to see the
-results? (yes/no)" This applies in EVERY mode, auto included - a user is watching an auto run,
+Only now - after the loop has ended AND the Gate 7 write to Collective has been filed - ask, in
+plain words: "Want to see the results? (yes/no)" This applies in EVERY mode, auto included - a user is watching an auto run,
 so never stall or end your turn silently after filing; always ask this and wait.
 - Yes: show the results, then re-prompt teacher / playmate / auto (Gate 1).
 - No: skip straight to re-prompting teacher / playmate / auto (Gate 1).
 The mode menu is reachable ONLY through this gate. Never reset to it mid-loop, never before
 the results question is answered.
 
-SUBMITTING MINED ENTRIES (part of showing results, when there is something worth publishing)
+HOW THE GATE 7 WRITE WORKS (this runs every session - it is the mandatory close, not an optional publish)
 Everything a training session produces is recorded through ONE live form: the gap log,
 .github/ISSUE_TEMPLATE/gap-log.yml. Fetch it fresh and use ITS exact field labels in order;
 never guess or reuse a past session's field names. A session APPENDS its findings to a gap's
 record (operation "append", targeting the existing <slug>.md), or CREATES a new gap record if
-none exists yet - it never writes a Collective canon entry directly. Show the full draft, get
-explicit per-entry confirmation (in auto, skip confirmation but still show the draft in the
-results), then open a GitHub issue on pappydapimp69/Collective using the USER'S OWN
+none exists yet - it never writes a Collective canon entry directly. Show the full draft and let
+the user correct its CONTENT (in auto, skip confirmation but still show the draft in the
+results) - but filing itself is not up for a yes/no; the record gets written. Then open a GitHub
+issue on pappydapimp69/Collective using the USER'S OWN
 authenticated account (in auto, the account the run is configured with): title "[gap] <short
 summary>", labels ["intake:gap"], body "### <label>\n\n<answer>\n\n" per field, with
 session-mode set to teacher / playmate / auto to match how the session actually ran. This is a
