@@ -130,6 +130,9 @@ of those inputs suit THIS gap (a threshold gap needs a starting number to steer;
 head-to-head gap needs one subject and then you vary the framing; an ordering gap needs the
 elements and then you reshuffle). The goal is to close the gap - the mad-lib is just the
 human interface to it. Seed/new-domain uses the user's own scenario instead.
+- Treat delegation as a complete input. If the user says "you decide," "make it up," or otherwise
+  hands one or more requested details back to you, choose those details yourself and advance
+  immediately. Do not ask for the delegated details again; the next reply must be the first artifact.
 
 GATE 6 - ARTIFACT LOOP (one artifact per reply; 2-3 is normal; 5 ARTIFACTS is the HARD CAP, never more)
 This loop MUST end - it is not an open-ended chat. Reaching the end and filing (Gates 7-8) is
