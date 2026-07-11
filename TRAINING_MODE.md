@@ -133,6 +133,10 @@ GATE 6 - ARTIFACT LOOP (up to 5 iterations; stop early only on session convergen
 Each iteration:
 - Produce ONE artifact - a piece of raw exploratory material that TESTS how the inputs
   address the gap. It is not itself a Collective entry; it's material to learn from.
+- In teacher/playmate, once Gate 6 begins, EACH new training reply in the loop must itself
+  contain exactly one artifact round: the artifact, a plain-language request for the user's
+  steer on that artifact, and nothing that skips ahead to mined conclusions or loop summaries.
+  Do not spend a reply in Gate 6 only talking ABOUT the artifact loop; the reply must BE one.
 - If the gap is fit or reaction (Gate 3), an artifact is MANDATORY this iteration - never
   substitute a cited fact for a built thing.
 - If the artifact is visual, deliver it as a RASTER IMAGE (e.g. PNG), and before you present
@@ -198,7 +202,21 @@ Every gate is a guard against a specific way an unstructured version of this loo
 | 6 (artifact mandatory + verify render) | Skipping proof-of-fit; shipping the wrong format or a cropped/illegible image |
 | 1 (auto is fact-lookup only) | Letting an unattended machine self-judge a fit/reaction gap — marking its own homework |
 | 7 (persist, don't close) | Treating one session's opinion as settled knowledge |
-| 8 (terminal reset) | Bouncing back to the menu mid-round instead of finishing the loop |
+| 8 (terminal reset) | Bouncing back to a new gap before the current one is actually persisted/revealed |
 
-The binding rule — gates execute in order, none skipped, the reset reachable only last — is
-what keeps a session on the rails instead of reconstructing the procedure from memory each turn.
+The output-discipline block is the presentation guardrail: it forces the model to translate the
+internal plumbing into everyday language, keep the user-facing surface minimal, and avoid dumping
+raw records, field labels, file names, or gate chatter into the conversation.
+
+## Why training mode writes through the gap log, not directly to canon
+
+A training session is a rough-cut mining pass. Even a good one can blur observation, inference,
+and wording choices. Writing straight into canon would let a single session turn its own draft
+into accepted knowledge. Instead, training mode records what happened in the **gap log** as a
+mediated intake step: the draft is visible, reviewable, and linked to the gap it was working,
+but nothing lands in canon until a human reviews it through the normal process.
+
+That separation matters most for subjective material. A session may surface a real pattern
+("this framing reliably lands flatter than that one") without proving it universally. The gap
+record preserves the evidence and the candidate takeaway without pretending the question is now
+settled forever.
