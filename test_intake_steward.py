@@ -116,7 +116,14 @@ class TestLabelMapDerivation(unittest.TestCase):
     Deriving the map from the actual .yml removes the second file entirely."""
 
     def _load(self, name):
-        with open(os.path.join(FORMS_DIR, name), encoding="utf-8") as f:
+        # The four entry forms are parked in ISSUE_TEMPLATE/_disabled/ while
+        # Collective runs training-mode-only (see _disabled/README.md). Their
+        # parsing must still be correct for when they're re-enabled, so resolve
+        # from either location.
+        path = os.path.join(FORMS_DIR, name)
+        if not os.path.exists(path):
+            path = os.path.join(FORMS_DIR, "_disabled", name)
+        with open(path, encoding="utf-8") as f:
             return f.read()
 
     def test_memory_form_maps_every_required_field(self):

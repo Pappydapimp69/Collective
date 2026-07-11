@@ -53,11 +53,20 @@ def append_fields(**over):
     return f
 
 
+# existing_gaps is a {filename: type} map so the auto fact-lookup-only rule can
+# be checked against the target gap's type. The default set has one fit gap (the
+# door-swing example most append tests target) and one fact-lookup gap.
+EXISTING = {
+    "interior-design--door-swing-clearance.md": "fit",
+    "tax-us--extension-filing-deadline.md": "fact-lookup",
+}
+
+
 def run(fields, *, account=OLD_ACCT, existing=None, limiter=None):
     return validate_gap_write(
         fields,
         account=account,
-        existing_gaps=existing if existing is not None else {"interior-design--door-swing-clearance.md"},
+        existing_gaps=EXISTING if existing is None else existing,
         limiter=limiter or RateLimiter(),
         now=NOW,
     )
@@ -161,6 +170,54 @@ class TestSchemaValidation(unittest.TestCase):
     def test_append_bad_session_mode_rejected(self):
         r = run(append_fields(**{"session-mode": "wizard"}))
         self.assertEqual(r.status, "reject")
+
+    def test_auto_append_to_factlookup_accepted(self):
+        r = run(append_fields(**{
+            "target": "tax-us--extension-filing-deadline.md",
+            "session-mode": "auto", "status": "accumulating",
+        }))
+        self.assertEqual(r.status, "accept")
+        self.assertTrue(r.record_text.startswith("### 2026-07-10 · auto"))
+
+
+class TestAutoModeGuard(unittest.TestCase):
+    def test_auto_create_fit_gap_rejected(self):
+        # create_fields defaults to gap-type "fit"
+        r = run(create_fields(**{
+            "session-date": "2026-07-10", "session-mode": "auto",
+            "scenario": "x", "mined": "y",
+        }), existing={})
+        self.assertEqual(r.status, "reject")
+        self.assertTrue(any("auto mode" in x for x in r.reasons))
+
+    def test_auto_create_reaction_gap_rejected(self):
+        r = run(create_fields(**{
+            "gap-type": "reaction", "session-date": "2026-07-10",
+            "session-mode": "auto", "scenario": "x", "mined": "y",
+        }), existing={})
+        self.assertEqual(r.status, "reject")
+
+    def test_auto_create_fact_lookup_gap_accepted(self):
+        r = run(create_fields(**{
+            "gap-type": "fact-lookup", "session-date": "2026-07-10",
+            "session-mode": "auto", "scenario": "x", "mined": "y",
+        }), existing={})
+        self.assertEqual(r.status, "accept")
+
+    def test_auto_append_to_fit_gap_rejected(self):
+        # the default door-swing target is a fit gap — auto may not append to it
+        r = run(append_fields(**{"session-mode": "auto", "status": "accumulating"}))
+        self.assertEqual(r.status, "reject")
+        self.assertTrue(any("auto mode" in x for x in r.reasons))
+
+    def test_auto_converging_rejected(self):
+        # even against a fact-lookup gap, auto can never claim convergence
+        r = run(append_fields(**{
+            "target": "tax-us--extension-filing-deadline.md",
+            "session-mode": "auto", "status": "converging",
+        }))
+        self.assertEqual(r.status, "reject")
+        self.assertTrue(any("converging" in x for x in r.reasons))
 
 
 class TestScreeningReused(unittest.TestCase):
