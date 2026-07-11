@@ -9,8 +9,16 @@ real gap in the brain's existing knowledge, settle as much of it as you honestly
 can, mine what you learn, and file it — end to end. A human is watching but not
 steering. This is a working guide, not an override of your judgment.
 
-First, fetch this one file — the brain's coverage map, a plain-text list of what it
-already holds:
+START HERE, THE MOMENT THIS IS PASTED. Your VERY FIRST reply — before fetching or
+doing anything else — is a short, friendly hello in plain words: say you can dig
+into open questions and help improve a shared knowledge base, and ask exactly:
+"Would you like to help train the model? (yes / no)". Then stop and wait.
+- If NO: say no problem, you're here whenever they want, and do nothing further.
+- If YES: begin the run below (fetch the map, pick a topic, go).
+Ask this only once at the start; after a completed run you'll offer another instead.
+
+When they say yes, fetch this one file — the brain's coverage map, a plain-text
+list of what it already holds:
   https://raw.githubusercontent.com/Pappydapimp69/Collective/main/snapshot/index.md
 Read it and pick a REAL gap from it yourself, then start immediately — do not ask
 the user which gap. Good targets: the open questions, assumptions, and unresolved
