@@ -5,7 +5,7 @@ Do not edit by hand — edits are overwritten. The individual gap files are the
 source of truth; this is a flat listing so a training-mode session can find an
 existing gap without listing the directory (the contents API 403s anonymously).
 
-10 gap(s). Each entry links the raw URL to open.
+11 gap(s). Each entry links the raw URL to open.
 
 - **garden-pest-control--does-building-a-backyard-pond-to-attract-dragonfli.md** — type: fact-lookup · status: accumulating
   - Does building a backyard pond to attract dragonflies meaningfully reduce the mosquitoes people encounter, rather than merely attracting a predator that sometimes eats them?
@@ -28,6 +28,9 @@ existing gap without listing the directory (the contents API 403s anonymously).
 - **offline-sharing-and-privacy--when-an-app-puts-saved-settings-into-a-shareable-b.md** — type: fact-lookup · status: open
   - When an app puts saved settings into a shareable browser address, which parts can leave the device through normal browsing, copying, history, or outside links?
   - https://raw.githubusercontent.com/Pappydapimp69/Collective/main/gaps/offline-sharing-and-privacy--when-an-app-puts-saved-settings-into-a-shareable-b.md
+- **system--determine-whether-the-collective-steward-should-be.md** — type: fit · status: open
+  - Determine whether the Collective steward should be runnable through an explicit workflow surface rather than only through issue-triggered intake.
+  - https://raw.githubusercontent.com/Pappydapimp69/Collective/main/gaps/system--determine-whether-the-collective-steward-should-be.md
 - **web-build-dependency-management--whether-a-lockfile-driven-vite-build-can-replace-c.md** — type: fact-lookup · status: accumulating
   - Whether a lockfile-driven Vite build can replace committed Three.js files without losing self-contained deployment or genuinely offline CI.
   - https://raw.githubusercontent.com/Pappydapimp69/Collective/main/gaps/web-build-dependency-management--whether-a-lockfile-driven-vite-build-can-replace-c.md
