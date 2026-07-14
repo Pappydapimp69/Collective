@@ -1,4 +1,4 @@
-# collective index — generated 2026-07-13T09:48:09.529838+00:00
+# collective index — generated 2026-07-14T08:28:32.228578+00:00
 
 - `tension:tension-ledger.md#T1` — ### T1 · contradiction · "systems-over-data" vs a real ECS
 - `tension:tension-ledger.md#T2` — ### T2 · contradiction · determinism vs a physics-driven renderer
