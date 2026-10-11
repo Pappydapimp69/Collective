@@ -1,5 +1,9 @@
 # collective — reference implementation (staged, not deployed)
 
+**Use it from Claude Code:** this repo is also a plugin marketplace — the public version of
+the Brain CLI + ZaneGPT plugin. `/plugin marketplace add Pappydapimp69/Collective` then
+`/plugin install collective@collective`. See [`collective-plugin/`](collective-plugin/README.md).
+
 **Want to contribute, by hand or by connecting an LLM?** See [`CONTRIBUTING.md`](CONTRIBUTING.md)
 — it has a ready-to-paste prompt for linking your own LLM to this repo's read/propose surface.
 

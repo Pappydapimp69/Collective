@@ -1,0 +1,11 @@
+{
+  "name": "collective",
+  "displayName": "Collective",
+  "version": "0.1.0",
+  "description": "Public version of the Brain CLI + ZaneGPT plugin: query and challenge the Collective snapshot, find open gaps, and reason ZaneGPT-style.",
+  "author": {
+    "name": "Collective"
+  },
+  "repository": "https://github.com/Pappydapimp69/Collective",
+  "keywords": ["knowledge-base", "retrieval", "reasoning", "assumptions", "critique"]
+}

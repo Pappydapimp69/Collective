@@ -1,0 +1,22 @@
+{
+  "name": "collective",
+  "owner": {
+    "name": "Collective",
+    "url": "https://github.com/Pappydapimp69/Collective"
+  },
+  "description": "Public Brain + ZaneGPT: read the Collective knowledge base and pressure-test against it from any Claude Code session, no private repos needed.",
+  "version": "0.1.0",
+  "plugins": [
+    {
+      "name": "collective",
+      "displayName": "Collective",
+      "source": "./collective-plugin",
+      "description": "Public version of the Brain CLI + ZaneGPT plugin: query and challenge the Collective snapshot, find open gaps, and reason ZaneGPT-style.",
+      "version": "0.1.0",
+      "author": { "name": "Collective" },
+      "repository": "https://github.com/Pappydapimp69/Collective",
+      "category": "productivity",
+      "keywords": ["knowledge-base", "retrieval", "reasoning", "assumptions", "critique"]
+    }
+  ]
+}
