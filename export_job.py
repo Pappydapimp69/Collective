@@ -123,6 +123,54 @@ def redact(entry_text: str) -> str:
         return label + _classify_provenance(detail)
 
     out = _PROVENANCE_FIELD_RE.sub(_prov_sub, out)
+    return sanitize(out)
+
+
+# --------------------------------------------------------------------------- sanitizing
+# Allow-listing is a human glance, not a line-by-line audit. sanitize() backs
+# it up: it scrubs anything identifying or secret-shaped from every exported
+# entry, on top of redact()'s Link/Provenance handling.
+
+_SECRET_RES = [
+    re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----.*?-----END [A-Z ]*PRIVATE KEY-----", re.S),
+    re.compile(r"\b(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{20,}"),
+    re.compile(r"\bgithub_pat_[A-Za-z0-9_]{20,}"),
+    re.compile(r"\bsk-(?:ant-)?[A-Za-z0-9_-]{20,}"),
+    re.compile(r"\bxox[abposr]-[A-Za-z0-9-]{10,}"),
+    re.compile(r"\bAKIA[0-9A-Z]{16}\b"),
+    re.compile(r"\bAIza[0-9A-Za-z_-]{35}\b"),
+    re.compile(r"\beyJ[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}\.[A-Za-z0-9_-]{10,}"),  # JWT
+    re.compile(r"(?i)\b(bearer)\s+[A-Za-z0-9._~+/=-]{16,}"),
+]
+# key=value / key: value where the key names a secret; keeps the key, drops the value
+_SECRET_ASSIGN_RE = re.compile(
+    r"(?i)\b((?:api[_-]?key|access[_-]?key|secret|password|passwd|token|client[_-]?secret)\w*\s*[:=]\s*)"
+    r"([\"']?)(?=[A-Za-z0-9_+/=-]*\d)[A-Za-z0-9_+/=-]{16,}\2(?![\w(.])"
+)
+_SESSION_URL_RE = re.compile(
+    r"https?://(?:claude\.ai/(?:code/)?(?:session|chat|share)[^\s)\]>`]*"
+    r"|chatgpt\.com/(?:c|share|g)/[^\s)\]>`]*|chat\.openai\.com/[^\s)\]>`]*)"
+    r"|\bsession_[A-Za-z0-9]{16,}\b"
+)
+_EMAIL_RE = re.compile(r"\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b")
+_PHONE_RE = re.compile(r"(?<![\w.-])(?:\+?1[ .-]?)?\(?\d{3}\)?[ .-]\d{3}[ .-]\d{4}(?![\w.-])")
+_IPV4_RE = re.compile(r"(?<![\w.§-])(?:(?:25[0-5]|2[0-4]\d|1?\d?\d)\.){3}(?:25[0-5]|2[0-4]\d|1?\d?\d)(?![\w.])")
+_HOME_PATH_RE = re.compile(r"(?i)(/home/|/Users/|[A-Z]:\\{1,2}Users\\{1,2})(?!user\b|<user>)[^/\\\s`'\"]+")
+
+
+def sanitize(text: str, censor: Iterable[str] = ()) -> str:
+    """`censor`: extra literal terms (names, handles) to blank out."""
+    out = text
+    for r in _SECRET_RES:
+        out = r.sub(lambda m: (m.group(1) + " " if m.re.groups else "") + "[secret]", out)
+    out = _SECRET_ASSIGN_RE.sub(r"\1[secret]", out)
+    out = _SESSION_URL_RE.sub("[redacted]", out)
+    out = _EMAIL_RE.sub("[email]", out)
+    out = _PHONE_RE.sub("[phone]", out)
+    out = _IPV4_RE.sub(lambda m: m.group(0) if m.group(0).startswith(("0.", "127.")) else "[ip]", out)
+    out = _HOME_PATH_RE.sub(r"\1<user>", out)
+    for term in censor:
+        out = re.sub(rf"(?i)(?<![\w]){re.escape(term)}(?![\w])", "[censored]", out)
     return out
 
 

@@ -437,5 +437,31 @@ class TestRetractionDiff(unittest.TestCase):
         self.assertEqual(diff_retractions(prev, curr, "n/a"), [])
 
 
+class SanitizeTest(unittest.TestCase):
+    def test_scrubs_identifying_and_secret_text(self):
+        from export_job import sanitize
+        cases = {
+            "call 555-123-4567 now": "call [phone] now",
+            "mail a.b@example.com": "mail [email]",
+            "api_key=abcd1234efgh5678ijkl": "api_key=[secret]",
+            "token: ghp_abcdefghijklmnopqrstuvwxyz123": "token: [secret]",
+            "see /home/zane/x": "see /home/<user>/x",
+            "https://claude.ai/code/session_01ANUo8VpLFRAsmbgCroTqPD": "[redacted]",
+            "10.0.0.12 host": "[ip] host",
+        }
+        for raw, want in cases.items():
+            self.assertEqual(sanitize(raw), want, raw)
+
+    def test_leaves_lookalikes_alone(self):
+        from export_job import sanitize
+        for text in ("horizon-123-456-7890", "manual \u00a711.4.5.6",
+                     "bucket.tokens = min(bucket.tokens, cap)"):
+            self.assertEqual(sanitize(text), text)
+
+    def test_censor_terms(self):
+        from export_job import sanitize
+        self.assertEqual(sanitize("ask Alice", censor=["alice"]), "ask [censored]")
+
+
 if __name__ == "__main__":
     unittest.main()
