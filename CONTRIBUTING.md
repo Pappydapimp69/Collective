@@ -7,6 +7,13 @@ validates it, then (if it passes) it becomes a pull request that still needs a s
 independent check and a human merge. Tension submissions are never auto-landed,
 regardless of how clean the automated check is.
 
+## Use the local client
+
+`collective.py` downloads the sanitized snapshot to your machine and keeps everything local
+(read-only) until you opt in with `collective.py mode full`. Then `collective.py send <draft>`
+opens your proposal as an issue under your own GitHub account, after asking you to confirm. See
+the README's "Use it locally" section.
+
 ## Connect your LLM
 
 Paste this into your LLM's custom instructions, system prompt, or first message. It
